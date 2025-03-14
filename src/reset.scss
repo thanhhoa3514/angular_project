@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+
+/* Reset tất cả margin và padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Reset font và line-height cho body */
+body {
+    line-height: 1;
+    font-family: "DM Sans", serif;
+    font-optical-sizing: auto;
+
+    color: var(--color-text);
+}
+
+/* Reset danh sách */
+ol, ul {
+    list-style: none;
+}
+
+/* Reset các thẻ heading */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+    font-size: 100%;
+}
+
+/* Reset các thẻ liên kết */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Reset các thẻ table */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* Reset các thẻ form */
+button, input, select, textarea {
+    margin: 0;
+    font-size: 100%;
+}
+
+/* Reset các thẻ img */
+img {
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+}

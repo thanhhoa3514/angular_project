@@ -1,0 +1,41 @@
+// Color Variables
+$primary-color: #2C3E50;     // Xanh đậm
+$secondary-color: #E74C3C;    // Đỏ cam
+$accent-color: #3498DB;       // Xanh dương
+$neutral-color: #ECF0F1;      // Xám nhạt
+$text-primary: #2C3E50;       // Màu chữ chính
+$text-secondary: #7F8C8D;     // Màu chữ phụ
+$success-color: #27AE60;      // Xanh lá
+$warning-color: #F1C40F;      // Vàng
+$white: #FFFFFF;
+
+// Spacing
+$spacing-xs: 0.25rem;
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 1.5rem;
+$spacing-xl: 2rem;
+$spacing-xxl: 3rem;
+
+// Breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+// Border Radius
+$border-radius-sm: 0.25rem;
+$border-radius-md: 0.5rem;
+$border-radius-lg: 1rem;
+$border-radius-xl: 2rem;
+
+// Box Shadow
+$shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.05);
+$shadow-md: 0 5px 15px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+
+// Font Weights
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
