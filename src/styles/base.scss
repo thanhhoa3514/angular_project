@@ -1,0 +1,112 @@
+/* Base Styles */
+@import './variables';
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: $text-primary;
+  background-color: $neutral-color;
+  line-height: 1.6;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 1rem;
+  font-weight: $font-weight-bold;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: $primary-color;
+}
+
+h2 {
+  font-size: 2rem;
+  color: $text-primary;
+}
+
+h3 {
+  font-size: 1.75rem;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  border-radius: $border-radius-md;
+  transition: all 0.3s ease;
+  font-weight: $font-weight-medium;
+  text-align: center;
+  
+  &-primary {
+    background-color: $primary-color;
+    color: $white;
+    
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+  
+  &-secondary {
+    background-color: $secondary-color;
+    color: $white;
+    
+    &:hover {
+      background-color: darken($secondary-color, 10%);
+    }
+  }
+  
+  &-outline {
+    background-color: transparent;
+    border: 2px solid $primary-color;
+    color: $primary-color;
+    
+    &:hover {
+      background-color: $primary-color;
+      color: $white;
+    }
+  }
+}
+
+.section {
+  padding: 4rem 0;
+  
+  &-title {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+}
+
+/* Spacing Utilities */
+.mt-1 { margin-top: $spacing-sm; }
+.mt-2 { margin-top: $spacing-md; }
+.mt-3 { margin-top: $spacing-lg; }
+.mt-4 { margin-top: $spacing-xl; }
+.mt-5 { margin-top: $spacing-xxl; }
+
+.mb-1 { margin-bottom: $spacing-sm; }
+.mb-2 { margin-bottom: $spacing-md; }
+.mb-3 { margin-bottom: $spacing-lg; }
+.mb-4 { margin-bottom: $spacing-xl; }
+.mb-5 { margin-bottom: $spacing-xxl; }
+
+.py-1 { padding-top: $spacing-sm; padding-bottom: $spacing-sm; }
+.py-2 { padding-top: $spacing-md; padding-bottom: $spacing-md; }
+.py-3 { padding-top: $spacing-lg; padding-bottom: $spacing-lg; }
+.py-4 { padding-top: $spacing-xl; padding-bottom: $spacing-xl; }
+.py-5 { padding-top: $spacing-xxl; padding-bottom: $spacing-xxl; }
+
+.px-1 { padding-left: $spacing-sm; padding-right: $spacing-sm; }
+.px-2 { padding-left: $spacing-md; padding-right: $spacing-md; }
+.px-3 { padding-left: $spacing-lg; padding-right: $spacing-lg; }
+.px-4 { padding-left: $spacing-xl; padding-right: $spacing-xl; }
+.px-5 { padding-left: $spacing-xxl; padding-right: $spacing-xxl; }

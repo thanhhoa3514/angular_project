@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+// import { ToastrService } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -9,14 +9,12 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  constructor(private toastr: ToastrService) {}
+  constructor() {}
   
   ngOnInit(): void {
-    setTimeout(() => {
-      this.toastr.success('Chào mừng đến với Shop App!', 'Xin chào');
-    }, 1000);
+    // Đã loại bỏ thông báo toast
   }
 }
