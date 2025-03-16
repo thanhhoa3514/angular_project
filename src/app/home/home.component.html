@@ -1,18 +1,46 @@
-<style>
-    .intro-section {
-        background-color: #f0f0f0;
-        padding: 20px;
-        border-radius: 10px;
-        text-align: center;
-    }
-    .search-box{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-    }
-</style>
-
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-store text-primary me-2"></i>
+                Shop App
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            <i class="fas fa-home me-1"></i>
+                            Trang chủ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-bell me-1"></i>
+                            Thông báo
+                            <span class="badge bg-danger rounded-pill">3</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-shopping-cart me-1"></i>
+                            Giỏ hàng
+                            <span class="badge bg-primary rounded-pill">2</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-sign-in-alt me-1"></i>
+                            Đăng nhập
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
 <div class="container">
     <!-- <h1>Chào mừng đến với Shop App</h1>
       -->
@@ -20,8 +48,267 @@
         <h1>Chào mừng đến với Shop App</h1>
         <p>Trang này là danh sách sản phẩm</p>
         <div class="search-box">
-            <input type="text" placeholder="Tìm kiếm sản phẩm">
+            <input type="text" placeholder="Tìm kiếm sản phẩm" class="form-control search-input ">
+            <select class="form-select">
+                <option value="1">Tất cả</option>
+                <option value="2">Sản phẩm mới</option>
+                <option value="3">Sản phẩm bán chạy</option>
+            </select>
             <button class="btn btn-primary">Tìm kiếm</button>
         </div>
     </div>
+    <div class="row">
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+            <div class="product">
+                <div class="product__item">
+                    <div class="product__item__image">
+                        <a href="#">
+                            <img src="https://images.pexels.com/photos/5614114/pexels-photo-5614114.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Product Image" class="img-fluid">
+                        </a>
+                    </div>
+                   
+                    <h3 class="product__item__name">
+                        Product Name
+                    </h3>
+                    <p class="product__item__price">
+                        <span class="product__item__price__old">100.000đ</span>
+                        <span class="product__item__price__new">80.000đ</span>
+                    </p>
+                    <p class="product__item__description">
+                        Description
+                    </p>
+                    <div class="product__item__rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="product__item__button">
+                        <button class="btn btn-primary">Thêm vào giỏ hàng</button>
+                        <button class="btn btn-primary">Xem chi tiết</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+            <div class="product">
+                <div class="product__item">
+                    <div class="product__item__image">
+                        <a href="#">
+                            <img src="https://images.pexels.com/photos/5614114/pexels-photo-5614114.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Product Image" class="img-fluid">
+                        </a>
+                    </div>
+                   
+                    <h3 class="product__item__name">
+                        Product Name
+                    </h3>
+                    <p class="product__item__price">
+                        <span class="product__item__price__old">100.000đ</span>
+                        <span class="product__item__price__new">80.000đ</span>
+                    </p>
+                    <p class="product__item__description">
+                        Description
+                    </p>
+                    <div class="product__item__rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="product__item__button">
+                        <button class="btn btn-primary">Thêm vào giỏ hàng</button>
+                        <button class="btn btn-primary">Xem chi tiết</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+            <div class="product">
+                <div class="product__item">
+                    <div class="product__item__image">
+                        <a href="#">
+                            <img src="https://images.pexels.com/photos/5614114/pexels-photo-5614114.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Product Image" class="img-fluid">
+                        </a>
+                    </div>
+                   
+                    <h3 class="product__item__name">
+                        Product Name
+                    </h3>
+                    <p class="product__item__price">
+                        <span class="product__item__price__old">100.000đ</span>
+                        <span class="product__item__price__new">80.000đ</span>
+                    </p>
+                    <p class="product__item__description">
+                        Description
+                    </p>
+                    <div class="product__item__rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="product__item__button">
+                        <button class="btn btn-primary">Thêm vào giỏ hàng</button>
+                        <button class="btn btn-primary">Xem chi tiết</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+            <div class="product">
+                <div class="product__item">
+                    <div class="product__item__image">
+                        <a href="#">
+                            <img src="https://images.pexels.com/photos/5614114/pexels-photo-5614114.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Product Image" class="img-fluid">
+                        </a>
+                    </div>
+                   
+                    <h3 class="product__item__name">
+                        Product Name
+                    </h3>
+                    <p class="product__item__price">
+                        <span class="product__item__price__old">100.000đ</span>
+                        <span class="product__item__price__new">80.000đ</span>
+                    </p>
+                    <p class="product__item__description">
+                        Description
+                    </p>
+                    <div class="product__item__rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="product__item__button">
+                        <button class="btn btn-primary">Thêm vào giỏ hàng</button>
+                        <button class="btn btn-primary">Xem chi tiết</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+            <div class="product">
+                <div class="product__item">
+                    <div class="product__item__image">
+                        <a href="#">
+                            <img src="https://images.pexels.com/photos/5614114/pexels-photo-5614114.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Product Image" class="img-fluid">
+                        </a>
+                    </div>
+                   
+                    <h3 class="product__item__name">
+                        Product Name
+                    </h3>
+                    <p class="product__item__price">
+                        <span class="product__item__price__old">100.000đ</span>
+                        <span class="product__item__price__new">80.000đ</span>
+                    </p>
+                    <p class="product__item__description">
+                        Description
+                    </p>
+                    <div class="product__item__rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="product__item__button">
+                        <button class="btn btn-primary">Thêm vào giỏ hàng</button>
+                        <button class="btn btn-primary">Xem chi tiết</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+            <div class="product">
+                <div class="product__item">
+                    <div class="product__item__image">
+                        <a href="#">
+                            <img src="https://images.pexels.com/photos/5614114/pexels-photo-5614114.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Product Image" class="img-fluid">
+                        </a>
+                    </div>
+                   
+                    <h3 class="product__item__name">
+                        Product Name
+                    </h3>
+                    <p class="product__item__price">
+                        <span class="product__item__price__old">100.000đ</span>
+                        <span class="product__item__price__new">80.000đ</span>
+                    </p>
+                    <p class="product__item__description">
+                        Description
+                    </p>
+                    <div class="product__item__rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="product__item__button">
+                        <button class="btn btn-primary">Thêm vào giỏ hàng</button>
+                        <button class="btn btn-primary">Xem chi tiết</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <!-- Thông tin công ty -->
+            <div class="col-md-4 footer__section">
+                <h5 class="footer__title">
+                    <i class="fas fa-store me-2"></i>Shop App
+                </h5>
+                <p class="footer__description">
+                    Nền tảng mua sắm trực tuyến uy tín hàng đầu Việt Nam
+                </p>
+                <div class="footer__social">
+                    <a href="#" class="footer__social-link"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="footer__social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="footer__social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="footer__social-link"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <!-- Liên kết nhanh -->
+            <div class="col-md-4 footer__section">
+                <h5 class="footer__title">Liên kết nhanh</h5>
+                <ul class="footer__links">
+                    <li><a href="#"><i class="fas fa-angle-right me-2"></i>Về chúng tôi</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right me-2"></i>Chính sách bảo mật</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right me-2"></i>Điều khoản dịch vụ</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right me-2"></i>Liên hệ</a></li>
+                </ul>
+            </div>
+
+            <!-- Liên hệ -->
+            <div class="col-md-4 footer__section">
+                <h5 class="footer__title">Liên hệ</h5>
+                <ul class="footer__contact">
+                    <li><i class="fas fa-map-marker-alt me-2"></i>123 Đường ABC, Quận XYZ, TP.HCM</li>
+                    <li><i class="fas fa-phone me-2"></i>(84) 123-456-789</li>
+                    <li>
+                        <i class="fas fa-envelope me-2"></i>
+                        <a href="mailto:contact&#64;shopapp.com">contact&#64;shopapp.com</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="footer__bottom">
+            <hr>
+            <p class="footer__copyright">
+                Copyright © 2024 Shop App. All rights reserved.
+                <span class="footer__developer">Developed with <i class="fas fa-heart text-danger"></i> by Your Name</span>
+            </p>
+        </div>
+    </div>
+</footer>
