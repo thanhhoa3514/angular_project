@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { HomeComponent } from './home/home.component';
+import { OrderConfirmComponent } from './order-confirm/order-confirm.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HomeComponent],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  imports: [
+    OrderConfirmComponent
+  
+  
+  ],
+  template: '<app-order-confirm></app-order-confirm>'
 })
 export class AppComponent {
   title = 'shopapp-angular';

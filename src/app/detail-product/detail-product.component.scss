@@ -1,0 +1,308 @@
+.product-detail {
+    padding: 2rem 0;
+
+    &__breadcrumb {
+        margin-bottom: 2rem;
+
+        .breadcrumb {
+            padding: 0.5rem 1rem;
+            background-color: #f8f9fa;
+            border-radius: 0.5rem;
+
+            &-item {
+                a {
+                    color: #6c757d;
+                    text-decoration: none;
+                    transition: color 0.3s;
+
+                    &:hover {
+                        color: #0d6efd;
+                    }
+                }
+
+                &.active {
+                    color: #212529;
+                }
+            }
+        }
+    }
+
+    &__images {
+        .product-detail__main-image {
+            margin-bottom: 1rem;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+            img {
+                width: 100%;
+                height: auto;
+                transition: transform 0.3s;
+
+                &:hover {
+                    transform: scale(1.05);
+                }
+            }
+        }
+
+        .product-detail__thumbnails {
+            display: flex;
+            gap: 1rem;
+
+            .thumbnail {
+                width: 80px;
+                height: 80px;
+                object-fit: cover;
+                border-radius: 0.5rem;
+                cursor: pointer;
+                opacity: 0.6;
+                transition: all 0.3s;
+
+                &:hover, &.active {
+                    opacity: 1;
+                    box-shadow: 0 0 0 2px #0d6efd;
+                }
+            }
+        }
+    }
+
+    &__info {
+        padding: 0 1rem;
+    }
+
+    &__title {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: #212529;
+    }
+
+    &__rating {
+        margin-bottom: 1rem;
+
+        .fas {
+            color: #ffc107;
+        }
+
+        span {
+            margin-left: 0.5rem;
+            color: #6c757d;
+        }
+    }
+
+    &__price {
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        .new-price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #dc3545;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #6c757d;
+        }
+
+        .discount {
+            background-color: #dc3545;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+        }
+    }
+
+    &__status {
+        margin-bottom: 1.5rem;
+
+        .status-label {
+            color: #6c757d;
+            margin-right: 0.5rem;
+        }
+
+        .in-stock {
+            color: #198754;
+
+            i {
+                margin-right: 0.25rem;
+            }
+        }
+    }
+
+    &__size, &__color {
+        margin-bottom: 1.5rem;
+
+        h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    .size-options {
+        display: flex;
+        gap: 0.5rem;
+
+        .size-option {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+
+            &:hover, &.active {
+                border-color: #0d6efd;
+                color: #0d6efd;
+            }
+        }
+    }
+
+    .color-options {
+        display: flex;
+        gap: 0.5rem;
+
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+
+            &:hover, &.active {
+                transform: scale(1.1);
+                box-shadow: 0 0 0 2px white, 0 0 0 4px currentColor;
+            }
+        }
+    }
+
+    &__quantity {
+        margin-bottom: 1.5rem;
+
+        h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+
+            .quantity-btn {
+                width: 35px;
+                height: 35px;
+                border: 1px solid #dee2e6;
+                border-radius: 0.25rem;
+                background: white;
+                cursor: pointer;
+                transition: all 0.3s;
+
+                &:hover {
+                    background-color: #f8f9fa;
+                }
+            }
+
+            .quantity-input {
+                width: 60px;
+                height: 35px;
+                text-align: center;
+                border: 1px solid #dee2e6;
+                border-radius: 0.25rem;
+            }
+        }
+    }
+
+    &__actions {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+
+        button {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+
+            i {
+                margin-right: 0.5rem;
+            }
+        }
+
+        .btn-add-cart {
+            background-color: #f8f9fa;
+            color: #212529;
+
+            &:hover {
+                background-color: #e9ecef;
+            }
+        }
+
+        .btn-buy-now {
+            background-color: #0d6efd;
+            color: white;
+
+            &:hover {
+                background-color: #0b5ed7;
+            }
+        }
+    }
+
+    &__description {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid #dee2e6;
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .description-content {
+            color: #6c757d;
+
+            ul {
+                list-style: none;
+                padding: 0;
+                margin-top: 1rem;
+
+                li {
+                    margin-bottom: 0.5rem;
+
+                    i {
+                        color: #198754;
+                        margin-right: 0.5rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+    .product-detail {
+        &__images {
+            margin-bottom: 2rem;
+        }
+
+        &__thumbnails {
+            .thumbnail {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        &__actions {
+            flex-direction: column;
+        }
+    }
+}

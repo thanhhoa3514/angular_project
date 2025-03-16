@@ -1,0 +1,128 @@
+<div class="order-page">
+    <div class="container">
+        <!-- Order Header -->
+        <div class="order-header">
+            <h1 class="order-header__title">
+                <i class="fas fa-shopping-cart"></i> Đơn hàng của bạn
+            </h1>
+            <div class="order-header__steps">
+                <div class="step active">
+                    <span class="step__number">1</span>
+                    <span class="step__text">Giỏ hàng</span>
+                </div>
+                <div class="step active">
+                    <span class="step__number">2</span>
+                    <span class="step__text">Đặt hàng</span>
+                </div>
+                <div class="step">
+                    <span class="step__number">3</span>
+                    <span class="step__text">Thanh toán</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Order Details -->
+            <div class="col-lg-8">
+                <div class="order-details">
+                    <h2 class="section-title">Chi tiết đơn hàng</h2>
+
+                    <!-- Order Items -->
+                    <div class="order-items">
+                        <div class="order-item">
+                            <div class="order-item__image">
+                                <img src="" alt="Product">
+                            </div>
+                            <div class="order-item__details">
+                                <h3 class="order-item__title">Tên sản phẩm</h3>
+                                <p class="order-item__variant">Size: M | Màu: Đen</p>
+                                <div class="order-item__quantity">
+                                    <button class="quantity-btn"><i class="fas fa-minus"></i></button>
+                                    <input type="number" value="1" min="1">
+                                    <button class="quantity-btn"><i class="fas fa-plus"></i></button>
+                                </div>
+                            </div>
+                            <div class="order-item__price">
+                                <span class="current-price">500.000₫</span>
+                                <span class="original-price">600.000₫</span>
+                            </div>
+                            <button class="order-item__remove">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+
+                        <!-- Add more order items as needed -->
+                    </div>
+
+                    <!-- Shipping Address -->
+                    <div class="shipping-address">
+                        <h2 class="section-title">Địa chỉ giao hàng</h2>
+                        <form class="shipping-form">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Họ và tên</label>
+                                        <input type="text" class="form-control" placeholder="Nhập họ và tên">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Số điện thoại</label>
+                                        <input type="tel" class="form-control" placeholder="Nhập số điện thoại">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Địa chỉ email</label>
+                                        <input type="email" class="form-control" placeholder="Nhập email">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Địa chỉ nhận hàng</label>
+                                        <textarea class="form-control" rows="3"
+                                            placeholder="Nhập địa chỉ chi tiết"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="col-lg-4">
+                <div class="order-summary">
+                    <h2 class="section-title">Tổng đơn hàng</h2>
+                    <div class="summary-item">
+                        <span>Tạm tính</span>
+                        <span>500.000₫</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Phí vận chuyển</span>
+                        <span>30.000₫</span>
+                    </div>
+                    <div class="summary-item discount">
+                        <span>Giảm giá</span>
+                        <span>-50.000₫</span>
+                    </div>
+                    <div class="summary-total">
+                        <span>Tổng cộng</span>
+                        <span>480.000₫</span>
+                    </div>
+
+                    <!-- Coupon Code -->
+                    <div class="coupon-section">
+                        <input type="text" class="form-control" placeholder="Nhập mã giảm giá">
+                        <button class="btn btn-outline-primary">Áp dụng</button>
+                    </div>
+
+                    <!-- Checkout Button -->
+                    <button class="btn-checkout">
+                        <i class="fas fa-lock"></i> Tiến hành thanh toán
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
