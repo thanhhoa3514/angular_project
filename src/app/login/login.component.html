@@ -1,0 +1,115 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-card__left">
+      <div class="login-card__brand">
+        <i class="fas fa-store-alt"></i>
+        <h1>Shop App</h1>
+      </div>
+      <div class="login-card__illustration">
+        <!-- SVG Illustration -->
+        <svg class="shopping-illustration" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background Elements -->
+          <circle class="bg-circle bg-circle-1" cx="120" cy="170" r="30" fill="#6366f1" opacity="0.3"/>
+          <circle class="bg-circle bg-circle-2" cx="400" cy="300" r="50" fill="#8b5cf6" opacity="0.2"/>
+          <circle class="bg-circle bg-circle-3" cx="250" cy="100" r="20" fill="#ec4899" opacity="0.2"/>
+
+          <!-- Shopping Cart -->
+          <g class="cart-group">
+            <rect x="100" y="280" width="180" height="120" rx="15" fill="#4f46e5"/>
+            <rect x="100" y="320" width="180" height="80" rx="10" fill="#6366f1"/>
+            <circle cx="140" cy="410" r="15" fill="#1f2937"/>
+            <circle cx="240" cy="410" r="15" fill="#1f2937"/>
+            
+            <!-- Cart Handle -->
+            <path d="M280 280 L330 220 L350 230 L310 290 Z" fill="#4f46e5"/>
+          </g>
+
+          <!-- Shopping Items -->
+          <g class="items-group">
+            <rect class="item item-1" x="120" y="260" width="40" height="40" rx="5" fill="#ec4899"/>
+            <rect class="item item-2" x="170" y="240" width="50" height="30" rx="5" fill="#8b5cf6"/>
+            <rect class="item item-3" x="230" y="250" width="35" height="35" rx="5" fill="#06b6d4"/>
+          </g>
+
+          <!-- Character -->
+          <g class="character">
+            <!-- Body -->
+            <ellipse cx="330" cy="280" rx="40" ry="60" fill="#f472b6"/>
+            
+            <!-- Face -->
+            <circle cx="330" cy="200" r="40" fill="#fcd34d"/>
+            <circle class="eye eye-left" cx="315" cy="195" r="5" fill="#1f2937"/>
+            <circle class="eye eye-right" cx="345" cy="195" r="5" fill="#1f2937"/>
+            <path class="smile" d="M315 215 Q330 225 345 215" fill="none" stroke="#1f2937" stroke-width="3"/>
+            
+            <!-- Arms -->
+            <path class="arm arm-left" d="M290 260 Q270 280 250 270" fill="none" stroke="#f472b6" stroke-width="10" stroke-linecap="round"/>
+            <path class="arm arm-right" d="M370 260 Q400 240 410 280" fill="none" stroke="#f472b6" stroke-width="10" stroke-linecap="round"/>
+            
+            <!-- Legs -->
+            <path class="leg leg-left" d="M310 340 L300 400" stroke="#f472b6" stroke-width="12" stroke-linecap="round"/>
+            <path class="leg leg-right" d="M350 340 L360 400" stroke="#f472b6" stroke-width="12" stroke-linecap="round"/>
+          </g>
+        </svg>
+        <div class="illustration-text">
+          <h3>Mua sắm dễ dàng</h3>
+          <p>Hàng ngàn sản phẩm đang chờ đón bạn!</p>
+        </div>
+      </div>
+    </div>
+    <div class="login-card__right">
+      <div class="login-header">
+        <h2>Đăng nhập</h2>
+        <p>Chào mừng bạn trở lại! Vui lòng đăng nhập để tiếp tục.</p>
+      </div>
+      
+      <form class="login-form">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <div class="input-group">
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="email" placeholder="Nhập email của bạn" required>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <div class="password-header">
+            <label for="password">Mật khẩu</label>
+            <a href="#" class="forgot-link">Quên mật khẩu?</a>
+          </div>
+          <div class="input-group">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="password" #passwordInput placeholder="Nhập mật khẩu của bạn" required>
+            <i class="fas fa-eye toggle-password" (click)="togglePasswordVisibility(passwordInput)"></i>
+          </div>
+        </div>
+        
+        <div class="form-check">
+          <input type="checkbox" id="remember">
+          <label for="remember">Ghi nhớ đăng nhập</label>
+        </div>
+        
+        <button type="submit" class="btn-login">Đăng nhập</button>
+      </form>
+      
+      <div class="social-login">
+        <p>Hoặc đăng nhập với</p>
+        <div class="social-buttons">
+          <button class="btn-social btn-google">
+            <i class="fab fa-google"></i>
+          </button>
+          <button class="btn-social btn-facebook">
+            <i class="fab fa-facebook-f"></i>
+          </button>
+          <button class="btn-social btn-apple">
+            <i class="fab fa-apple"></i>
+          </button>
+        </div>
+      </div>
+      
+      <div class="register-link">
+        <p>Chưa có tài khoản? <a href="#">Đăng ký ngay</a></p>
+      </div>
+    </div>
+  </div>
+</div>

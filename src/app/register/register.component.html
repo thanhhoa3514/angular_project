@@ -1,0 +1,153 @@
+<div class="register-container">
+  <div class="register-card">
+    <div class="register-card__left">
+      <div class="register-card__brand">
+        <i class="fas fa-store-alt"></i>
+        <h1>Shop App</h1>
+      </div>
+      <div class="register-card__illustration">
+        <!-- SVG Illustration -->
+        <svg class="shopping-illustration" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background Elements -->
+          <circle class="bg-circle bg-circle-1" cx="120" cy="170" r="30" fill="#10b981" opacity="0.3"/>
+          <circle class="bg-circle bg-circle-2" cx="400" cy="300" r="50" fill="#059669" opacity="0.2"/>
+          <circle class="bg-circle bg-circle-3" cx="250" cy="100" r="20" fill="#047857" opacity="0.2"/>
+          
+          <!-- Shopping Bag -->
+          <g class="bag-group">
+            <path d="M150,200 L350,200 L320,380 L180,380 Z" fill="#10b981" />
+            <path d="M150,200 L350,200 L320,250 L180,250 Z" fill="#059669" />
+            <path d="M200,150 L200,200 L170,200 L220,130 Z" fill="#10b981" />
+            <path d="M300,150 L300,200 L330,200 L280,130 Z" fill="#10b981" />
+          </g>
+          
+          <!-- Plants/Items -->
+          <g class="plants-group">
+            <ellipse class="plant plant-1" cx="200" cy="230" rx="20" ry="10" fill="#047857" />
+            <path class="plant plant-2" d="M220,220 Q240,200 260,220" stroke="#047857" stroke-width="5" fill="none" />
+            <rect class="plant plant-3" x="270" y="220" width="30" height="40" rx="5" fill="#059669" />
+          </g>
+          
+          <!-- Character -->
+          <g class="character">
+            <!-- Body -->
+            <ellipse cx="250" cy="280" rx="40" ry="60" fill="#14b8a6" />
+            
+            <!-- Face -->
+            <circle cx="250" cy="200" r="40" fill="#fcd34d" />
+            <circle class="eye eye-left" cx="235" cy="195" r="5" fill="#1f2937" />
+            <circle class="eye eye-right" cx="265" cy="195" r="5" fill="#1f2937" />
+            <path class="smile" d="M235,215 Q250,230 265,215" fill="none" stroke="#1f2937" stroke-width="3" />
+            
+            <!-- Arms -->
+            <path class="arm arm-left" d="M210,280 Q180,300 160,270" fill="none" stroke="#14b8a6" stroke-width="10" stroke-linecap="round" />
+            <path class="arm arm-right" d="M290,280 Q320,300 340,270" fill="none" stroke="#14b8a6" stroke-width="10" stroke-linecap="round" />
+            
+            <!-- Speech Bubble -->
+            <g class="speech">
+              <path d="M340,160 Q380,170 370,200 Q355,220 320,205 L310,220 L315,195 Q290,180 300,160 Q310,145 340,160" fill="#ffffff" stroke="#cccccc" />
+              <text x="335" y="185" font-family="Arial" font-size="14" text-anchor="middle" fill="#333333">Đăng ký!</text>
+            </g>
+          </g>
+        </svg>
+        <div class="illustration-text">
+          <h3>Tham gia cùng chúng tôi</h3>
+          <p>Tạo tài khoản để khám phá hàng ngàn sản phẩm!</p>
+        </div>
+      </div>
+    </div>
+    <div class="register-card__right">
+      <div class="register-header">
+        <h2>Đăng ký tài khoản</h2>
+        <p>Vui lòng điền thông tin bên dưới để tạo tài khoản mới</p>
+      </div>
+      
+      <form class="register-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">Họ</label>
+            <div class="input-group">
+              <i class="fas fa-user"></i>
+              <input type="text" id="firstName" placeholder="Nhập họ của bạn" required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="lastName">Tên</label>
+            <div class="input-group">
+              <i class="fas fa-user"></i>
+              <input type="text" id="lastName" placeholder="Nhập tên của bạn" required>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email</label>
+          <div class="input-group">
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="email" placeholder="Nhập email của bạn" required>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="phone">Số điện thoại</label>
+          <div class="input-group">
+            <i class="fas fa-phone"></i>
+            <input type="tel" id="phone" placeholder="Nhập số điện thoại của bạn" required>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Mật khẩu</label>
+          <div class="input-group">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="password" #passwordInput placeholder="Nhập mật khẩu của bạn" 
+                  (input)="checkPasswordStrength(passwordInput.value)" required>
+            <i class="fas fa-eye toggle-password" (click)="togglePasswordVisibility(passwordInput)"></i>
+          </div>
+          <div class="password-strength">
+            <div class="strength-bar">
+              <div class="strength-bar__fill" [style.width]="passwordStrength.width" [style.background-color]="passwordStrength.color"></div>
+            </div>
+            <span class="strength-text">{{ passwordStrength.text }}</span>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="confirmPassword">Xác nhận mật khẩu</label>
+          <div class="input-group">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="confirmPassword" #confirmPasswordInput placeholder="Nhập lại mật khẩu của bạn" required>
+            <i class="fas fa-eye toggle-password" (click)="togglePasswordVisibility(confirmPasswordInput)"></i>
+          </div>
+        </div>
+        
+        <div class="form-check">
+          <input type="checkbox" id="terms" required>
+          <label for="terms">Tôi đồng ý với <a href="#">Điều khoản dịch vụ</a> và <a href="#">Chính sách bảo mật</a></label>
+        </div>
+        
+        <button type="submit" class="btn-register">Tạo tài khoản</button>
+      </form>
+      
+      <div class="social-register">
+        <p>Hoặc đăng ký với</p>
+        <div class="social-buttons">
+          <button class="btn-social btn-google">
+            <i class="fab fa-google"></i>
+          </button>
+          <button class="btn-social btn-facebook">
+            <i class="fab fa-facebook-f"></i>
+          </button>
+          <button class="btn-social btn-apple">
+            <i class="fab fa-apple"></i>
+          </button>
+        </div>
+      </div>
+      
+      <div class="login-link">
+        <p>Đã có tài khoản? <a href="#">Đăng nhập ngay</a></p>
+      </div>
+    </div>
+  </div>
+</div>

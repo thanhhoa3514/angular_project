@@ -1,0 +1,494 @@
+// Variables
+$primary-color: #4f46e5;
+$secondary-color: #7c3aed;
+$background-color: #f5f7fa;
+$text-color: #1f2937;
+$text-light: #6b7280;
+$white: #ffffff;
+$shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+$border-radius: 16px;
+
+// Main Container
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: $background-color;
+  padding: 2rem;
+}
+
+// Login Card
+.login-card {
+  display: flex;
+  width: 1000px;
+  max-width: 100%;
+  background-color: $white;
+  border-radius: $border-radius;
+  overflow: hidden;
+  box-shadow: $shadow;
+  
+  &__left {
+    flex: 1;
+    background: linear-gradient(135deg, $primary-color, $secondary-color);
+    color: $white;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    
+    @media (max-width: 992px) {
+      display: none;
+    }
+  }
+  
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    z-index: 10;
+    
+    i {
+      font-size: 2rem;
+    }
+    
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 0;
+    }
+  }
+  
+  &__illustration {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+    z-index: 10;
+    
+    .shopping-illustration {
+      width: 100%;
+      height: auto;
+      margin-bottom: 1.5rem;
+    }
+    
+    .illustration-text {
+      text-align: center;
+      
+      h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      p {
+        opacity: 0.8;
+      }
+    }
+  }
+  
+  &__right {
+    flex: 1;
+    padding: 3rem;
+    
+    @media (max-width: 768px) {
+      padding: 2rem;
+    }
+  }
+}
+
+// Login Header
+.login-header {
+  margin-bottom: 2.5rem;
+  
+  h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $text-color;
+    margin-bottom: 0.75rem;
+  }
+  
+  p {
+    color: $text-light;
+    line-height: 1.5;
+  }
+}
+
+// Form Styles
+.login-form {
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: $text-color;
+    font-weight: 500;
+  }
+  
+  .password-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    
+    .forgot-link {
+      color: $primary-color;
+      font-size: 0.875rem;
+      text-decoration: none;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  
+  .input-group {
+    position: relative;
+    
+    i {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $text-light;
+    }
+    
+    .toggle-password {
+      left: auto;
+      right: 1rem;
+      cursor: pointer;
+      
+      &:hover {
+        color: $text-color;
+      }
+    }
+    
+    input {
+      width: 100%;
+      padding: 0.875rem 1rem 0.875rem 2.75rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      background-color: #f9fafb;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+      
+      &:focus {
+        border-color: $primary-color;
+        background-color: $white;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba($primary-color, 0.15);
+      }
+      
+      &::placeholder {
+        color: #9ca3af;
+      }
+    }
+  }
+  
+  .form-check {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    
+    input {
+      margin-right: 0.5rem;
+      width: 16px;
+      height: 16px;
+      accent-color: $primary-color;
+    }
+    
+    label {
+      margin-bottom: 0;
+      color: $text-light;
+      font-weight: normal;
+      font-size: 0.9rem;
+    }
+  }
+  
+  .btn-login {
+    width: 100%;
+    padding: 0.875rem;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(to right, $primary-color, $secondary-color);
+    color: $white;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba($primary-color, 0.4);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+// Social Login
+.social-login {
+  margin-top: 2rem;
+  text-align: center;
+  
+  p {
+    color: $text-light;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    position: relative;
+    
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 25%;
+      height: 1px;
+      background-color: #e5e7eb;
+    }
+    
+    &::before {
+      left: 0;
+    }
+    
+    &::after {
+      right: 0;
+    }
+  }
+  
+  .social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .btn-social {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    background-color: $white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    i {
+      font-size: 1.25rem;
+    }
+    
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    &.btn-google i {
+      color: #ea4335;
+    }
+    
+    &.btn-facebook i {
+      color: #1877f2;
+    }
+    
+    &.btn-apple i {
+      color: #000;
+    }
+  }
+}
+
+// Register Link
+.register-link {
+  margin-top: 2rem;
+  text-align: center;
+  
+  p {
+    color: $text-light;
+    font-size: 0.9rem;
+    
+    a {
+      color: $primary-color;
+      font-weight: 600;
+      text-decoration: none;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// Animation
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login-card__right {
+  animation: fadeIn 0.6s ease-out;
+}
+
+// SVG Animations
+.bg-circle {
+  animation: pulse 6s infinite alternate;
+  
+  &-1 {
+    animation-delay: 0s;
+  }
+  
+  &-2 {
+    animation-delay: 2s;
+  }
+  
+  &-3 {
+    animation-delay: 4s;
+  }
+}
+
+.cart-group {
+  animation: float 5s ease-in-out infinite;
+}
+
+.item {
+  animation: bounce 2s infinite alternate;
+  transform-origin: center;
+  
+  &-1 {
+    animation-delay: 0.2s;
+  }
+  
+  &-2 {
+    animation-delay: 0.5s;
+  }
+  
+  &-3 {
+    animation-delay: 0.8s;
+  }
+}
+
+.character {
+  animation: sway 4s ease-in-out infinite;
+  transform-origin: bottom center;
+  
+  .eye {
+    animation: blink 3s ease-in-out infinite;
+  }
+  
+  .arm {
+    animation: wave 4s ease-in-out infinite;
+    
+    &-right {
+      animation-delay: 0.5s;
+    }
+  }
+  
+  .leg {
+    animation: swing 4s ease-in-out infinite alternate;
+    
+    &-right {
+      animation-delay: 0.5s;
+    }
+  }
+  
+  .smile {
+    animation: smile 4s ease-in-out infinite;
+  }
+}
+
+// New Animations
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.2;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.2;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes sway {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(2deg);
+  }
+  75% {
+    transform: rotate(-2deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes blink {
+  0%, 45%, 55%, 100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.1);
+  }
+}
+
+@keyframes wave {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-15deg);
+  }
+}
+
+@keyframes swing {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes smile {
+  0%, 100% {
+    d: path("M315 215 Q330 225 345 215");
+  }
+  50% {
+    d: path("M315 215 Q330 230 345 215");
+  }
+}

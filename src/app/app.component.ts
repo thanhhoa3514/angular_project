@@ -1,15 +1,11 @@
 import { Component } from '@angular/core';
-import { OrderConfirmComponent } from './order-confirm/order-confirm.component';
+import { RegisterComponent } from './register/register.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    OrderConfirmComponent
-  
-  
-  ],
-  template: '<app-order-confirm></app-order-confirm>'
+  imports: [RegisterComponent],
+  template: '<app-register></app-register>'
 })
 export class AppComponent {
   title = 'shopapp-angular';
