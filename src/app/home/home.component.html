@@ -1,220 +1,135 @@
 <app-header></app-header>
-<div class="container">
-    <!-- <h1>Chào mừng đến với Shop App</h1>
-      -->
-    <div class="intro-section">
-        <h1>Chào mừng đến với Shop App</h1>
-        <p>Trang này là danh sách sản phẩm</p>
-        <div class="search-box">
-            <input type="text" placeholder="Tìm kiếm sản phẩm" class="form-control search-input ">
-            <select class="form-select">
-                <option value="1">Tất cả</option>
-                <option value="2">Sản phẩm mới</option>
-                <option value="3">Sản phẩm bán chạy</option>
-            </select>
-            <button class="btn btn-primary">Tìm kiếm</button>
+
+<main class="home-container">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1>Mua sắm thông minh, <span>Tiết kiệm mỗi ngày</span></h1>
+      <p>Khám phá hàng ngàn sản phẩm chất lượng với giá tốt nhất thị trường</p>
+      
+      <div class="search-box">
+        <input type="text" placeholder="Tìm kiếm sản phẩm...">
+        <button type="submit">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+      
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-value">10K+</span>
+          <span class="stat-label">Sản phẩm</span>
         </div>
+        <div class="stat-item">
+          <span class="stat-value">5K+</span>
+          <span class="stat-label">Khách hàng</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">99%</span>
+          <span class="stat-label">Hài lòng</span>
+        </div>
+      </div>
     </div>
-    <div class="row">
-        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-            <div class="product">
-                <div class="product__item">
-                    <div class="product__item__image">
-                        <a [routerLink]="['/products', product.id]">
-                            <img src="https://images.pexels.com/photos/5614114/pexels-photo-5614114.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Product Image" class="img-fluid">
-                        </a>
-                    </div>
-                   
-                    <h3 class="product__item__name">
-                        Product Name
-                    </h3>
-                    <p class="product__item__price">
-                        <span class="product__item__price__old">100.000đ</span>
-                        <span class="product__item__price__new">80.000đ</span>
-                    </p>
-                    <p class="product__item__description">
-                        Description
-                    </p>
-                    <div class="product__item__rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="product__item__button">
-                        <button class="btn btn-primary">Thêm vào giỏ hàng</button>
-                        <button class="btn btn-primary">Xem chi tiết</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-            <div class="product">
-                <div class="product__item">
-                    <div class="product__item__image">
-                        <a [routerLink]="['/products', product.id]">
-                            <img src="https://images.pexels.com/photos/5614114/pexels-photo-5614114.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Product Image" class="img-fluid">
-                        </a>
-                    </div>
-                   
-                    <h3 class="product__item__name">
-                        Product Name
-                    </h3>
-                    <p class="product__item__price">
-                        <span class="product__item__price__old">100.000đ</span>
-                        <span class="product__item__price__new">80.000đ</span>
-                    </p>
-                    <p class="product__item__description">
-                        Description
-                    </p>
-                    <div class="product__item__rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="product__item__button">
-                        <button class="btn btn-primary">Thêm vào giỏ hàng</button>
-                        <button class="btn btn-primary">Xem chi tiết</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-            <div class="product">
-                <div class="product__item">
-                    <div class="product__item__image">
-                        <a [routerLink]="['/products', product.id]">
-                            <img src="https://images.pexels.com/photos/5614114/pexels-photo-5614114.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Product Image" class="img-fluid">
-                        </a>
-                    </div>
-                   
-                    <h3 class="product__item__name">
-                        Product Name
-                    </h3>
-                    <p class="product__item__price">
-                        <span class="product__item__price__old">100.000đ</span>
-                        <span class="product__item__price__new">80.000đ</span>
-                    </p>
-                    <p class="product__item__description">
-                        Description
-                    </p>
-                    <div class="product__item__rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="product__item__button">
-                        <button class="btn btn-primary">Thêm vào giỏ hàng</button>
-                        <button class="btn btn-primary">Xem chi tiết</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-            <div class="product">
-                <div class="product__item">
-                    <div class="product__item__image">
-                        <a [routerLink]="['/products', product.id]">
-                            <img src="https://images.pexels.com/photos/5614114/pexels-photo-5614114.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Product Image" class="img-fluid">
-                        </a>
-                    </div>
-                   
-                    <h3 class="product__item__name">
-                        Product Name
-                    </h3>
-                    <p class="product__item__price">
-                        <span class="product__item__price__old">100.000đ</span>
-                        <span class="product__item__price__new">80.000đ</span>
-                    </p>
-                    <p class="product__item__description">
-                        Description
-                    </p>
-                    <div class="product__item__rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="product__item__button">
-                        <button class="btn btn-primary">Thêm vào giỏ hàng</button>
-                        <button class="btn btn-primary">Xem chi tiết</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-            <div class="product">
-                <div class="product__item">
-                    <div class="product__item__image">
-                        <a [routerLink]="['/products', product.id]">
-                            <img src="https://images.pexels.com/photos/5614114/pexels-photo-5614114.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Product Image" class="img-fluid">
-                        </a>
-                    </div>
-                   
-                    <h3 class="product__item__name">
-                        Product Name
-                    </h3>
-                    <p class="product__item__price">
-                        <span class="product__item__price__old">100.000đ</span>
-                        <span class="product__item__price__new">80.000đ</span>
-                    </p>
-                    <p class="product__item__description">
-                        Description
-                    </p>
-                    <div class="product__item__rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="product__item__button">
-                        <button class="btn btn-primary">Thêm vào giỏ hàng</button>
-                        <button class="btn btn-primary">Xem chi tiết</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-            <div class="product">
-                <div class="product__item">
-                    <div class="product__item__image">
-                        <a [routerLink]="['/products', product.id]">
-                            <img src="https://images.pexels.com/photos/5614114/pexels-photo-5614114.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Product Image" class="img-fluid">
-                        </a>
-                    </div>
-                   
-                    <h3 class="product__item__name">
-                        Product Name
-                    </h3>
-                    <p class="product__item__price">
-                        <span class="product__item__price__old">100.000đ</span>
-                        <span class="product__item__price__new">80.000đ</span>
-                    </p>
-                    <p class="product__item__description">
-                        Description
-                    </p>
-                    <div class="product__item__rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="product__item__button">
-                        <button class="btn btn-primary">Thêm vào giỏ hàng</button>
-                        <button class="btn btn-primary">Xem chi tiết</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="categories-section">
+    <div class="section-title">
+      <h2>Danh mục nổi bật</h2>
+      <p>Khám phá các sản phẩm theo danh mục yêu thích của bạn</p>
     </div>
-</div>
+    
+    <div class="categories-container">
+      <div class="category-card" *ngFor="let category of categories">
+        <div class="category-icon">
+          <i [class]="category.icon"></i>
+        </div>
+        <h3>{{category.name}}</h3>
+        <a href="javascript:void(0)" class="category-link">Xem thêm <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section class="products-section">
+    <div class="section-title">
+      <h2>Sản phẩm nổi bật</h2>
+      <p>Các sản phẩm được yêu thích nhất của chúng tôi</p>
+    </div>
+    
+    <div class="products-container">
+      <div class="product-card" *ngFor="let product of products">
+        <div class="product-badge" *ngIf="product.discount">-{{product.discount}}%</div>
+        <div class="product-img">
+          <img [src]="product.image" [alt]="product.name">
+          <div class="product-actions">
+            <button class="action-btn" title="Yêu thích"><i class="fas fa-heart"></i></button>
+            <button class="action-btn" title="Thêm vào giỏ"><i class="fas fa-shopping-cart"></i></button>
+            <button class="action-btn" title="Xem chi tiết"><i class="fas fa-eye"></i></button>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-category">{{product.category}}</div>
+          <h3 class="product-name">{{product.name}}</h3>
+          <div class="product-price">
+            <span class="current-price">{{formatPrice(product.price)}}</span>
+            <span class="old-price" *ngIf="product.oldPrice">{{formatPrice(product.oldPrice)}}</span>
+          </div>
+          <div class="product-rating">
+            <i class="fas fa-star"></i>
+            <span>{{product.rating}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="text-center mt-4">
+      <button class="btn btn-outline-primary">Xem thêm sản phẩm</button>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-truck"></i>
+      </div>
+      <h3>Vận chuyển miễn phí</h3>
+      <p>Cho đơn hàng trên 500k</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-undo"></i>
+      </div>
+      <h3>Đổi trả dễ dàng</h3>
+      <p>Trong vòng 30 ngày</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-lock"></i>
+      </div>
+      <h3>Thanh toán an toàn</h3>
+      <p>Bảo mật 100%</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <i class="fas fa-headset"></i>
+      </div>
+      <h3>Hỗ trợ 24/7</h3>
+      <p>Giải đáp mọi thắc mắc</p>
+    </div>
+  </section>
+  
+  <!-- Newsletter Section -->
+  <section class="newsletter-section">
+    <div class="newsletter-content">
+      <h2>Đăng ký nhận tin</h2>
+      <p>Nhận thông tin ưu đãi và sản phẩm mới nhất</p>
+      <form class="newsletter-form">
+        <input type="email" placeholder="Nhập email của bạn" required>
+        <button type="submit">Đăng ký</button>
+      </form>
+    </div>
+  </section>
+</main>
 
 <app-footer></app-footer>
