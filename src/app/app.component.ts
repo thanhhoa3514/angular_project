@@ -5,8 +5,8 @@ import { HomeComponent } from './home/home.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HomeComponent],
-  template: '<app-home></app-home>'
+  imports: [RegisterComponent],
+  template: '<app-register></app-register>'
 })
 export class AppComponent {
   title = 'shopapp-angular';

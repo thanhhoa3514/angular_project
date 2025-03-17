@@ -1,3 +1,5 @@
+@import '../../styles/variables';
+
 // Variables
 $primary-color: #10b981;
 $secondary-color: #059669;
@@ -537,5 +539,41 @@ $border-radius: 16px;
   
   &:hover {
     background-color: rgba($primary-color, 0.5);
+  }
+}
+
+.error-message {
+  color: #ef4444;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  animation: fadeIn 0.3s ease-in-out;
+  
+  &--global {
+    background-color: #fef2f2;
+    border: 1px solid #fee2e2;
+    border-radius: 8px;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+}
+
+.loading-spinner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  
+  i {
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }

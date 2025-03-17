@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService, UserRegistration } from '../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -10,15 +12,40 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
+  // Model cho form đăng ký
+  user: UserRegistration = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    password: '',
+    confirmPassword: '',
+    agreeToTerms: false
+  };
+
   passwordStrength = {
     width: '0%',
     color: '#e5e7eb',
     text: 'Mật khẩu phải có ít nhất 8 ký tự'
   };
 
+  passwordVisible = false;
+  confirmPasswordVisible = false;
+  errorMessage = '';
+  isLoading = false;
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
   // Hàm để toggle hiển thị mật khẩu
-  togglePasswordVisibility(passwordInput: HTMLInputElement): void {
-    passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+  togglePasswordVisibility(field: 'password' | 'confirmPassword'): void {
+    if (field === 'password') {
+      this.passwordVisible = !this.passwordVisible;
+    } else {
+      this.confirmPasswordVisible = !this.confirmPasswordVisible;
+    }
   }
 
   // Hàm kiểm tra độ mạnh của mật khẩu
@@ -79,5 +106,34 @@ export class RegisterComponent {
         text: 'Mật khẩu rất mạnh'
       };
     }
+  }
+
+  // Xử lý khi submit form
+  onSubmit() {
+    if (this.isLoading) return;
+    
+    this.isLoading = true;
+    this.errorMessage = '';
+
+    this.authService.register(this.user).subscribe({
+      next: (response) => {
+        console.log('Đăng ký thành công', response);
+        // Chuyển hướng đến trang đăng nhập
+        this.router.navigate(['/login']);
+      },
+      error: (error) => {
+        console.error('Lỗi đăng ký:', error);
+        this.errorMessage = error.error.message || 'Có lỗi xảy ra khi đăng ký. Vui lòng thử lại.';
+        this.isLoading = false;
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
+    });
+  }
+
+  // Kiểm tra xác nhận mật khẩu
+  passwordsMatch(): boolean {
+    return this.user.password === this.user.confirmPassword;
   }
 }

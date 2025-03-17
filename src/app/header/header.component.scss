@@ -1,0 +1,232 @@
+@import '../../styles/variables';
+
+:host {
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: $z-index-sticky;
+}
+
+.header {
+  background-color: $white;
+  box-shadow: $shadow-sm;
+  padding: $spacing-md 0;
+  transition: $transition;
+  
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  &__logo {
+    display: block;
+    transition: $transition;
+    
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+  
+  &__nav {
+    @media (max-width: $breakpoint-lg) {
+      display: none;
+      position: fixed;
+      top: 70px;
+      left: 0;
+      width: 100%;
+      height: calc(100vh - 70px);
+      background-color: $white;
+      padding: $spacing-xl;
+      box-shadow: $shadow-md;
+      z-index: $z-index-dropdown;
+      transform: translateY(-100%);
+      opacity: 0;
+      transition: all 0.4s ease;
+      
+      &.active {
+        display: block;
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  }
+  
+  &__menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: $spacing-lg;
+    
+    @media (max-width: $breakpoint-lg) {
+      flex-direction: column;
+      gap: $spacing-xl;
+      
+      .header__menu-item {
+        a {
+          font-size: $font-size-xl;
+          padding: $spacing-md;
+          display: block;
+        }
+        
+        &--active a::after {
+          bottom: 0;
+        }
+      }
+    }
+  }
+  
+  &__menu-item {
+    position: relative;
+    
+    a {
+      color: $text-primary;
+      font-size: $font-size-base;
+      font-weight: $font-weight-medium;
+      text-decoration: none;
+      padding: $spacing-xs $spacing-sm;
+      transition: $transition;
+      
+      &:hover {
+        color: $primary-color;
+      }
+    }
+    
+    &--active {
+      a {
+        color: $primary-color;
+        
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -5px;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          background-color: $primary-color;
+          border-radius: $border-radius-sm;
+        }
+      }
+    }
+  }
+  
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+  }
+  
+  &__action-btn {
+    background: none;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: $font-size-lg;
+    color: $text-primary;
+    cursor: pointer;
+    transition: $transition;
+    position: relative;
+    
+    &:hover {
+      background-color: rgba($primary-color, 0.1);
+      color: $primary-color;
+      transform: translateY(-2px);
+    }
+    
+    @media (max-width: $breakpoint-md) {
+      &:nth-child(3) {
+        display: none;
+      }
+    }
+  }
+  
+  &__action-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: $accent-color;
+    color: $white;
+    font-size: 10px;
+    font-weight: $font-weight-bold;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  &__login-btn {
+    @media (max-width: $breakpoint-md) {
+      display: none;
+    }
+  }
+  
+  &__mobile-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: $z-index-fixed;
+    
+    span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background-color: $text-primary;
+      border-radius: 3px;
+      transition: $transition;
+    }
+    
+    &.active {
+      span {
+        &:first-child {
+          transform: translateY(9px) rotate(45deg);
+        }
+        
+        &:nth-child(2) {
+          opacity: 0;
+        }
+        
+        &:last-child {
+          transform: translateY(-9px) rotate(-45deg);
+        }
+      }
+    }
+    
+    @media (max-width: $breakpoint-lg) {
+      display: flex;
+    }
+  }
+  
+  &.scrolled {
+    padding: $spacing-sm 0;
+    box-shadow: $shadow-md;
+  }
+}
+
+// For mobile menu overlay
+body.mobile-menu-open {
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: $z-index-modal-backdrop;
+  }
+}

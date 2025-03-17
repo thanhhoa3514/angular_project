@@ -62,13 +62,28 @@
         <p>Vui lòng điền thông tin bên dưới để tạo tài khoản mới</p>
       </div>
       
-      <form class="register-form">
+      <form class="register-form" (ngSubmit)="onSubmit()" #registerForm="ngForm">
+        <!-- Hiển thị thông báo lỗi chung -->
+        <div *ngIf="errorMessage" class="error-message error-message--global">
+          {{ errorMessage }}
+        </div>
+        
         <div class="form-row">
           <div class="form-group">
             <label for="firstName">Họ</label>
             <div class="input-group">
               <i class="fas fa-user"></i>
-              <input type="text" id="firstName" placeholder="Nhập họ của bạn" required>
+              <input 
+                type="text" 
+                id="firstName" 
+                name="firstName"
+                [(ngModel)]="user.firstName"
+                #firstName="ngModel"
+                placeholder="Nhập họ của bạn" 
+                required>
+            </div>
+            <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="error-message">
+              <span *ngIf="firstName.errors?.['required']">Họ không được để trống</span>
             </div>
           </div>
           
@@ -76,7 +91,17 @@
             <label for="lastName">Tên</label>
             <div class="input-group">
               <i class="fas fa-user"></i>
-              <input type="text" id="lastName" placeholder="Nhập tên của bạn" required>
+              <input 
+                type="text" 
+                id="lastName" 
+                name="lastName"
+                [(ngModel)]="user.lastName"
+                #lastName="ngModel"
+                placeholder="Nhập tên của bạn" 
+                required>
+            </div>
+            <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="error-message">
+              <span *ngIf="lastName.errors?.['required']">Tên không được để trống</span>
             </div>
           </div>
         </div>
@@ -85,7 +110,19 @@
           <label for="email">Email</label>
           <div class="input-group">
             <i class="fas fa-envelope"></i>
-            <input type="email" id="email" placeholder="Nhập email của bạn" required>
+            <input 
+              type="email" 
+              id="email" 
+              name="email"
+              [(ngModel)]="user.email"
+              #email="ngModel"
+              placeholder="Nhập email của bạn" 
+              required
+              email>
+          </div>
+          <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error-message">
+            <span *ngIf="email.errors?.['required']">Email không được để trống</span>
+            <span *ngIf="email.errors?.['email']">Email không hợp lệ</span>
           </div>
         </div>
         
@@ -93,7 +130,19 @@
           <label for="phone">Số điện thoại</label>
           <div class="input-group">
             <i class="fas fa-phone"></i>
-            <input type="tel" id="phone" placeholder="Nhập số điện thoại của bạn" required>
+            <input 
+              type="tel" 
+              id="phone" 
+              name="phone"
+              [(ngModel)]="user.phone"
+              #phone="ngModel"
+              placeholder="Nhập số điện thoại của bạn" 
+              required
+              pattern="[0-9]{10}">
+          </div>
+          <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="error-message">
+            <span *ngIf="phone.errors?.['required']">Số điện thoại không được để trống</span>
+            <span *ngIf="phone.errors?.['pattern']">Số điện thoại phải có 10 chữ số</span>
           </div>
         </div>
         
@@ -101,9 +150,19 @@
           <label for="password">Mật khẩu</label>
           <div class="input-group">
             <i class="fas fa-lock"></i>
-            <input type="password" id="password" #passwordInput placeholder="Nhập mật khẩu của bạn" 
-                  (input)="checkPasswordStrength(passwordInput.value)" required>
-            <i class="fas fa-eye toggle-password" (click)="togglePasswordVisibility(passwordInput)"></i>
+            <input 
+              [type]="passwordVisible ? 'text' : 'password'" 
+              id="password" 
+              name="password"
+              [(ngModel)]="user.password"
+              #password="ngModel"
+              (input)="checkPasswordStrength(user.password)"
+              placeholder="Nhập mật khẩu của bạn" 
+              required
+              minlength="8">
+            <i class="fas" 
+               [ngClass]="passwordVisible ? 'fa-eye-slash' : 'fa-eye'" 
+               (click)="togglePasswordVisibility('password')"></i>
           </div>
           <div class="password-strength">
             <div class="strength-bar">
@@ -111,23 +170,57 @@
             </div>
             <span class="strength-text">{{ passwordStrength.text }}</span>
           </div>
+          <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error-message">
+            <span *ngIf="password.errors?.['required']">Mật khẩu không được để trống</span>
+            <span *ngIf="password.errors?.['minlength']">Mật khẩu phải có ít nhất 8 ký tự</span>
+          </div>
         </div>
         
         <div class="form-group">
           <label for="confirmPassword">Xác nhận mật khẩu</label>
           <div class="input-group">
             <i class="fas fa-lock"></i>
-            <input type="password" id="confirmPassword" #confirmPasswordInput placeholder="Nhập lại mật khẩu của bạn" required>
-            <i class="fas fa-eye toggle-password" (click)="togglePasswordVisibility(confirmPasswordInput)"></i>
+            <input 
+              [type]="confirmPasswordVisible ? 'text' : 'password'" 
+              id="confirmPassword" 
+              name="confirmPassword"
+              [(ngModel)]="user.confirmPassword"
+              #confirmPassword="ngModel"
+              placeholder="Nhập lại mật khẩu của bạn" 
+              required>
+            <i class="fas" 
+               [ngClass]="confirmPasswordVisible ? 'fa-eye-slash' : 'fa-eye'" 
+               (click)="togglePasswordVisibility('confirmPassword')"></i>
+          </div>
+          <div *ngIf="confirmPassword.dirty && user.password !== user.confirmPassword" class="error-message">
+            <span>Mật khẩu xác nhận không khớp</span>
           </div>
         </div>
         
         <div class="form-check">
-          <input type="checkbox" id="terms" required>
+          <input 
+            type="checkbox" 
+            id="terms" 
+            name="agreeToTerms"
+            [(ngModel)]="user.agreeToTerms"
+            #terms="ngModel"
+            required>
           <label for="terms">Tôi đồng ý với <a href="#">Điều khoản dịch vụ</a> và <a href="#">Chính sách bảo mật</a></label>
+          <div *ngIf="terms.invalid && (terms.dirty || terms.touched)" class="error-message">
+            <span *ngIf="terms.errors?.['required']">Bạn phải đồng ý với điều khoản dịch vụ</span>
+          </div>
         </div>
         
-        <button type="submit" class="btn-register">Tạo tài khoản</button>
+        <button 
+          type="submit" 
+          class="btn-register"
+          [disabled]="registerForm.invalid || user.password !== user.confirmPassword || isLoading">
+          <span *ngIf="!isLoading">Tạo tài khoản</span>
+          <span *ngIf="isLoading" class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            Đang xử lý...
+          </span>
+        </button>
       </form>
       
       <div class="social-register">
