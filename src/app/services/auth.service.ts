@@ -40,6 +40,15 @@ export class AuthService {
     })
   };
 
+
+//   /***
+//    * 
+//    * [User Input] → [Form Validation] → [Component] → [Service] → [HTTP Request] → [API]
+//      ↑                                  ↓           ↓            ↓             ↓
+//      └──────────── [Error Display] ← [Error] ← [Error Response] ← [API Error]
+//                    [Success Route] ← [Success Response] ← [API Success]
+//    * 
+//    */
   constructor(private http: HttpClient) { }
 
   // Đăng ký tài khoản mới

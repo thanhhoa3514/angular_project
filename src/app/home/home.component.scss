@@ -232,8 +232,8 @@ $transition: all 0.3s ease;
       transform-origin: left;
       transition: $transition-fast;
     }
-    
-    &:hover {
+  
+  &:hover {
       transform: translateY(-10px);
       box-shadow: $box-shadow-lg;
       
@@ -242,7 +242,7 @@ $transition: all 0.3s ease;
       }
       
       .category-icon {
-        transform: translateY(-5px);
+    transform: translateY(-5px);
         
         i {
           color: $primary-color;
@@ -385,8 +385,8 @@ $transition: all 0.3s ease;
           color: $text-primary;
           cursor: pointer;
           transition: $transition;
-          
-          &:hover {
+  
+  &:hover {
             background: $primary-color;
             color: $white;
             transform: translateY(-5px);
@@ -473,8 +473,8 @@ $transition: all 0.3s ease;
     min-width: 220px;
     max-width: 280px;
     transition: $transition;
-    
-    &:hover {
+  
+  &:hover {
       transform: translateY(-10px);
       
       .feature-icon {
