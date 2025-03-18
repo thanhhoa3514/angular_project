@@ -62,7 +62,7 @@
         <p>Vui lòng điền thông tin bên dưới để tạo tài khoản mới</p>
       </div>
       
-      <form class="register-form" (ngSubmit)="onSubmit()" #registerForm="ngForm">
+      <form class="register-form" (ngSubmit)="onSubmit($event)" #registerForm="ngForm">
         <!-- Hiển thị thông báo lỗi chung -->
         <div *ngIf="errorMessage" class="error-message error-message--global">
           {{ errorMessage }}
@@ -205,7 +205,7 @@
             [(ngModel)]="user.agreeToTerms"
             #terms="ngModel"
             required>
-          <label for="terms">Tôi đồng ý với <a href="#">Điều khoản dịch vụ</a> và <a href="#">Chính sách bảo mật</a></label>
+          <label for="terms">Tôi đồng ý với <a routerLink="/terms">Điều khoản dịch vụ</a> và <a routerLink="/privacy">Chính sách bảo mật</a></label>
           <div *ngIf="terms.invalid && (terms.dirty || terms.touched)" class="error-message">
             <span *ngIf="terms.errors?.['required']">Bạn phải đồng ý với điều khoản dịch vụ</span>
           </div>
@@ -239,7 +239,7 @@
       </div>
       
       <div class="login-link">
-        <p>Đã có tài khoản? <a href="#">Đăng nhập ngay</a></p>
+        <p>Đã có tài khoản? <a routerLink="/login">Đăng nhập ngay</a></p>
       </div>
     </div>
   </div>

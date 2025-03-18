@@ -5,7 +5,11 @@ import { RegisterComponent } from './register/register.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'register', component: RegisterComponent },
+  { 
+    path: 'register', 
+    component: RegisterComponent,
+    title: 'Đăng ký tài khoản'
+  },
   { path: 'products/:id', component: DetailProductComponent },
   { path: '**', redirectTo: '' }
 ];

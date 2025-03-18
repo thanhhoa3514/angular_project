@@ -110,7 +110,8 @@ export class RegisterComponent {
   }
 
   // Xử lý khi submit form
-  onSubmit() {
+  onSubmit(event: Event) {
+    event.preventDefault();
     if (this.isLoading) return;
     
     this.isLoading = true;

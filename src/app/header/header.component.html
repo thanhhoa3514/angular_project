@@ -2,7 +2,7 @@
   <div class="container">
     <div class="header__content">
       <!-- Logo -->
-      <a href="javascript:void(0)" class="header__logo">
+      <a routerLink="/" class="header__logo">
         <svg width="150" height="40" viewBox="0 0 150 40" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M22.5 5C13.3873 5 6 12.3873 6 21.5C6 30.6127 13.3873 38 22.5 38C31.6127 38 39 30.6127 39 21.5C39 12.3873 31.6127 5 22.5 5Z" fill="#4A6CF7"/>
           <path d="M22.5 10C16.1487 10 11 15.1487 11 21.5C11 27.8513 16.1487 33 22.5 33C28.8513 33 34 27.8513 34 21.5C34 15.1487 28.8513 10 22.5 10ZM22.5 28C18.9101 28 16 25.0899 16 21.5C16 17.9101 18.9101 15 22.5 15C26.0899 15 29 17.9101 29 21.5C29 25.0899 26.0899 28 22.5 28Z" fill="white"/>
@@ -18,19 +18,19 @@
       <nav class="header__nav" [class.active]="isMobileMenuOpen">
         <ul class="header__menu">
           <li class="header__menu-item header__menu-item--active">
-            <a href="javascript:void(0)">Trang chủ</a>
+            <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Trang chủ</a>
           </li>
           <li class="header__menu-item">
-            <a href="javascript:void(0)">Sản phẩm</a>
+            <a routerLink="/products" routerLinkActive="active">Sản phẩm</a>
           </li>
           <li class="header__menu-item">
-            <a href="javascript:void(0)">Danh mục</a>
+            <a routerLink="/categories" routerLinkActive="active">Danh mục</a>
           </li>
           <li class="header__menu-item">
-            <a href="javascript:void(0)">Khuyến mãi</a>
+            <a routerLink="/promotions" routerLinkActive="active">Khuyến mãi</a>
           </li>
           <li class="header__menu-item">
-            <a href="javascript:void(0)">Liên hệ</a>
+            <a routerLink="/contact" routerLinkActive="active">Liên hệ</a>
           </li>
         </ul>
       </nav>
@@ -47,7 +47,7 @@
         <button class="header__action-btn" title="Tài khoản">
           <i class="fas fa-user"></i>
         </button>
-        <button class="header__login-btn btn btn-primary">Đăng nhập</button>
+        <button class="header__login-btn btn btn-primary" routerLink="/login">Đăng nhập</button>
         <button class="header__mobile-toggle" (click)="toggleMobileMenu()" aria-label="Menu" [class.active]="isMobileMenuOpen">
           <span></span>
           <span></span>
