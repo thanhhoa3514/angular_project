@@ -1,4 +1,3 @@
-// Tạo register.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -9,8 +8,11 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class RegisterService {
-    private apiUrl = 'http://localhost:8080/api/v1'; 
-  constructor(private http: HttpClient) {}
+    
+    constructor(private http: HttpClient) {
+        // Kiểm tra xem HttpClient đã được inject chưa
+        console.log('HttpClient đã được inject:', !!http);
+      }
   
   register(user: UserRegistration): Observable<any> {
     const dateOfBirth = user.dateOfBirth ? user.dateOfBirth.toISOString().split('T')[0] : null;
@@ -27,8 +29,8 @@ export class RegisterService {
       role_id: 1
     };
     
-    // const apiUrl = environment.apiUrl || 'http://localhost:8080/api/v1';
-    return this.http.post(`${this.apiUrl}/auth/users/register`, registerData, {
+    // Đảm bảo endpoint API đúng - không trùng lặp /auth
+    return this.http.post(`${environment.apiUrl}/auth/users/register`, registerData, {
       headers: { 'Content-Type': 'application/json' }
     });
   }

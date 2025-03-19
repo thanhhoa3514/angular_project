@@ -3,24 +3,35 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
-import { AuthService, UserRegistration } from '../services/auth.service';
+import {  UserRegistration } from '../services/auth.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-// import { environment } from '../../environments/environment.development';
+
 import { RegisterService } from '../services/register.service';
 import { ValidationService } from '../validation/register.validation';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule,HttpClientModule ],
+  imports: [
+    CommonModule,
+    FormsModule, 
+    RouterModule,
+    HttpClientModule 
+  ],
+  providers: [
+    // Đăng ký services cụ thể cho component này
+    RegisterService,
+    ValidationService
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
-  private registerService = inject(RegisterService);
-  private validationService = inject(ValidationService);
-  private router = inject(Router);
-  private http = inject(HttpClient);
+  constructor(
+    private registerService: RegisterService,
+    private validationService: ValidationService,
+    private router: Router
+  ) {}
   // Model cho form đăng ký
   user: UserRegistration = {
     firstName: '',
@@ -40,13 +51,11 @@ export class RegisterComponent {
     text: 'Mật khẩu phải có ít nhất 8 ký tự'
   };
 
-
-  // Các tham số cho validate tuổi
-  readonly MIN_AGE = 16; // Tuổi tối thiểu
-  readonly MAX_AGE = 100; // Tuổi tối đa
-
-
-  // const apiUrl=environment.apiUrl+'/users/register';
+  ngOnInit(): void {
+    // Kiểm tra xem các services đã được inject đúng chưa
+    console.log('RegisterService:', !!this.registerService);
+    console.log('ValidationService:', !!this.validationService);
+  }
 
 
 
@@ -59,12 +68,7 @@ export class RegisterComponent {
   isLoading = false;
   dateOfBirthError = '';
 
-  // constructor(
-  //   @Optional() private authService: AuthService,
-  //   private router: Router,
-  //   private http: HttpClient,
-
-  // ) {}
+ 
 
   // Hàm để toggle hiển thị mật khẩu
   togglePasswordVisibility(field: 'password' | 'confirmPassword'): void {
@@ -104,16 +108,14 @@ export class RegisterComponent {
       return;
     }
 
-
-
     this.isLoading = true;
     this.errorMessage = '';
 
     this.registerService.register(this.user).subscribe({
       next: (response) => {
         console.log('Đăng ký thành công', response);
-        // Chuyển hướng đến trang đăng nhập
         this.router.navigate(['/login']);
+        // Chuyển hướng đến trang đăng nhập
       },
       error: (error) => {
         console.error('Lỗi đăng ký:', error);
