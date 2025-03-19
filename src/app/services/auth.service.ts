@@ -35,6 +35,7 @@ export interface LoginResponse {
   providedIn: 'root'
 })
 export class AuthService {
+
   private http = inject(HttpClient);
   private apiUrl = `${environment.apiUrl}/auth`;
   private httpOptions = {
@@ -60,7 +61,7 @@ export class AuthService {
       google_account_id: 0,
       role_id: 1
     };
-    return this.http.post(`${this.apiUrl}/users/register`, registerData, this.httpOptions);
+    return this.http.post(`${this.apiUrl}/auth/users/register`, registerData, this.httpOptions);
   }
 
   // Đăng nhập
