@@ -15,22 +15,23 @@ export class RegisterService {
       }
   
   register(user: UserRegistration): Observable<any> {
-    const dateOfBirth = user.dateOfBirth ? user.dateOfBirth.toISOString().split('T')[0] : null;
+    const dateOfBirth = user.dateOfBirth ? new Date(user.dateOfBirth).toISOString().split('T')[0] : null;
+    const fullName=user.lastName+ " "+ user.firstName;
     const registerData = {
-      first_name: user.firstName,
-      last_name: user.lastName,
+      fullname:fullName,
       email: user.email,
+      address:user.address,
       phone_number: user.phone,
       password: user.password,
       retype_password: user.confirmPassword,
       date_of_birth: dateOfBirth,
       facebook_account_id: 0,
       google_account_id: 0,
-      role_id: 1
+      role_id: 3
     };
-    
-    // Đảm bảo endpoint API đúng - không trùng lặp /auth
-    return this.http.post(`${environment.apiUrl}/auth/users/register`, registerData, {
+    console.log('Register Data:', registerData);
+
+    return this.http.post(`${environment.apiUrl}/users/register`, registerData, {
       headers: { 'Content-Type': 'application/json' }
     });
   }

@@ -36,33 +36,6 @@ export interface LoginResponse {
 })
 export class AuthService {
 
-  // private http = inject(HttpClient);
-  // private apiUrl = `${environment.apiUrl}/auth`;
-  // private httpOptions = {
-  //   headers: new HttpHeaders({
-  //     'Content-Type': 'application/json'
-  //   })
-  // };
-
-  // constructor(private http: HttpClient) { }
-
-  // Đăng ký tài khoản mới
-  // register(user: UserRegistration): Observable<any> {
-  //   const dateOfBirth = user.dateOfBirth ? user.dateOfBirth.toISOString().split('T')[0] : null;
-  //   const registerData = {
-  //     first_name: user.firstName,
-  //     last_name: user.lastName,
-  //     email: user.email,
-  //     phone_number: user.phone,
-  //     password: user.password,
-  //     retype_password: user.confirmPassword,
-  //     date_of_birth: dateOfBirth,
-  //     facebook_account_id: 0,
-  //     google_account_id: 0,
-  //     role_id: 1
-  //   };
-  //   return this.http.post(`${this.apiUrl}/auth/users/register`, registerData, this.httpOptions);
-  // }
 
   // // Đăng nhập
   // login(loginRequest: LoginRequest): Observable<LoginResponse> {

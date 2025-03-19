@@ -37,11 +37,11 @@ export class RegisterComponent {
     firstName: '',
     lastName: '',
     email: '',
+    address:'',
     phone: '',
     password: '',
     confirmPassword: '',
     dateOfBirth: new Date(),
-    address: '',
     agreeToTerms: false
   };
 
@@ -112,14 +112,22 @@ export class RegisterComponent {
     this.errorMessage = '';
 
     this.registerService.register(this.user).subscribe({
+      
       next: (response) => {
         console.log('Đăng ký thành công', response);
         this.router.navigate(['/login']);
         // Chuyển hướng đến trang đăng nhập
       },
       error: (error) => {
+        
         console.error('Lỗi đăng ký:', error);
-        this.errorMessage = error.error.message || 'Có lỗi xảy ra khi đăng ký. Vui lòng thử lại.';
+        if (error.error instanceof ErrorEvent) {
+            // Lỗi từ client
+            this.errorMessage = error.error.message;
+        } else {
+            // Lỗi từ server
+            this.errorMessage = error.error || 'Có lỗi xảy ra khi đăng ký. Vui lòng thử lại.';
+        }
         this.isLoading = false;
       },
       complete: () => {
