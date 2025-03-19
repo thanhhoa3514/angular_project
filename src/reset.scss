@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 
 /* Reset tất cả margin và padding */
@@ -11,7 +11,7 @@
 /* Reset font và line-height cho body */
 body {
     line-height: 1;
-    font-family: "DM Sans", serif;
+    font-family: 'Roboto', sans-serif;
     font-optical-sizing: auto;
 
     color: var(--color-text);

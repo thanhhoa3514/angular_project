@@ -146,6 +146,25 @@
             <span *ngIf="phone.errors?.['pattern']">Số điện thoại phải có 10 chữ số</span>
           </div>
         </div>
+        <div class="form-group">
+          <label for="address">Dia Chi</label>
+          <div class="input-group">
+            <i class="fas fa-phone"></i>
+            <input 
+              type="tel" 
+              id="address" 
+              name="address"
+              [(ngModel)]="user.address"
+              #address="ngModel"
+              placeholder="Địa chỉ của bạn" 
+              required
+              >
+          </div>
+          <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="error-message">
+            <span *ngIf="phone.errors?.['required']">Số điện thoại không được để trống</span>
+            <span *ngIf="phone.errors?.['pattern']">Số điện thoại phải có 10 chữ số</span>
+          </div>
+        </div>
         
         <div class="form-group">
           <label for="password">Mật khẩu</label>
