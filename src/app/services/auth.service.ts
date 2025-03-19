@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable,inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
@@ -10,7 +10,9 @@ export interface UserRegistration {
   phone: string;
   password: string;
   confirmPassword: string;
+  dateOfBirth: Date,
   agreeToTerms: boolean;
+  address?: string;
 }
 
 export interface LoginRequest {
@@ -33,6 +35,7 @@ export interface LoginResponse {
   providedIn: 'root'
 })
 export class AuthService {
+  private http = inject(HttpClient);
   private apiUrl = `${environment.apiUrl}/auth`;
   private httpOptions = {
     headers: new HttpHeaders({
@@ -40,33 +43,29 @@ export class AuthService {
     })
   };
 
-
-//   /***
-//    * 
-//    * [User Input] → [Form Validation] → [Component] → [Service] → [HTTP Request] → [API]
-//      ↑                                  ↓           ↓            ↓             ↓
-//      └──────────── [Error Display] ← [Error] ← [Error Response] ← [API Error]
-//                    [Success Route] ← [Success Response] ← [API Success]
-//    * 
-//    */
-  constructor(private http: HttpClient) { }
+  // constructor(private http: HttpClient) { }
 
   // Đăng ký tài khoản mới
   register(user: UserRegistration): Observable<any> {
+    const dateOfBirth = user.dateOfBirth ? user.dateOfBirth.toISOString().split('T')[0] : null;
     const registerData = {
       first_name: user.firstName,
       last_name: user.lastName,
       email: user.email,
       phone_number: user.phone,
       password: user.password,
-      retype_password: user.confirmPassword
+      retype_password: user.confirmPassword,
+      date_of_birth: dateOfBirth,
+      facebook_account_id: 0,
+      google_account_id: 0,
+      role_id: 1
     };
-    return this.http.post(`${this.apiUrl}/register`, registerData, this.httpOptions);
+    return this.http.post(`${this.apiUrl}/users/register`, registerData, this.httpOptions);
   }
 
   // Đăng nhập
   login(loginRequest: LoginRequest): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, loginRequest, this.httpOptions);
+    return this.http.post<LoginResponse>(`${this.apiUrl}/users/login`, loginRequest, this.httpOptions);
   }
 
   // Lưu token vào localStorage

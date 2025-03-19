@@ -12,23 +12,27 @@ $border-radius: 16px;
 
 // Main Container
 .register-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
+  display: block;  // Thay vì flex
+  width: 100%;
+  max-width: 1100px;
+  margin: 40px auto;  // Dùng margin auto thay vì height 100vh
   background-color: $background-color;
   padding: 2rem;
+  position: relative;
+  z-index: 5; 
 }
 
 // Register Card
 .register-card {
   display: flex;
-  width: 1100px;
+  width: 100%;
   max-width: 100%;
+  position: relative;
   background-color: $white;
   border-radius: $border-radius;
   overflow: hidden;
   box-shadow: $shadow;
+  z-index: 6;
   
   &__left {
     flex: 1;
@@ -94,7 +98,7 @@ $border-radius: 16px;
     flex: 1.2;
     padding: 2.5rem;
     overflow-y: auto;
-    max-height: 90vh;
+    max-height: 80vh;
     
     @media (max-width: 768px) {
       padding: 2rem;

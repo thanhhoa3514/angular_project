@@ -1,3 +1,4 @@
+
 <div class="register-container">
   <div class="register-card">
     <div class="register-card__left">
@@ -194,6 +195,26 @@
           </div>
           <div *ngIf="confirmPassword.dirty && user.password !== user.confirmPassword" class="error-message">
             <span>Mật khẩu xác nhận không khớp</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="dateOfBirth">Ngày sinh</label>
+          <div class="input-group">
+            <i class="fas fa-calendar"></i>
+            <input 
+              type="date" 
+              id="dateOfBirth" 
+              name="dateOfBirth"
+              [(ngModel)]="user.dateOfBirth"
+              #dateOfBirth="ngModel"
+              (change)="onDateOfBirthChange()"
+              required>
+          </div>
+          <div *ngIf="dateOfBirth.invalid && (dateOfBirth.dirty || dateOfBirth.touched)" class="error-message">
+            <span *ngIf="dateOfBirth.errors?.['required']">Ngày sinh không được để trống</span>
+          </div>
+          <div *ngIf="dateOfBirthError && dateOfBirth.valid" class="error-message">
+            <span>{{ dateOfBirthError }}</span>
           </div>
         </div>
         
