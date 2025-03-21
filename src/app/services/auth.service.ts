@@ -1,6 +1,6 @@
 import { Injectable,inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 export interface UserRegistration {
@@ -15,10 +15,6 @@ export interface UserRegistration {
   address?: string;
 }
 
-export interface LoginRequest {
-  email: string;
-  password: string;
-}
 
 export interface LoginResponse {
   token: string;
@@ -35,6 +31,21 @@ export interface LoginResponse {
   providedIn: 'root'
 })
 export class AuthService {
+
+
+  private loggedIn = new BehaviorSubject<boolean>(false);
+  isLoggedIn$ = this.loggedIn.asObservable();
+
+
+
+  login() {
+    this.loggedIn.next(true);
+  }
+
+  logout() {
+    this.loggedIn.next(false);
+  }
+
 
 
   // // Đăng nhập

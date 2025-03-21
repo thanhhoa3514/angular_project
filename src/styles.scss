@@ -3,8 +3,10 @@
 @import './styles/variables';
 @import './styles/base';
 @import '@fortawesome/fontawesome-free/css/all.min.css';
+
 /* Global styles */
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   font-family: $font-family;
@@ -79,7 +81,7 @@ html, body {
   color: white;
   background-color: $primary-color;
   border-color: $primary-color;
-  
+
   &:hover {
     background-color: darken($primary-color, 10%);
     border-color: darken($primary-color, 10%);
@@ -92,7 +94,7 @@ html, body {
   color: $primary-color;
   background-color: transparent;
   border-color: $primary-color;
-  
+
   &:hover {
     color: white;
     background-color: $primary-color;
@@ -105,7 +107,7 @@ html, body {
   color: white;
   background-color: $secondary-color;
   border-color: $secondary-color;
-  
+
   &:hover {
     background-color: darken($secondary-color, 10%);
     border-color: darken($secondary-color, 10%);
@@ -118,7 +120,7 @@ html, body {
   color: white;
   background-color: $accent-color;
   border-color: $accent-color;
-  
+
   &:hover {
     background-color: darken($accent-color, 10%);
     border-color: darken($accent-color, 10%);
@@ -149,6 +151,7 @@ html, body {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -159,6 +162,7 @@ html, body {
     transform: translateY(30px);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;
@@ -171,4 +175,23 @@ html, body {
 
 .slide-in-up {
   animation: slideInUp 0.5s ease-out;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgba(16, 185, 129, 0.05); // Màu nền của track
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(16, 185, 129, 0.3); // Màu của thumb
+  border-radius: 10px;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: rgba(16, 185, 129, 0.5); // Màu khi hover
+  }
 }
