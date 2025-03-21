@@ -1,4 +1,6 @@
 <main class="home-container">
+  <!-- Alert Section -->
+  <app-alert *ngIf="showAlert" [message]="alertMessage" [type]="alertType" (closed)="showAlert = false"></app-alert>
   <!-- Hero Section -->
   <section class="hero-section">
     <div class="hero-content">
@@ -48,7 +50,7 @@
   </section>
 
   <!-- Products Section -->
-  <section class="products-section">
+  <section class="products-section fade-in">
     <div class="section-title">
       <h2>Sản phẩm nổi bật</h2>
       <p>Các sản phẩm được yêu thích nhất của chúng tôi</p>

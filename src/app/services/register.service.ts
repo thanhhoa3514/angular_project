@@ -10,7 +10,6 @@ import { environment } from '../../environments/environment';
 export class RegisterService {
     
     constructor(private http: HttpClient) {
-        // Kiểm tra xem HttpClient đã được inject chưa
         console.log('HttpClient đã được inject:', !!http);
       }
   
@@ -29,7 +28,7 @@ export class RegisterService {
       google_account_id: 0,
       role_id: 3
     };
-    console.log('Register Data:', registerData);
+    // console.log('Register Data:', registerData);
 
     return this.http.post(`${environment.apiUrl}/users/register`, registerData, {
       headers: { 'Content-Type': 'application/json' }

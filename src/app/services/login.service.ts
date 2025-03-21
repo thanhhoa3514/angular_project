@@ -2,18 +2,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable } from 'rxjs';
-import { UserRegistration } from './auth.service';
 import { environment } from '../../environments/environment';
-
-
-
-
-export interface LoginRequest {
-    email?: string; // Make email optional if you want to allow phone login
-    password: string;
-    phone?: string;
-}
-
+import { LoginDTO } from '../dtos/user/login.dto';
 
 
 @Injectable({
@@ -21,7 +11,7 @@ export interface LoginRequest {
 })
 export class LoginService {
 
-    private apiUrl = environment.apiUrl; // Đảm bảo apiUrl được định nghĩa trong environment
+    private apiUrl = environment.apiUrl; 
     private httpOptions = {
         headers: new HttpHeaders({
             'Content-Type': 'application/json'
@@ -33,7 +23,7 @@ export class LoginService {
     }
 
     // Đăng nhập
-    login(loginRequest: LoginRequest): Observable<any> { // Thay đổi kiểu trả về nếu cần
+    login(loginRequest: LoginDTO): Observable<any> { // Thay đổi kiểu trả về nếu cần
         return this.http.post<any>(`${this.apiUrl}/users/login`, loginRequest, this.httpOptions)
             .pipe(
                 catchError(this.handleError) // Xử lý lỗi nếu cần

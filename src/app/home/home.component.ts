@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 // import { ToastrService } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
-
+import { AlertComponent } from '../alert/alert.component';
 interface Product {
   id: number;
   name: string;
@@ -18,11 +18,22 @@ interface Product {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, AlertComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  showAlert = false; // Biến để điều khiển hiển thị alert
+  alertMessage = 'Chào mừng bạn đến với trang web!'; // Thông điệp alert
+  alertType: 'success' | 'error' = 'success'; 
+
+
+  displayAlert() {
+    this.showAlert = true;
+    setTimeout(() => {
+      this.showAlert = false;
+    }, 5000); // Tự động đóng alert sau 5 giây
+  }
   constructor() {} 
   products: Product[] = [
     {
