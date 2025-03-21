@@ -64,7 +64,8 @@ $transition: all 0.3s ease;
   text-align: center;
   border-radius: 0 0 50px 0;
   overflow: hidden;
-  
+  background-attachment: fixed; // Tạo hiệu ứng parallax
+  background-size: cover;
   &::before {
     content: '';
     position: absolute;
@@ -99,6 +100,7 @@ $transition: all 0.3s ease;
     h1 {
       font-size: $font-size-6xl;
       font-weight: $font-weight-bold;
+      color: white;
       margin-bottom: $spacing-lg;
       line-height: 1.2;
       
@@ -598,7 +600,18 @@ $transition: all 0.3s ease;
     font-size: $font-size-3xl;
   }
 }
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 // Custom Scrollbar
 ::-webkit-scrollbar {
   width: 12px;
