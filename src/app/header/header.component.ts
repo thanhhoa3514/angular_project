@@ -1,6 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -13,6 +13,9 @@ export class HeaderComponent {
   isScrolled = false;
   isMobileMenuOpen = false;
 
+  constructor(private router: Router) {} 
+
+
   @HostListener('window:scroll')
   onWindowScroll() {
     this.isScrolled = window.scrollY > 50;
@@ -21,5 +24,10 @@ export class HeaderComponent {
   toggleMobileMenu() {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
     document.body.classList.toggle('mobile-menu-open', this.isMobileMenuOpen);
+  }
+
+  navigateToLogin(): void {
+    // Có thể thêm logic kiểm tra ở đây nếu cần
+    this.router.navigate(['/login']);
   }
 }

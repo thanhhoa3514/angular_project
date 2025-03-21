@@ -1,0 +1,10 @@
+<div class="alert" [ngClass]="alertClass" [@fadeInOut]="visible" *ngIf="visible">
+    <div class="alert__icon-content">
+        <span class="alert__icon" *ngIf="type === 'success'">✓</span>
+        <span class="alert__icon" *ngIf="type === 'error'">✕</span>
+        <span class="alert__icon" *ngIf="type === 'warning'">!</span>
+        <span class="alert__icon" *ngIf="type === 'info'">i</span>
+        <span class="alert__message">{{ message }}</span>
+    </div>
+    <button class="alert__close" (click)="closeAlert()">×</button>
+</div>

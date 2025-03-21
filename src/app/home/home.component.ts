@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 // import { ToastrService } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
 
@@ -23,6 +23,7 @@ interface Product {
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  constructor() {} 
   products: Product[] = [
     {
       id: 1,
@@ -113,7 +114,7 @@ export class HomeComponent implements OnInit {
     { name: 'Phụ kiện', icon: 'fas fa-headphones' }
   ];
 
-  constructor() {}
+
   
   ngOnInit(): void {
     // Component initialization
@@ -123,4 +124,7 @@ export class HomeComponent implements OnInit {
   formatPrice(price: number): string {
     return price.toLocaleString('vi-VN') + '₫';
   }
+  // navigateToLogin(): void {
+  //   this.router.navigate(['/login']);
+  // }
 }
