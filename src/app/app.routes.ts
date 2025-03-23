@@ -3,6 +3,7 @@ import { HomeComponent } from './home/home.component';
 import { DetailProductComponent } from './detail-product/detail-product.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
+import { AlertTestComponent } from './alert-test/alert-test.component';
 
 
 export const routes: Routes = [
@@ -22,6 +23,7 @@ export const routes: Routes = [
   title:'Login'
 
 },
+{ path: 'alert-test', component: AlertTestComponent },
   { path: 'products/:id', component: DetailProductComponent },
   { path: '**', redirectTo: '' }
 ];

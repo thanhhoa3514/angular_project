@@ -28,3 +28,19 @@
     z-index: 1000;
   }
 }
+
+.global-alert-container {
+  position: fixed;
+  top: 70px;  // Vị trí từ dưới lên 20px
+  right: 20px; 
+  z-index: 1050; // Using your existing z-index variable
+  max-width: 350px;
+  width: 100%;
+  pointer-events: none; // Allow clicking through the container
+  
+  // But enable pointer events for the alert itself
+  app-alert {
+    pointer-events: auto;
+    display: block;
+  }
+}

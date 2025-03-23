@@ -4,7 +4,7 @@
         <span class="alert__icon" *ngIf="type === 'error'">✕</span>
         <span class="alert__icon" *ngIf="type === 'warning'">!</span>
         <span class="alert__icon" *ngIf="type === 'info'">i</span>
-        <span class="alert__message">{{ message }}</span>
+        <span class="alert__message" [innerHTML]="message"></span>
     </div>
     <button class="alert__close" (click)="closeAlert()">×</button>
 </div>

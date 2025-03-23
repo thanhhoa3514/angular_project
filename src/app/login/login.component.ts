@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { validate } from 'class-validator';
 import { LoginDTO } from '../dtos/user/login.dto';
+import { AlertService } from '../services/alert.service';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -14,27 +15,29 @@ import { LoginDTO } from '../dtos/user/login.dto';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  isLoading = false; // Thêm thuộc tính isLoading
+  isLoading = false; 
   errorMessage = '';
 
   constructor(private loginService: LoginService, private router: Router
-    , private authService: AuthService) {}
-  // Hàm để toggle hiển thị mật khẩu
+    , private authService: AuthService,
+    private alertService: AlertService
+  ) {}
+
   togglePasswordVisibility(passwordInput: HTMLInputElement): void {
     passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
   }
 
   async onSubmit(event: Event, phone_number: string, password: string) {
     event.preventDefault();
-    console.log('Đăng nhập được gọi');
+
     if (this.isLoading) return;
 
     this.isLoading = true;
     this.errorMessage = '';
 
     const loginData = new LoginDTO({ phone_number, password });
-    console.log('Dữ liệu đăng nhập:', loginData);
-    // Validate login data
+ 
+
     const errors = await validate(loginData);
     if (errors.length > 0) {
       console.error('Lỗi xác thực:', errors); 
@@ -44,22 +47,22 @@ export class LoginComponent {
     }
 
 
-    console.log('Gửi yêu cầu đăng nhập');
+    
 
     this.loginService.login(loginData).subscribe({
       next: (response) => {
-        console.log('Đăng nhập thành công', response);
         localStorage.setItem('token', response.token);
         this.authService.login();
-        this.router.navigate(['/home']); // Chuyển hướng đến trang chính
+        this.alertService.success('Đăng nhập thành công!');
+        this.router.navigate(['/home']); 
       },
       error: (error) => {
         console.error('Lỗi đăng nhập:', error);
-        this.errorMessage = 'Đăng nhập không thành công. Vui lòng kiểm tra lại thông tin.'; // Cập nhật thông báo lỗi
-        this.isLoading = false; // Kết thúc quá trình tải
+        this.alertService.error('Đăng nhập thất bại: ' + (error.error?.message || 'Vui lòng kiểm tra thông tin đăng nhập'));
+        this.isLoading = false; 
       },
       complete: () => {
-        this.isLoading = false; // Kết thúc quá trình tải
+        this.isLoading = false; 
       }
     });
   }

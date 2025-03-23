@@ -2,23 +2,28 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet, Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError, RouterLink } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { AlertConfig, AlertService } from './services/alert.service';
+import { AlertComponent } from './alert/alert.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
+    CommonModule,
     RouterOutlet,
-    RouterLink,
+
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    AlertComponent
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
   title = 'shopapp-angular';
-  
-  constructor(public router: Router) {}
+  alert: AlertConfig | null = null;
+  constructor(public router: Router,private alertService: AlertService) {}
   
   ngOnInit() {
     // Log all router events to diagnose routing issues
@@ -33,8 +38,13 @@ export class AppComponent implements OnInit {
         console.log('Navigation Error:', event);
       }
     });
-    
+    this.alertService.alert$.subscribe(alert => {
+      this.alert = alert;
+    });
     // Log the current route configuration
     console.log('Routes configuration:', this.router.config);
+  }
+  onAlertClosed() {
+    this.alertService.closeAlert();
   }
 }

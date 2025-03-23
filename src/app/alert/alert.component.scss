@@ -1,3 +1,7 @@
+:host {
+    display: block;
+}
+
 .alert {
     padding: 16px 20px;
     border-radius: 8px;
@@ -8,6 +12,7 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     font-family: 'Inter', sans-serif;
     border-left: 4px solid;
+    animation: slideIn 0.3s ease-out;
 }
 
 .alert__icon-content {
@@ -25,6 +30,8 @@
     border-radius: 50%;
     font-weight: bold;
     font-size: 14px;
+    flex-shrink: 0; // Prevent icon from shrinking
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .alert__message {
@@ -94,3 +101,28 @@
     background-color: #1890ff;
     color: white;
 }
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+:host.hiding .alert {
+    animation: fadeOut 0.3s forwards;
+  }
