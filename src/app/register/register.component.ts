@@ -8,6 +8,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { RegisterService } from '../services/register.service';
 import { ValidationService } from '../validation/register.validation';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-register',
@@ -30,7 +31,8 @@ export class RegisterComponent {
   constructor(
     private registerService: RegisterService,
     private validationService: ValidationService,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService
   ) {}
   // Model cho form đăng ký
   user: UserRegistration = {
@@ -115,19 +117,14 @@ export class RegisterComponent {
       
       next: (response) => {
         console.log('Đăng ký thành công', response);
+        this.alertService.success('Đăng ký tài khoản thành công!');
         this.router.navigate(['/login']);
         // Chuyển hướng đến trang đăng nhập
       },
       error: (error) => {
         
         console.error('Lỗi đăng ký:', error);
-        if (error.error instanceof ErrorEvent) {
-            // Lỗi từ client
-            this.errorMessage = error.error.message;
-        } else {
-            // Lỗi từ server
-            this.errorMessage = error.error || 'Có lỗi xảy ra khi đăng ký. Vui lòng thử lại.';
-        }
+        this.alertService.error('Đăng ký thất bại: ' + (error.error?.message || 'Vui lòng kiểm tra lại thông tin'));
         this.isLoading = false;
       },
       complete: () => {

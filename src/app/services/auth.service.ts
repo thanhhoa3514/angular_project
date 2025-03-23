@@ -31,12 +31,8 @@ export interface LoginResponse {
   providedIn: 'root'
 })
 export class AuthService {
-
-
   private loggedIn = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.loggedIn.asObservable();
-
-
 
   login() {
     this.loggedIn.next(true);
@@ -47,11 +43,6 @@ export class AuthService {
   }
 
 
-
-  // // Đăng nhập
-  // login(loginRequest: LoginRequest): Observable<LoginResponse> {
-  //   return this.http.post<LoginResponse>(`${this.apiUrl}/users/login`, loginRequest, this.httpOptions);
-  // }
 
   // // Lưu token vào localStorage
   // saveToken(token: string): void {

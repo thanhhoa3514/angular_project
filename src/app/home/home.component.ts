@@ -4,6 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 // import { ToastrService } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
 import { AlertComponent } from '../alert/alert.component';
+import { AlertService } from '../services/alert.service';
 interface Product {
   id: number;
   name: string;
@@ -27,14 +28,7 @@ export class HomeComponent implements OnInit {
   alertMessage = 'Chào mừng bạn đến với trang web!'; // Thông điệp alert
   alertType: 'success' | 'error' = 'success'; 
 
-
-  displayAlert() {
-    this.showAlert = true;
-    setTimeout(() => {
-      this.showAlert = false;
-    }, 5000); // Tự động đóng alert sau 5 giây
-  }
-  constructor() {} 
+  constructor(private alertService: AlertService) {} 
   products: Product[] = [
     {
       id: 1,
@@ -131,6 +125,15 @@ export class HomeComponent implements OnInit {
     // Component initialization
   }
 
+
+  showSuccessAlert() {
+    this.alertService.success('Operation completed successfully!');
+  }
+
+  showErrorAlert() {
+    this.alertService.error('An error occurred. Please try again.');
+  }
+  
   // Format price to VND
   formatPrice(price: number): string {
     return price.toLocaleString('vi-VN') + '₫';

@@ -1,40 +1,44 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-alert',
-  standalone: true, 
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.scss'],
-  imports: [CommonModule] ,
   animations: [
     trigger('fadeInOut', [
-      state('true', 
-        style({
-          opacity: 1,
-          transform: 'translateY(0)'
-        })
-      ),
-      state('false', 
-        style({
-          opacity: 0,
-          transform: 'translateY(-10px)'
-        })
-      ),
-      transition('false => true', [
-        animate('300ms ease-out')
+      // Entry animation - slide in from right with fade
+      transition(':enter', [
+        style({ 
+          opacity: 0, 
+          transform: 'translateX(30px)' 
+        }),
+        animate('300ms ease-out', 
+          style({ 
+            opacity: 1, 
+            transform: 'translateX(0)' 
+          })
+        )
       ]),
-      transition('true => false', [
-        animate('300ms ease-in')
+      // Exit animation - fade out with slight movement
+      transition(':leave', [
+        animate('300ms ease-in', 
+          style({ 
+            opacity: 0, 
+            transform: 'translateX(30px)' 
+          })
+        )
       ])
     ])
   ]
 })
-export class AlertComponent {
+export class AlertComponent implements OnInit {
   @Input() message: string = '';
   @Input() type: 'success' | 'error' | 'warning' | 'info' = 'success';
-  @Input() autoClose: boolean = false;
+  @Input() autoClose: boolean = true;
   @Input() duration: number = 5000;
   @Output() closed = new EventEmitter<void>();
   
@@ -56,6 +60,6 @@ export class AlertComponent {
     this.visible = false;
     setTimeout(() => {
       this.closed.emit();
-    }, 300); // Cho phép animation hoàn thành
+    }, 300); // Allow animation to complete
   }
 }
