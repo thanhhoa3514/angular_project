@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-// import { ToastrService } from 'ngx-toastr';
+
 import { FormsModule } from '@angular/forms';
 import { AlertComponent } from '../alert/alert.component';
 import { AlertService } from '../services/alert.service';
+import { NewsletterComponent } from '../newsletter/newsletter.component';
 interface Product {
   id: number;
   name: string;
@@ -19,7 +20,7 @@ interface Product {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, AlertComponent],
+  imports: [CommonModule, RouterModule, FormsModule, AlertComponent,NewsletterComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
