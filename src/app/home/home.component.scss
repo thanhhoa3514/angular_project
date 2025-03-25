@@ -512,67 +512,7 @@ $transition: all 0.3s ease;
   }
 }
 
-// Newsletter Section
-// .newsletter-section {
-//   padding: $spacing-xxl $spacing-lg;
-//   background: $bg-gradient;
-  
-//   .newsletter-content {
-//     max-width: 700px;
-//     margin: 0 auto;
-//     text-align: center;
-//     color: $white;
-    
-//     h2 {
-//       font-size: $font-size-4xl;
-//       margin-bottom: $spacing-md;
-//       font-weight: $font-weight-bold;
-//     }
-    
-//     p {
-//       font-size: $font-size-lg;
-//       margin-bottom: $spacing-xl;
-//       opacity: 0.9;
-//     }
-    
-//     .newsletter-form {
-//       display: flex;
-//       gap: $spacing-sm;
-//       max-width: 500px;
-//       margin: 0 auto;
-      
-//       @media (max-width: $breakpoint-md) {
-//         flex-direction: column;
-//       }
-      
-//       input {
-//         flex: 1;
-//         padding: $spacing-md $spacing-lg;
-//         border: none;
-//         border-radius: $border-radius-full;
-//         font-size: $font-size-base;
-//         outline: none;
-//       }
-      
-//       button {
-//         background: $accent-color;
-//         color: $white;
-//         border: none;
-//         border-radius: $border-radius-full;
-//         padding: $spacing-md $spacing-xl;
-//         font-weight: $font-weight-medium;
-//         cursor: pointer;
-//         transition: $transition;
-        
-//         &:hover {
-//           background: darken($accent-color, 10%);
-//           transform: translateY(-3px);
-//           box-shadow: $shadow-md;
-//         }
-//       }
-//     }
-//   }
-// }
+
 
 // Animations
 @keyframes fadeInUp {

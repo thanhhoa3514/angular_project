@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { LoginService } from '../services/login.service';
+import { LoginService } from '../../../core/services/login.service';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { validate } from 'class-validator';
-import { LoginDTO } from '../dtos/user/login.dto';
-import { AlertService } from '../services/alert.service';
+import { LoginDTO } from '../../../core/dtos/user/login.dto';
+import { AlertService } from '../../../core/services/alert.service';
 @Component({
   selector: 'app-login',
   standalone: true,

@@ -1,0 +1,6 @@
+# Angular Project Rules
+
+- Nếu file TypeScript (component, service, module) vượt quá 200 dòng, chia thành các file nhỏ hơn (ví dụ: `component-logic.ts`, `component-ui.ts`).
+- Đặt tên file rõ ràng, dùng hậu tố để phân biệt (ví dụ: `user-service-part1.ts`, `user-service-part2.ts`).
+- Đề xuất cách kết hợp: Sử dụng `import` trong Angular để gom các phần hoặc chạy lệnh thủ công như `cat user-service-part1.ts user-service-part2.ts > user-service.ts` nếu cần hợp nhất.
+- Đảm bảo mỗi file nhỏ vẫn tuân thủ Angular style guide (ví dụ: single responsibility).

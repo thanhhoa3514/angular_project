@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 
 import { FormsModule } from '@angular/forms';
-import { AlertComponent } from '../alert/alert.component';
-import { AlertService } from '../services/alert.service';
+import { AlertComponent } from '../shared/components/alert/alert.component';
+import { AlertService } from '../core/services/alert.service';
 import { NewsletterComponent } from '../newsletter/newsletter.component';
 interface Product {
   id: number;
