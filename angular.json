@@ -30,10 +30,14 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles/reset.scss",
-              "src/styles/base.scss",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles"
+              ]
+            },
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/@popperjs/core/dist/umd/popper.min.js",
@@ -101,8 +105,6 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles/reset.scss",
-              "src/styles/base.scss",
               "src/styles.scss",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             ],

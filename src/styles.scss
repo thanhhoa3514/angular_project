@@ -1,197 +1,201 @@
-/* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
-@import './styles/variables';
-@import './styles/base';
-@import '@fortawesome/fontawesome-free/css/all.min.css';
 
-/* Global styles */
-html,
-body {
-  margin: 0;
-  padding: 0;
-  font-family: $font-family;
-  font-size: $font-size-base;
-  line-height: 1.5;
-  color: $text-primary;
-  background-color: $bg-color;
-  scroll-behavior: smooth;
-}
+@import './styles/styles.scss';
 
-* {
-  box-sizing: border-box;
-}
 
-/* Utility Classes */
-.container {
-  width: 100%;
-  padding-right: 1rem;
-  padding-left: 1rem;
-  margin-right: auto;
-  margin-left: auto;
-}
+// /* You can add global styles to this file, and also import other style files */
+// @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+// @import './styles/variables';
+// @import './styles/base';
+// @import '@fortawesome/fontawesome-free/css/all.min.css';
 
-@media (min-width: $breakpoint-sm) {
-  .container {
-    max-width: 540px;
-  }
-}
+// /* Global styles */
+// html,
+// body {
+//   margin: 0;
+//   padding: 0;
+//   font-family: $font-family;
+//   font-size: $font-size-base;
+//   line-height: 1.5;
+//   color: $text-primary;
+//   background-color: $bg-color;
+//   scroll-behavior: smooth;
+// }
 
-@media (min-width: $breakpoint-md) {
-  .container {
-    max-width: 720px;
-  }
-}
+// * {
+//   box-sizing: border-box;
+// }
 
-@media (min-width: $breakpoint-lg) {
-  .container {
-    max-width: 960px;
-  }
-}
+// /* Utility Classes */
+// .container {
+//   width: 100%;
+//   padding-right: 1rem;
+//   padding-left: 1rem;
+//   margin-right: auto;
+//   margin-left: auto;
+// }
 
-@media (min-width: $breakpoint-xl) {
-  .container {
-    max-width: 1140px;
-  }
-}
+// @media (min-width: $breakpoint-sm) {
+//   .container {
+//     max-width: 540px;
+//   }
+// }
 
-@media (min-width: $breakpoint-2xl) {
-  .container {
-    max-width: 1320px;
-  }
-}
+// @media (min-width: $breakpoint-md) {
+//   .container {
+//     max-width: 720px;
+//   }
+// }
 
-.btn {
-  display: inline-block;
-  font-weight: $font-weight-medium;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  user-select: none;
-  border: 1px solid transparent;
-  padding: 0.75rem 1.5rem;
-  font-size: $font-size-base;
-  line-height: 1.5;
-  border-radius: $border-radius;
-  transition: $transition;
-  cursor: pointer;
-  text-decoration: none;
-}
+// @media (min-width: $breakpoint-lg) {
+//   .container {
+//     max-width: 960px;
+//   }
+// }
 
-.btn-primary {
-  color: white;
-  background-color: $primary-color;
-  border-color: $primary-color;
+// @media (min-width: $breakpoint-xl) {
+//   .container {
+//     max-width: 1140px;
+//   }
+// }
 
-  &:hover {
-    background-color: darken($primary-color, 10%);
-    border-color: darken($primary-color, 10%);
-    transform: translateY(-3px);
-    box-shadow: $box-shadow;
-  }
-}
+// @media (min-width: $breakpoint-2xl) {
+//   .container {
+//     max-width: 1320px;
+//   }
+// }
 
-.btn-outline-primary {
-  color: $primary-color;
-  background-color: transparent;
-  border-color: $primary-color;
+// .btn {
+//   display: inline-block;
+//   font-weight: $font-weight-medium;
+//   text-align: center;
+//   white-space: nowrap;
+//   vertical-align: middle;
+//   user-select: none;
+//   border: 1px solid transparent;
+//   padding: 0.75rem 1.5rem;
+//   font-size: $font-size-base;
+//   line-height: 1.5;
+//   border-radius: $border-radius;
+//   transition: $transition;
+//   cursor: pointer;
+//   text-decoration: none;
+// }
 
-  &:hover {
-    color: white;
-    background-color: $primary-color;
-    transform: translateY(-3px);
-    box-shadow: $box-shadow;
-  }
-}
+// .btn-primary {
+//   color: white;
+//   background-color: $primary-color;
+//   border-color: $primary-color;
 
-.btn-secondary {
-  color: white;
-  background-color: $secondary-color;
-  border-color: $secondary-color;
+//   &:hover {
+//     background-color: darken($primary-color, 10%);
+//     border-color: darken($primary-color, 10%);
+//     transform: translateY(-3px);
+//     box-shadow: $box-shadow;
+//   }
+// }
 
-  &:hover {
-    background-color: darken($secondary-color, 10%);
-    border-color: darken($secondary-color, 10%);
-    transform: translateY(-3px);
-    box-shadow: $box-shadow;
-  }
-}
+// .btn-outline-primary {
+//   color: $primary-color;
+//   background-color: transparent;
+//   border-color: $primary-color;
 
-.btn-accent {
-  color: white;
-  background-color: $accent-color;
-  border-color: $accent-color;
+//   &:hover {
+//     color: white;
+//     background-color: $primary-color;
+//     transform: translateY(-3px);
+//     box-shadow: $box-shadow;
+//   }
+// }
 
-  &:hover {
-    background-color: darken($accent-color, 10%);
-    border-color: darken($accent-color, 10%);
-    transform: translateY(-3px);
-    box-shadow: $box-shadow;
-  }
-}
+// .btn-secondary {
+//   color: white;
+//   background-color: $secondary-color;
+//   border-color: $secondary-color;
 
-.text-center {
-  text-align: center;
-}
+//   &:hover {
+//     background-color: darken($secondary-color, 10%);
+//     border-color: darken($secondary-color, 10%);
+//     transform: translateY(-3px);
+//     box-shadow: $box-shadow;
+//   }
+// }
 
-.mt-4 {
-  margin-top: 1rem;
-}
+// .btn-accent {
+//   color: white;
+//   background-color: $accent-color;
+//   border-color: $accent-color;
 
-.mb-4 {
-  margin-bottom: 1rem;
-}
+//   &:hover {
+//     background-color: darken($accent-color, 10%);
+//     border-color: darken($accent-color, 10%);
+//     transform: translateY(-3px);
+//     box-shadow: $box-shadow;
+//   }
+// }
 
-.py-5 {
-  padding-top: 1.25rem;
-  padding-bottom: 1.25rem;
-}
+// .text-center {
+//   text-align: center;
+// }
 
-/* For animation classes */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
+// .mt-4 {
+//   margin-top: 1rem;
+// }
 
-  to {
-    opacity: 1;
-  }
-}
+// .mb-4 {
+//   margin-bottom: 1rem;
+// }
 
-@keyframes slideInUp {
-  from {
-    transform: translateY(30px);
-    opacity: 0;
-  }
+// .py-5 {
+//   padding-top: 1.25rem;
+//   padding-bottom: 1.25rem;
+// }
 
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
+// /* For animation classes */
+// @keyframes fadeIn {
+//   from {
+//     opacity: 0;
+//   }
 
-.fade-in {
-  animation: fadeIn 0.5s ease-in-out;
-}
+//   to {
+//     opacity: 1;
+//   }
+// }
 
-.slide-in-up {
-  animation: slideInUp 0.5s ease-out;
-}
+// @keyframes slideInUp {
+//   from {
+//     transform: translateY(30px);
+//     opacity: 0;
+//   }
 
-::-webkit-scrollbar {
-  width: 8px;
-}
+//   to {
+//     transform: translateY(0);
+//     opacity: 1;
+//   }
+// }
 
-::-webkit-scrollbar-track {
-  background-color: rgba(16, 185, 129, 0.05); // Màu nền của track
-  border-radius: 10px;
-}
+// .fade-in {
+//   animation: fadeIn 0.5s ease-in-out;
+// }
 
-::-webkit-scrollbar-thumb {
-  background-color: rgba(16, 185, 129, 0.3); // Màu của thumb
-  border-radius: 10px;
-  transition: all 0.3s;
+// .slide-in-up {
+//   animation: slideInUp 0.5s ease-out;
+// }
 
-  &:hover {
-    background-color: rgba(16, 185, 129, 0.5); // Màu khi hover
-  }
-}
+// ::-webkit-scrollbar {
+//   width: 8px;
+// }
+
+// ::-webkit-scrollbar-track {
+//   background-color: rgba(16, 185, 129, 0.05); // Màu nền của track
+//   border-radius: 10px;
+// }
+
+// ::-webkit-scrollbar-thumb {
+//   background-color: rgba(16, 185, 129, 0.3); // Màu của thumb
+//   border-radius: 10px;
+//   transition: all 0.3s;
+
+//   &:hover {
+//     background-color: rgba(16, 185, 129, 0.5); // Màu khi hover
+//   }
+// }

@@ -1,0 +1,75 @@
+// Colors
+$primary-color: #4f46e5;
+$secondary-color: #7c3aed;
+$accent-color: #10b981;
+$background-color: #f5f7fa;
+$text-primary: #2C3E50;  
+$text-color: #1f2937;
+$text-light: #6b7280;
+$white: #ffffff;
+$black: #000000;
+$error: #ef4444;
+$success: #22c55e;
+$warning: #f59e0b;
+$info: #3b82f6;
+
+// Typography
+$font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$font-size-base: 1rem;
+$font-size-sm: 0.875rem;
+$font-size-lg: 1.125rem;
+$font-size-xl: 1.25rem;
+$font-size-2xl: 1.5rem;
+$font-size-3xl: 1.875rem;
+$font-size-4xl: 2.25rem;
+
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// Spacing
+$spacing-xs: 0.25rem;
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 1.5rem;
+$spacing-xl: 2rem;
+$spacing-2xl: 3rem;
+$spacing-3xl: 4rem;
+
+// Borders
+$border-radius-sm: 0.25rem;
+$border-radius: 0.5rem;
+$border-radius-lg: 0.75rem;
+$border-radius-xl: 1rem;
+$border-width: 1px;
+$border-width-md: 2px;
+$border-width-lg: 3px;
+
+// Shadows
+$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+$shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 10px 15px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.15);
+
+// Z-index
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal-backdrop: 1040;
+$z-index-modal: 1050;
+$z-index-popover: 1060;
+$z-index-tooltip: 1070;
+
+// Breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-2xl: 1400px;
+
+// Transitions
+$transition: all 0.3s ease;
+$transition-fast: all 0.15s ease;
+$transition-slow: all 0.5s ease;

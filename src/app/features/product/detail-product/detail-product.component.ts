@@ -6,6 +6,9 @@ import { CartService } from '../../../core/services/cart.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../../../../environments/environment';
+import { Product } from '../../../core/models/product.model';
+import { ErrorHandlerService } from '../../../core/services/error-handler.service';
+import { CartItem } from '../../../core/models/cart.model';
 
 @Component({
   selector: 'app-detail-product',
@@ -33,7 +36,8 @@ export class DetailProductComponent implements OnInit {
     private router: Router,
     private http: HttpClient,
     private alertService: AlertService,
-    private cartService: CartService
+    private cartService: CartService,
+    private errorHandler: ErrorHandlerService
   ) {}
 
   ngOnInit(): void {
@@ -48,7 +52,7 @@ export class DetailProductComponent implements OnInit {
     
     this.isLoading = true;
     // Gọi API để lấy thông tin sản phẩm
-    this.http.get(`${this.ApiUrl}/api/v1/products/${productId}`).subscribe({
+    this.http.get<Product>(`${this.ApiUrl}/api/v1/products/${productId}`).subscribe({
       next: (data: any) => {
         this.product = data;
         this.mainImage = data.thumbnail || 'https://via.placeholder.com/600x400';
@@ -82,8 +86,9 @@ export class DetailProductComponent implements OnInit {
     this.mainImage = imageUrl;
   }
 
+  
   addToCart(): void {
-    const item = {
+    const item: CartItem = {
       productId: this.product.id,
       quantity: this.quantity,
       color: this.selectedColor,
@@ -97,9 +102,8 @@ export class DetailProductComponent implements OnInit {
       next: () => {
         this.alertService.success('Đã thêm sản phẩm vào giỏ hàng');
       },
-      error: (error:any) => {
-        console.error('Error adding to cart:', error);
-        this.alertService.error('Không thể thêm vào giỏ hàng');
+      error: (error) => {
+        this.errorHandler.handleError(error, 'Add to cart');
       }
     });
   }

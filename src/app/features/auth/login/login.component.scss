@@ -1,12 +1,6 @@
-// Variables
-$primary-color: #4f46e5;
-$secondary-color: #7c3aed;
-$background-color: #f5f7fa;
-$text-color: #1f2937;
-$text-light: #6b7280;
-$white: #ffffff;
-$shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-$border-radius: 16px;
+
+// Sử dụng đường dẫn tương đối thay vì import từ abstracts
+@import '../../../../styles/abstracts/variables';
 
 // Main Container
 .login-container {
@@ -486,7 +480,7 @@ $border-radius: 16px;
 
 @keyframes smile {
   0%, 100% {
-    d: path("M315 215 Q330 225 345 215");
+    d: path("M315 215 Q330 215 Q345 215");
   }
   50% {
     d: path("M315 215 Q330 230 345 215");

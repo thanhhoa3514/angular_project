@@ -1,0 +1,296 @@
+// Spacing utilities
+@each $key, $value in ('xs': $spacing-xs,
+    'sm': $spacing-sm,
+    'md': $spacing-md,
+    'lg': $spacing-lg,
+    'xl': $spacing-xl,
+    '2xl': $spacing-2xl,
+    '3xl': $spacing-3xl) {
+
+    // Margin
+    .m-#{$key} {
+        margin: $value;
+    }
+
+    .mt-#{$key} {
+        margin-top: $value;
+    }
+
+    .mr-#{$key} {
+        margin-right: $value;
+    }
+
+    .mb-#{$key} {
+        margin-bottom: $value;
+    }
+
+    .ml-#{$key} {
+        margin-left: $value;
+    }
+
+    .mx-#{$key} {
+        margin-left: $value;
+        margin-right: $value;
+    }
+
+    .my-#{$key} {
+        margin-top: $value;
+        margin-bottom: $value;
+    }
+
+    // Padding
+    .p-#{$key} {
+        padding: $value;
+    }
+
+    .pt-#{$key} {
+        padding-top: $value;
+    }
+
+    .pr-#{$key} {
+        padding-right: $value;
+    }
+
+    .pb-#{$key} {
+        padding-bottom: $value;
+    }
+
+    .pl-#{$key} {
+        padding-left: $value;
+    }
+
+    .px-#{$key} {
+        padding-left: $value;
+        padding-right: $value;
+    }
+
+    .py-#{$key} {
+        padding-top: $value;
+        padding-bottom: $value;
+    }
+}
+
+// Display utilities
+.d-none {
+    display: none !important;
+}
+
+.d-inline {
+    display: inline !important;
+}
+
+.d-inline-block {
+    display: inline-block !important;
+}
+
+.d-block {
+    display: block !important;
+}
+
+.d-flex {
+    display: flex !important;
+}
+
+.d-grid {
+    display: grid !important;
+}
+
+// Flex utilities
+.flex-row {
+    flex-direction: row !important;
+}
+
+.flex-column {
+    flex-direction: column !important;
+}
+
+.flex-wrap {
+    flex-wrap: wrap !important;
+}
+
+.flex-nowrap {
+    flex-wrap: nowrap !important;
+}
+
+.justify-content-start {
+    justify-content: flex-start !important;
+}
+
+.justify-content-end {
+    justify-content: flex-end !important;
+}
+
+.justify-content-center {
+    justify-content: center !important;
+}
+
+.justify-content-between {
+    justify-content: space-between !important;
+}
+
+.justify-content-around {
+    justify-content: space-around !important;
+}
+
+.align-items-start {
+    align-items: flex-start !important;
+}
+
+.align-items-end {
+    align-items: flex-end !important;
+}
+
+.align-items-center {
+    align-items: center !important;
+}
+
+.align-items-baseline {
+    align-items: baseline !important;
+}
+
+.align-items-stretch {
+    align-items: stretch !important;
+}
+
+// Position utilities
+.position-relative {
+    position: relative !important;
+}
+
+.position-absolute {
+    position: absolute !important;
+}
+
+.position-fixed {
+    position: fixed !important;
+}
+
+.position-sticky {
+    position: sticky !important;
+}
+
+// Width and height utilities
+.w-100 {
+    width: 100% !important;
+}
+
+.h-100 {
+    height: 100% !important;
+}
+
+.mw-100 {
+    max-width: 100% !important;
+}
+
+.mh-100 {
+    max-height: 100% !important;
+}
+
+// Border utilities
+.border {
+    border: $border-width solid #dee2e6 !important;
+}
+
+.border-0 {
+    border: 0 !important;
+}
+
+.rounded {
+    border-radius: $border-radius !important;
+}
+
+.rounded-sm {
+    border-radius: $border-radius-sm !important;
+}
+
+.rounded-lg {
+    border-radius: $border-radius-lg !important;
+}
+
+.rounded-circle {
+    border-radius: 50% !important;
+}
+
+// Shadow utilities
+.shadow-sm {
+    box-shadow: $shadow-sm !important;
+}
+
+.shadow {
+    box-shadow: $shadow !important;
+}
+
+.shadow-md {
+    box-shadow: $shadow-md !important;
+}
+
+.shadow-lg {
+    box-shadow: $shadow-lg !important;
+}
+
+.shadow-none {
+    box-shadow: none !important;
+}
+
+// Visibility utilities
+.visible {
+    visibility: visible !important;
+}
+
+.invisible {
+    visibility: hidden !important;
+}
+
+// Overflow utilities
+.overflow-auto {
+    overflow: auto !important;
+}
+
+.overflow-hidden {
+    overflow: hidden !important;
+}
+
+.overflow-visible {
+    overflow: visible !important;
+}
+
+.overflow-scroll {
+    overflow: scroll !important;
+}
+
+// Container
+.container {
+    width: 100%;
+    padding-right: $spacing-md;
+    padding-left: $spacing-md;
+    margin-right: auto;
+    margin-left: auto;
+
+    @include respond-to(sm) {
+        max-width: 540px;
+    }
+
+    @include respond-to(md) {
+        max-width: 720px;
+    }
+
+    @include respond-to(lg) {
+        max-width: 960px;
+    }
+
+    @include respond-to(xl) {
+        max-width: 1140px;
+    }
+
+    @include respond-to(2xl) {
+        max-width: 1320px;
+    }
+}
+
+.container-fluid {
+    width: 100%;
+    padding-right: $spacing-md;
+    padding-left: $spacing-md;
+    margin-right: auto;
+    margin-left: auto;
+}

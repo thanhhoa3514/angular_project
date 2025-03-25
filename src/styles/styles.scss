@@ -1,0 +1,25 @@
+// Abstracts
+@import 'abstracts/variables';
+@import 'abstracts/functions';
+@import 'abstracts/mixins';
+@import 'abstracts/animations';
+
+// Base
+@import 'base/reset';
+@import 'base/typography';
+@import 'base/utilities';
+
+// Components
+@import 'components/buttons';
+@import 'components/forms';
+@import 'components/cards';
+@import 'components/alerts';
+
+// Layout
+// Add more layout styles as needed
+
+// Pages
+// Add page-specific styles as needed
+
+// Themes
+// Add theme styles as needed

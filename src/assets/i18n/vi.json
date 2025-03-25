@@ -1,0 +1,41 @@
+{
+    "common": {
+        "add_to_cart": "Thêm vào giỏ hàng",
+        "buy_now": "Mua ngay",
+        "quantity": "Số lượng",
+        "size": "Kích thước",
+        "color": "Màu sắc",
+        "price": "Giá",
+        "description": "Mô tả",
+        "in_stock": "Còn hàng",
+        "out_of_stock": "Hết hàng",
+        "loading": "Đang tải..."
+    },
+    "product": {
+        "details": "Chi tiết sản phẩm",
+        "related": "Sản phẩm liên quan",
+        "specifications": "Thông số kỹ thuật"
+    },
+    "cart": {
+        "title": "Giỏ hàng",
+        "empty": "Giỏ hàng trống",
+        "checkout": "Thanh toán",
+        "continue_shopping": "Tiếp tục mua sắm",
+        "remove": "Xóa",
+        "total": "Tổng cộng"
+    },
+    "auth": {
+        "login": "Đăng nhập",
+        "register": "Đăng ký",
+        "logout": "Đăng xuất",
+        "forgot_password": "Quên mật khẩu"
+    },
+    "validation": {
+        "required": "Trường này là bắt buộc",
+        "email": "Email không hợp lệ",
+        "min_length": "Phải có ít nhất {{value}} ký tự",
+        "max_length": "Không được vượt quá {{value}} ký tự",
+        "password_mismatch": "Mật khẩu không khớp",
+        "min_age": "Bạn phải đủ {{value}} tuổi để đăng ký"
+    }
+}

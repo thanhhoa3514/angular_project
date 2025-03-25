@@ -1,0 +1,41 @@
+{
+    "common": {
+        "add_to_cart": "Add to Cart",
+        "buy_now": "Buy Now",
+        "quantity": "Quantity",
+        "size": "Size",
+        "color": "Color",
+        "price": "Price",
+        "description": "Description",
+        "in_stock": "In Stock",
+        "out_of_stock": "Out of Stock",
+        "loading": "Loading..."
+    },
+    "product": {
+        "details": "Product Details",
+        "related": "Related Products",
+        "specifications": "Specifications"
+    },
+    "cart": {
+        "title": "Shopping Cart",
+        "empty": "Your cart is empty",
+        "checkout": "Checkout",
+        "continue_shopping": "Continue Shopping",
+        "remove": "Remove",
+        "total": "Total"
+    },
+    "auth": {
+        "login": "Login",
+        "register": "Register",
+        "logout": "Logout",
+        "forgot_password": "Forgot Password"
+    },
+    "validation": {
+        "required": "This field is required",
+        "email": "Invalid email address",
+        "min_length": "Must be at least {{value}} characters",
+        "max_length": "Cannot exceed {{value}} characters",
+        "password_mismatch": "Passwords do not match",
+        "min_age": "You must be at least {{value}} years old to register"
+    }
+}

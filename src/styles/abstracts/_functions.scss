@@ -1,0 +1,52 @@
+// Calculate rem from pixels
+@function rem($pixels, $context: 16) {
+    @return ($pixels / $context) * 1rem;
+}
+
+// Calculate em from pixels
+@function em($pixels, $context: 16) {
+    @return ($pixels / $context) * 1em;
+}
+
+// Get color from palette with opacity
+@function color-with-opacity($color, $opacity) {
+    @return rgba($color, $opacity);
+}
+
+// Get contrasting text color
+@function contrast-color($color) {
+    $luminance: (
+        0.299 * red($color) + 0.587 * green($color) + 0.114 * blue($color)) / 255;
+    @return if($luminance > 0.5, $black, $white
+);
+}
+
+// Get spacing value
+@function spacing($key) {
+    $spacings: (
+        'xs': $spacing-xs,
+        'sm': $spacing-sm,
+        'md': $spacing-md,
+        'lg': $spacing-lg,
+        'xl': $spacing-xl,
+        '2xl': $spacing-2xl,
+        '3xl': $spacing-3xl
+    );
+
+@return map-get($spacings, $key);
+}
+
+// Calculate rem from pixels
+@function rem($pixels, $context: 16) {
+    @return ($pixels / $context) * 1rem;
+}
+
+// Calculate em from pixels
+@function em($pixels, $context: 16) {
+    @return ($pixels / $context) * 1em;
+}
+
+// Get color from palette with opacity
+@function color-with-opacity($color, $opacity) {
+    @return rgba($color, $opacity);
+}

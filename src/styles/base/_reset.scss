@@ -1,0 +1,71 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    font-family: $font-family-base;
+    font-size: $font-size-base;
+    line-height: 1.5;
+    color: $text-color;
+    background-color: $background-color;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-top: 0;
+    margin-bottom: $spacing-md;
+    font-weight: $font-weight-bold;
+    line-height: 1.2;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: $spacing-md;
+}
+
+a {
+    color: $primary-color;
+    text-decoration: none;
+    transition: $transition;
+
+    &:hover {
+        color: darken($primary-color, 10%);
+    }
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+ul,
+ol {
+    padding-left: $spacing-lg;
+    margin-top: 0;
+    margin-bottom: $spacing-md;
+}

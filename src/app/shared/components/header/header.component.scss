@@ -1,4 +1,5 @@
-@import '../../../../styles/variables.scss';
+@import '../../../../styles/abstracts/variables';
+@import '../../../../styles/abstracts/mixins';
 
 :host {
   display: block;

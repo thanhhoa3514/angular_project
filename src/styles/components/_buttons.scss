@@ -1,0 +1,108 @@
+// @import 'components/buttons';
+
+// Primary button
+.btn {
+  display: inline-block;
+  background-color: $primary-color;
+  color: $white;
+  padding: $spacing-sm $spacing-lg;
+  border-radius: $border-radius;
+  font-weight: $font-weight-medium;
+  border: none;
+  cursor: pointer;
+  transition: $transition;
+  text-align: center;
+  
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.3);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// Button variants
+.btn-primary {
+  background-color: $primary-color;
+  color: $white;
+  
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+}
+
+.btn-secondary {
+  background-color: $secondary-color;
+  color: $white;
+  
+  &:hover {
+    background-color: darken($secondary-color, 10%);
+  }
+}
+
+.btn-success {
+  background-color: $success;
+  color: $white;
+  
+  &:hover {
+    background-color: darken($success, 10%);
+  }
+}
+
+.btn-danger {
+  background-color: $error;
+  color: $white;
+  
+  &:hover {
+    background-color: darken($error, 10%);
+  }
+}
+
+// Button sizes
+.btn-sm {
+  font-size: $font-size-sm;
+  padding: $spacing-xs $spacing-sm;
+}
+
+.btn-lg {
+  font-size: $font-size-lg;
+  padding: $spacing-md $spacing-xl;
+}
+
+// Button styles
+.btn-outline-primary {
+  background-color: transparent;
+  color: $primary-color;
+  border: $border-width solid $primary-color;
+  
+  &:hover {
+    background-color: $primary-color;
+    color: $white;
+  }
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  padding: 0;
+  color: $primary-color;
+  text-decoration: underline;
+  
+  &:hover {
+    color: darken($primary-color, 10%);
+    text-decoration: underline;
+  }
+}
+
+// Block button
+.btn-block {
+  display: block;
+  width: 100%;
+}

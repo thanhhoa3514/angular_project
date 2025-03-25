@@ -1,0 +1,108 @@
+// Headings
+h1 {
+    font-size: $font-size-4xl;
+
+    @include respond-to(md) {
+        font-size: $font-size-4xl * 1.2;
+    }
+}
+
+h2 {
+    font-size: $font-size-3xl;
+
+    @include respond-to(md) {
+        font-size: $font-size-3xl * 1.2;
+    }
+}
+
+h3 {
+    font-size: $font-size-2xl;
+}
+
+h4 {
+    font-size: $font-size-xl;
+}
+
+h5 {
+    font-size: $font-size-lg;
+}
+
+h6 {
+    font-size: $font-size-base;
+}
+
+// Paragraphs
+.lead {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-light;
+    line-height: 1.6;
+}
+
+.small {
+    font-size: $font-size-sm;
+}
+
+// Text utilities
+.text-primary {
+    color: $primary-color;
+}
+
+.text-secondary {
+    color: $secondary-color;
+}
+
+.text-accent {
+    color: $accent-color;
+}
+
+.text-light {
+    color: $text-light;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+.text-capitalize {
+    text-transform: capitalize;
+}
+
+.text-bold {
+    font-weight: $font-weight-bold;
+}
+
+.text-medium {
+    font-weight: $font-weight-medium;
+}
+
+.text-normal {
+    font-weight: $font-weight-normal;
+}
+
+.text-light-weight {
+    font-weight: $font-weight-light;
+}
+
+.text-truncate {
+    @include truncate(1);
+}
+
+.text-truncate-2 {
+    @include truncate(2);
+}
+
+.text-truncate-3 {
+    @include truncate(3);
+}

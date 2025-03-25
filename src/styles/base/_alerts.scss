@@ -1,0 +1,96 @@
+.alert {
+    position: relative;
+    padding: $spacing-md $spacing-lg;
+    margin-bottom: $spacing-lg;
+    border: $border-width solid transparent;
+    border-radius: $border-radius;
+
+    &__heading {
+        color: inherit;
+        margin-bottom: $spacing-xs;
+    }
+
+    &__close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: $spacing-sm $spacing-md;
+        color: inherit;
+        background: transparent;
+        border: 0;
+        appearance: none;
+        cursor: pointer;
+        opacity: 0.5;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    &--primary {
+        color: darken($primary-color, 30%);
+        background-color: lighten($primary-color, 35%);
+        border-color: lighten($primary-color, 30%);
+    }
+
+    &--secondary {
+        color: darken($secondary-color, 30%);
+        background-color: lighten($secondary-color, 35%);
+        border-color: lighten($secondary-color, 30%);
+    }
+
+    &--success {
+        color: darken($success, 30%);
+        background-color: lighten($success, 45%);
+        border-color: lighten($success, 40%);
+    }
+
+    &--danger {
+        color: darken($error, 30%);
+        background-color: lighten($error, 35%);
+        border-color: lighten($error, 30%);
+    }
+
+    &--warning {
+        color: darken($warning, 30%);
+        background-color: lighten($warning, 35%);
+        border-color: lighten($warning, 30%);
+    }
+
+    &--info {
+        color: darken($info, 30%);
+        background-color: lighten($info, 35%);
+        border-color: lighten($info, 30%);
+    }
+
+    &--light {
+        color: darken($white, 30%);
+        background-color: $white;
+        border-color: darken($white, 10%);
+    }
+
+    &--dark {
+        color: lighten($black, 30%);
+        background-color: lighten($black, 80%);
+        border-color: lighten($black, 70%);
+    }
+
+    &--dismissible {
+        padding-right: $spacing-3xl;
+    }
+
+    &--animated {
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    &--toast {
+        position: fixed;
+        top: $spacing-lg;
+        right: $spacing-lg;
+        z-index: $z-index-tooltip;
+        min-width: 250px;
+        max-width: 350px;
+        box-shadow: $shadow-md;
+        animation: slideInFromRight 0.3s ease-in-out;
+    }
+}
