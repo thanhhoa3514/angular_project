@@ -1,0 +1,104 @@
+<div class="product-list-page">
+    <div class="container">
+      <div class="page-header">
+        <h1 class="page-title">Sản phẩm</h1>
+        <div class="breadcrumb">
+          <a [routerLink]="['/']">Trang chủ</a>
+          <span class="separator">/</span>
+          <span class="current">Sản phẩm</span>
+        </div>
+      </div>
+  
+      <div class="product-filters">
+        <div class="filter-group">
+          <label>Sắp xếp theo:</label>
+          <select class="form-select">
+            <option value="popular">Phổ biến</option>
+            <option value="newest">Mới nhất</option>
+            <option value="price-asc">Giá: Thấp đến cao</option>
+            <option value="price-desc">Giá: Cao đến thấp</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label>Danh mục:</label>
+          <select class="form-select">
+            <option value="all">Tất cả</option>
+            <option value="shirts">Áo</option>
+            <option value="pants">Quần</option>
+            <option value="accessories">Phụ kiện</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label>Giá:</label>
+          <select class="form-select">
+            <option value="all">Tất cả</option>
+            <option value="0-300000">Dưới 300.000đ</option>
+            <option value="300000-500000">300.000đ - 500.000đ</option>
+            <option value="500000-1000000">500.000đ - 1.000.000đ</option>
+            <option value="1000000+">Trên 1.000.000đ</option>
+          </select>
+        </div>
+      </div>
+  
+      <!-- Loading Spinner -->
+      <div class="loading-container" *ngIf="loading">
+        <div class="spinner"></div>
+        <p>Đang tải sản phẩm...</p>
+      </div>
+  
+      <!-- Products Grid -->
+      <div class="products-grid" *ngIf="!loading">
+        <div class="product-card" *ngFor="let product of products">
+          <div class="product-badge" *ngIf="product.discount">-{{product.discount}}%</div>
+          <div class="product-img">
+            <img [src]="product.image" [alt]="product.name">
+            <div class="product-actions">
+              <button class="action-btn" title="Yêu thích"><i class="fas fa-heart"></i></button>
+              <button class="action-btn" title="Thêm vào giỏ"><i class="fas fa-shopping-cart"></i></button>
+              <button class="action-btn" title="Xem chi tiết" [routerLink]="['/products', product.id]">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">
+              <a [routerLink]="['/products', product.id]">{{product.name}}</a>
+            </h3>
+            <div class="product-category">{{product.category}}</div>
+            <div class="product-rating">
+              <i class="fas fa-star"></i>
+              <span>{{product.rating}}</span>
+            </div>
+            <div class="product-price">
+              <span class="current-price">{{product.price | currency:'VND':'symbol':'1.0-0'}}</span>
+              <span class="original-price" *ngIf="product.originalPrice">
+                {{product.originalPrice | currency:'VND':'symbol':'1.0-0'}}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Empty State -->
+      <div class="empty-state" *ngIf="!loading && products.length === 0">
+        <i class="fas fa-box-open"></i>
+        <h3>Không tìm thấy sản phẩm</h3>
+        <p>Không có sản phẩm nào phù hợp với tiêu chí tìm kiếm của bạn.</p>
+      </div>
+  
+      <!-- Pagination -->
+      <div class="pagination" *ngIf="!loading && products.length > 0">
+        <button class="pagination-btn" disabled>
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="pagination-btn active">1</button>
+        <button class="pagination-btn">2</button>
+        <button class="pagination-btn">3</button>
+        <button class="pagination-btn">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>

@@ -10,7 +10,7 @@ import {
   ShippingAddress,
   Product,
   ProductVariant
-} from './checkout.service';
+} from '../../core/services/checkout.service';
 
 @Component({
   selector: 'app-checkout',
