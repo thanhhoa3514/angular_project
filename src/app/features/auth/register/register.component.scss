@@ -1,4 +1,9 @@
-@import '../../styles/variables';
+@import '../../../../styles/abstracts/variables';
+
+// Định nghĩa các biến cụ thể cho component này nếu cần
+$register-primary-color: $primary-color;
+$register-secondary-color: $secondary-color;
+$register-border-radius: 16px;
 
 // Variables
 $primary-color: #10b981;
@@ -29,14 +34,14 @@ $border-radius: 16px;
   max-width: 100%;
   position: relative;
   background-color: $white;
-  border-radius: $border-radius;
+  border-radius: $register-border-radius;
   overflow: hidden;
   box-shadow: $shadow;
   z-index: 6;
   
   &__left {
     flex: 1;
-    background: linear-gradient(135deg, $primary-color, $secondary-color);
+    background: linear-gradient(135deg, $register-primary-color, $register-secondary-color);
     color: $white;
     padding: 2rem;
     display: flex;

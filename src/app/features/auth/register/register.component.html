@@ -3,8 +3,23 @@
   <div class="register-card">
     <div class="register-card__left">
       <div class="register-card__brand">
-        <i class="fas fa-store-alt"></i>
-        <h1>Shop App</h1>
+        <svg class="brand-logo" width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Hình nền -->
+          <rect x="5" y="10" width="40" height="40" rx="8" fill="#ffffff" />
+          
+          <!-- Icon shopping bag hiện đại -->
+          <path d="M15,25 L35,25 L33,40 L17,40 Z" fill="#10b981" />
+          <path d="M20,18 C20,15.5 22,13 25,13 C28,13 30,15.5 30,18 L30,25" stroke="#10b981" stroke-width="2" fill="none" />
+          
+          <!-- Text "LUXE SHOP" với font hiện đại -->
+          <text x="55" y="35" font-family="Arial, sans-serif" font-size="24" font-weight="800" letter-spacing="1" fill="#ffffff">LUXE SHOP</text>
+          
+          <!-- Đường kẻ trang trí -->
+          <line x1="55" y1="40" x2="155" y2="40" stroke="#ffffff" stroke-width="1" opacity="0.5" />
+          
+          <!-- Slogan -->
+          <text x="55" y="50" font-family="Arial, sans-serif" font-size="10" letter-spacing="2" fill="#ffffff" opacity="0.8">PREMIUM QUALITY</text>
+        </svg>
       </div>
       <div class="register-card__illustration">
         <!-- SVG Illustration -->
@@ -279,7 +294,7 @@
       </div>
       
       <div class="login-link">
-        <p>Đã có tài khoản? <a routerLink="/login">Đăng nhập ngay</a></p>
+        <p>Đã có tài khoản? <a routerLink="/auth/login">Đăng nhập ngay</a></p>
       </div>
     </div>
   </div>

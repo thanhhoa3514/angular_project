@@ -1,1 +1,151 @@
-<p>cart works!</p>
+<div class="cart-container">
+  <div class="cart-header">
+    <h1>Giỏ hàng của bạn</h1>
+    <p class="cart-subtitle">Xem lại và chỉnh sửa sản phẩm trước khi thanh toán</p>
+  </div>
+
+  <div class="cart-content">
+    <div class="cart-items">
+      <div class="cart-empty" *ngIf="!cartItems || cartItems.length === 0">
+        <div class="empty-illustration">
+          <svg width="150" height="150" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="100" r="80" fill="#f3f4f6" />
+            <path d="M60,80 L140,80 L130,140 L70,140 Z" fill="#e5e7eb" stroke="#d1d5db" stroke-width="2" />
+            <path d="M80,60 L80,80" stroke="#d1d5db" stroke-width="2" stroke-linecap="round" />
+            <path d="M120,60 L120,80" stroke="#d1d5db" stroke-width="2" stroke-linecap="round" />
+            <path d="M70,100 L130,100" stroke="#d1d5db" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 4" />
+            <path d="M75,120 L125,120" stroke="#d1d5db" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 4" />
+          </svg>
+        </div>
+        <h2>Giỏ hàng trống</h2>
+        <p>Bạn chưa thêm sản phẩm nào vào giỏ hàng</p>
+        <button class="btn-primary" routerLink="/products">Tiếp tục mua sắm</button>
+      </div>
+
+      <div class="cart-list" *ngIf="cartItems && cartItems.length > 0">
+        <div class="cart-list-header">
+          <span class="col-product">Sản phẩm</span>
+          <span class="col-price">Đơn giá</span>
+          <span class="col-quantity">Số lượng</span>
+          <span class="col-total">Thành tiền</span>
+          <span class="col-action"></span>
+        </div>
+
+        <div class="cart-item" *ngFor="let item of cartItems">
+          <div class="col-product">
+            <div class="product-image">
+              <img [src]="item.product.thumbnail" [alt]="item.product.name">
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">{{ item.product.name }}</h3>
+              <p class="product-variant" *ngIf="item.variant">
+                <span>{{ item.variant.color }}</span>
+                <span *ngIf="item.variant.size"> / {{ item.variant.size }}</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="col-price">
+            <span class="price">{{ item.product.price | currency:'VND':'symbol':'1.0-0' }}</span>
+            <span class="original-price" *ngIf="item.product.originalPrice">
+              {{ item.product.originalPrice | currency:'VND':'symbol':'1.0-0' }}
+            </span>
+          </div>
+
+          <div class="col-quantity">
+            <div class="quantity-control">
+              <button class="quantity-btn" (click)="decreaseQuantity(item)">
+                <i class="fas fa-minus"></i>
+              </button>
+              <input type="number" [value]="item.quantity" min="1" max="99" (change)="updateQuantity(item, $event)">
+              <button class="quantity-btn" (click)="increaseQuantity(item)">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="col-total">
+            {{ item.product.price * item.quantity | currency:'VND':'symbol':'1.0-0' }}
+          </div>
+
+          <div class="col-action">
+            <button class="btn-remove" (click)="removeItem(item)">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="cart-actions">
+          <button class="btn-outline" routerLink="/products">
+            <i class="fas fa-arrow-left"></i> Tiếp tục mua sắm
+          </button>
+          <button class="btn-danger" (click)="clearCart()">
+            <i class="fas fa-trash"></i> Xóa giỏ hàng
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="cart-summary" *ngIf="cartItems && cartItems.length > 0">
+      <div class="summary-card">
+        <h2 class="summary-title">Tóm tắt đơn hàng</h2>
+        
+        <div class="summary-row">
+          <span>Tạm tính</span>
+          <span>{{ subtotal | currency:'VND':'symbol':'1.0-0' }}</span>
+        </div>
+        
+        <div class="summary-row">
+          <span>Giảm giá</span>
+          <span>{{ discount | currency:'VND':'symbol':'1.0-0' }}</span>
+        </div>
+        
+        <div class="summary-row">
+          <span>Phí vận chuyển</span>
+          <span>{{ shipping | currency:'VND':'symbol':'1.0-0' }}</span>
+        </div>
+        
+        <div class="summary-divider"></div>
+        
+        <div class="summary-row total">
+          <span>Tổng cộng</span>
+          <span>{{ total | currency:'VND':'symbol':'1.0-0' }}</span>
+        </div>
+        
+        <div class="promo-code">
+          <div class="input-group">
+            <input type="text" placeholder="Nhập mã giảm giá" [(ngModel)]="promoCode">
+            <button class="btn-apply" (click)="applyPromoCode()">Áp dụng</button>
+          </div>
+        </div>
+        
+        <button class="btn-checkout" (click)="checkout()">
+          <span>Thanh toán ngay</span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+        
+        <div class="payment-methods">
+          <p>Chúng tôi chấp nhận:</p>
+          <div class="payment-icons">
+            <i class="fab fa-cc-visa"></i>
+            <i class="fab fa-cc-mastercard"></i>
+            <i class="fab fa-cc-paypal"></i>
+            <i class="fab fa-cc-apple-pay"></i>
+          </div>
+        </div>
+      </div>
+      
+      <div class="shipping-estimate">
+        <h3>Ước tính thời gian giao hàng</h3>
+        <p>
+          <i class="fas fa-truck"></i>
+          Giao hàng tiêu chuẩn: 3-5 ngày làm việc
+        </p>
+        <p>
+          <i class="fas fa-shipping-fast"></i>
+          Giao hàng nhanh: 1-2 ngày làm việc
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

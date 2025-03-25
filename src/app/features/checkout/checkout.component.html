@@ -1,0 +1,169 @@
+<div class="checkout-page">
+    <div class="container">
+        <!-- Checkout Header -->
+        <div class="checkout-header">
+            <h1 class="checkout-header__title">
+                <i class="fas fa-shopping-cart"></i> Thanh toán
+            </h1>
+            <div class="checkout-header__steps">
+                <div class="step completed">
+                    <span class="step__number">1</span>
+                    <span class="step__text">Giỏ hàng</span>
+                </div>
+                <div class="step active">
+                    <span class="step__number">2</span>
+                    <span class="step__text">Thanh toán</span>
+                </div>
+                <div class="step">
+                    <span class="step__number">3</span>
+                    <span class="step__text">Hoàn tất</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Checkout Details -->
+            <div class="col-lg-8">
+                <div class="checkout-details">
+                    <h2 class="section-title">Chi tiết đơn hàng</h2>
+
+                    <!-- Order Items -->
+                    <div class="order-items">
+                        <div class="order-item" *ngFor="let item of cartItems">
+                            <div class="order-item__image">
+                                <img [src]="item.product.thumbnail" [alt]="item.product.name">
+                            </div>
+                            <div class="order-item__details">
+                                <h3 class="order-item__title">{{ item.product.name }}</h3>
+                                <p class="order-item__variant" *ngIf="item.variant">
+                                    Size: {{ item.variant.size }} | Màu: {{ item.variant.color }}
+                                </p>
+                                <div class="order-item__quantity">
+                                    <button class="quantity-btn" (click)="updateQuantity(item, item.quantity - 1)"
+                                        [disabled]="item.quantity <= 1">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="number" 
+                                           [ngModel]="item.quantity" 
+                                           (ngModelChange)="updateQuantity(item, $event)"
+                                           min="1" 
+                                           max="99">
+                                    <button class="quantity-btn" (click)="updateQuantity(item, item.quantity + 1)"
+                                        [disabled]="item.quantity >= 99">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="order-item__price">
+                                <span class="current-price">{{ item.product.price | currency:'VND':'symbol':'1.0-0'
+                                    }}</span>
+                                <span class="original-price" *ngIf="item.product.originalPrice">
+                                    {{ item.product.originalPrice | currency:'VND':'symbol':'1.0-0' }}
+                                </span>
+                            </div>
+                            <button class="order-item__remove" (click)="removeItem(item)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Shipping Address -->
+                    <div class="shipping-address">
+                        <h2 class="section-title">Địa chỉ giao hàng</h2>
+                        <form class="shipping-form">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Họ và tên</label>
+                                        <input type="text" class="form-control" 
+                                               [ngClass]="{'is-invalid': formErrors['fullName']}"
+                                               placeholder="Nhập họ và tên"
+                                               [(ngModel)]="shippingAddress.fullName" 
+                                               name="fullName" required>
+                                        <div class="invalid-feedback" *ngIf="formErrors['fullName']">
+                                            {{ formErrors['fullName'] }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Số điện thoại</label>
+                                        <input type="tel" class="form-control" 
+                                               [ngClass]="{'is-invalid': formErrors['phone']}"
+                                               placeholder="Nhập số điện thoại"
+                                               [(ngModel)]="shippingAddress.phone" 
+                                               name="phone" required>
+                                        <div class="invalid-feedback" *ngIf="formErrors['phone']">
+                                            {{ formErrors['phone'] }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Địa chỉ email</label>
+                                        <input type="email" class="form-control" 
+                                               [ngClass]="{'is-invalid': formErrors['email']}"
+                                               placeholder="Nhập email"
+                                               [(ngModel)]="shippingAddress.email" 
+                                               name="email" required>
+                                        <div class="invalid-feedback" *ngIf="formErrors['email']">
+                                            {{ formErrors['email'] }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>Địa chỉ nhận hàng</label>
+                                        <textarea class="form-control" rows="3" 
+                                                  [ngClass]="{'is-invalid': formErrors['address']}"
+                                                  placeholder="Nhập địa chỉ chi tiết"
+                                                  [(ngModel)]="shippingAddress.address" 
+                                                  name="address" required></textarea>
+                                        <div class="invalid-feedback" *ngIf="formErrors['address']">
+                                            {{ formErrors['address'] }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="col-lg-4">
+                <div class="order-summary">
+                    <h2 class="section-title">Tổng đơn hàng</h2>
+                    <div class="summary-item">
+                        <span>Tạm tính</span>
+                        <span>{{ subtotal | currency:'VND':'symbol':'1.0-0' }}</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Phí vận chuyển</span>
+                        <span>{{ shipping | currency:'VND':'symbol':'1.0-0' }}</span>
+                    </div>
+                    <div class="summary-item discount" *ngIf="discount > 0">
+                        <span>Giảm giá</span>
+                        <span>-{{ discount | currency:'VND':'symbol':'1.0-0' }}</span>
+                    </div>
+                    <div class="summary-total">
+                        <span>Tổng cộng</span>
+                        <span>{{ total | currency:'VND':'symbol':'1.0-0' }}</span>
+                    </div>
+
+                    <!-- Coupon Code -->
+                    <div class="coupon-section">
+                        <input type="text" class="form-control" placeholder="Nhập mã giảm giá" [(ngModel)]="promoCode"
+                            name="promoCode">
+                        <button class="btn btn-outline-primary" (click)="applyPromoCode()">Áp dụng</button>
+                    </div>
+
+                    <!-- Checkout Button -->
+                    <button class="btn-checkout" (click)="placeOrder()">
+                        <i class="fas fa-lock"></i> Đặt hàng
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
