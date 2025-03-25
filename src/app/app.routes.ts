@@ -1,29 +1,23 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { DetailProductComponent } from './detail-product/detail-product.component';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
-import { AlertTestComponent } from './alert-test/alert-test.component';
 
 
 export const routes: Routes = [
   { 
     path: '', 
-    component: HomeComponent,
-    pathMatch: 'full' 
+    component: HomeComponent 
   },
-  { 
-    path: 'register', 
-    component: RegisterComponent,
-    title: 'Đăng ký tài khoản'
+  {
+    path: 'auth',
+    loadChildren: () => import('./features/auth/auth.routes').then(m => m.AUTH_ROUTES)
   },
-{
-  path:'login',
-  component:LoginComponent,
-  title:'Login'
-
-},
-{ path: 'alert-test', component: AlertTestComponent },
-  { path: 'products/:id', component: DetailProductComponent },
-  { path: '**', redirectTo: '' }
+  {
+    path: 'products',
+    loadChildren: () => import('./features/product/product.routes').then(m => m.PRODUCT_ROUTES)
+  },
+  {
+    path: 'orders',
+    loadChildren: () => import('./features/order/order.routes').then(m => m.ORDER_ROUTES)
+  },
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

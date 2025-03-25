@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet, Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError, RouterLink } from '@angular/router';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { AlertConfig, AlertService } from './services/alert.service';
-import { AlertComponent } from './alert/alert.component';
+import { HeaderComponent } from './shared/components/header/header.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
+import { AlertConfig, AlertService } from './core/services/alert.service';
+import { AlertComponent } from './shared/components/alert/alert.component';
 import { CommonModule } from '@angular/common';
 
 @Component({

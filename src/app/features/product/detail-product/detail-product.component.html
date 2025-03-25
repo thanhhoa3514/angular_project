@@ -15,19 +15,26 @@
         <!-- Breadcrumb -->
         <nav aria-label="breadcrumb" class="product-detail__breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i> Trang chủ</a></li>
-                <li class="breadcrumb-item"><a href="#">Sản phẩm</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Chi tiết sản phẩm</li>
+                <li class="breadcrumb-item"><a routerLink="/home"><i class="fas fa-home"></i> Trang chủ</a></li>
+                <li class="breadcrumb-item"><a routerLink="/products">Sản phẩm</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ product.name || 'Chi tiết sản phẩm' }}</li>
             </ol>
         </nav>
 
+        <!-- Loading Spinner -->
+        <div *ngIf="isLoading" class="loading-container">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Đang tải...</span>
+            </div>
+        </div>
+
         <!-- Product Detail Section -->
-        <div class="row">
+        <div class="row" *ngIf="!isLoading">
             <!-- Product Images -->
             <div class="col-md-6">
                 <div class="product-detail__images">
                     <div class="product-detail__main-image">
-                        <img src="https://via.placeholder.com/600x400" alt="Product Image" class="img-fluid">
+                        <img [src]="mainImage" [alt]="product.name" class="img-fluid">
                         
                         <!-- SVG Decoration Elements -->
                         <svg class="decoration-svg top-left" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -38,10 +45,12 @@
                         </svg>
                     </div>
                     <div class="product-detail__thumbnails">
-                        <img src="https://via.placeholder.com/150x100" alt="Thumbnail 1" class="thumbnail active">
-                        <img src="https://via.placeholder.com/150x100" alt="Thumbnail 2" class="thumbnail">
-                        <img src="https://via.placeholder.com/150x100" alt="Thumbnail 3" class="thumbnail">
-                        <img src="https://via.placeholder.com/150x100" alt="Thumbnail 4" class="thumbnail">
+                        <img *ngFor="let thumbnail of thumbnails; let i = index" 
+                             [src]="thumbnail" 
+                             [alt]="'Thumbnail ' + (i+1)" 
+                             class="thumbnail" 
+                             [class.active]="thumbnail === mainImage"
+                             (click)="setMainImage(thumbnail)">
                     </div>
                 </div>
             </div>
@@ -49,7 +58,7 @@
             <!-- Product Info -->
             <div class="col-md-6">
                 <div class="product-detail__info">
-                    <h1 class="product-detail__title">Tên Sản Phẩm</h1>
+                    <h1 class="product-detail__title">{{ product.name }}</h1>
                     <div class="product-detail__rating">
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
@@ -59,13 +68,14 @@
                         <span>(4.5/5) - 120 đánh giá</span>
                     </div>
                     <div class="product-detail__price">
-                        <span class="new-price">1,990,000₫</span>
-                        <span class="old-price">2,490,000₫</span>
-                        <span class="discount">-20%</span>
+                        <span class="new-price">{{ (product.discount_price || product.price).toLocaleString('vi-VN') }} VND</span>
+                        <span class="old-price" *ngIf="product.discount_price">{{ product.price.toLocaleString('vi-VN') }} VND</span>
+                        <span class="discount" *ngIf="product.discount_percentage">-{{ product.discount_percentage }}%</span>
                     </div>
                     <div class="product-detail__status">
                         <span class="status-label">Trạng thái:</span>
-                        <span class="in-stock"><i class="fas fa-check-circle"></i> Còn hàng</span>
+                        <span class="in-stock" *ngIf="product.quantity > 0"><i class="fas fa-check-circle"></i> Còn hàng</span>
+                        <span class="out-of-stock" *ngIf="product.quantity <= 0"><i class="fas fa-times-circle"></i> Hết hàng</span>
                     </div>
                     
                     <!-- Size Selection with SVG icon -->
@@ -78,10 +88,10 @@
                             </svg>
                         </div>
                         <div class="size-options">
-                            <button class="size-option">S</button>
-                            <button class="size-option active">M</button>
-                            <button class="size-option">L</button>
-                            <button class="size-option">XL</button>
+                            <button class="size-option" [class.active]="selectedSize === 'S'" (click)="selectSize('S')">S</button>
+                            <button class="size-option" [class.active]="selectedSize === 'M'" (click)="selectSize('M')">M</button>
+                            <button class="size-option" [class.active]="selectedSize === 'L'" (click)="selectSize('L')">L</button>
+                            <button class="size-option" [class.active]="selectedSize === 'XL'" (click)="selectSize('XL')">XL</button>
                         </div>
                     </div>
 
@@ -95,9 +105,18 @@
                             </svg>
                         </div>
                         <div class="color-options">
-                            <button class="color-option" style="background-color: #000000;"></button>
-                            <button class="color-option active" style="background-color: #0066cc;"></button>
-                            <button class="color-option" style="background-color: #cc0000;"></button>
+                            <button class="color-option" 
+                                    style="background-color: #000000;" 
+                                    [class.active]="selectedColor === '#000000'"
+                                    (click)="selectColor('#000000')"></button>
+                            <button class="color-option" 
+                                    style="background-color: #0066cc;" 
+                                    [class.active]="selectedColor === '#0066cc'"
+                                    (click)="selectColor('#0066cc')"></button>
+                            <button class="color-option" 
+                                    style="background-color: #cc0000;" 
+                                    [class.active]="selectedColor === '#cc0000'"
+                                    (click)="selectColor('#cc0000')"></button>
                         </div>
                     </div>
 
@@ -111,15 +130,19 @@
                             </svg>
                         </div>
                         <div class="quantity-selector">
-                            <button class="quantity-btn minus"><i class="fas fa-minus"></i></button>
-                            <input type="number" value="1" min="1" class="quantity-input">
-                            <button class="quantity-btn plus"><i class="fas fa-plus"></i></button>
+                            <button class="quantity-btn minus" (click)="changeQuantity(-1)" [disabled]="quantity <= 1">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <input type="number" [(ngModel)]="quantity" min="1" [max]="product.quantity" class="quantity-input">
+                            <button class="quantity-btn plus" (click)="changeQuantity(1)" [disabled]="quantity >= product.quantity">
+                                <i class="fas fa-plus"></i>
+                            </button>
                         </div>
                     </div>
 
                     <!-- Action Buttons -->
                     <div class="product-detail__actions">
-                        <button class="btn-add-cart">
+                        <button class="btn-add-cart" (click)="addToCart()" [disabled]="product.quantity <= 0">
                             <svg class="action-icon" viewBox="0 0 24 24" width="24" height="24">
                                 <circle cx="9" cy="21" r="2" fill="#ffffff"/>
                                 <circle cx="20" cy="21" r="2" fill="#ffffff"/>
@@ -127,7 +150,7 @@
                             </svg>
                             Thêm vào giỏ hàng
                         </button>
-                        <button class="btn-buy-now">
+                        <button class="btn-buy-now" (click)="buyNow()" [disabled]="product.quantity <= 0">
                             <svg class="action-icon" viewBox="0 0 24 24" width="24" height="24">
                                 <path d="M13,2 L21,7 L13,12 L13,2 Z" fill="#ffffff"/>
                                 <path d="M3,12 L21,12 M21,12 L15,7 M21,12 L15,17" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
@@ -140,7 +163,7 @@
         </div>
 
         <!-- Product Description with SVG decoration -->
-        <div class="product-detail__description">
+        <div class="product-detail__description" *ngIf="!isLoading">
             <div class="description-header">
                 <h2>Mô tả sản phẩm</h2>
                 <svg class="description-icon" viewBox="0 0 24 24" width="32" height="32">
@@ -149,35 +172,21 @@
                 </svg>
             </div>
             <div class="description-content">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p>{{ product.description }}</p>
                 <ul>
-                    <li>
+                    <li *ngFor="let feature of product.features">
                         <svg class="check-icon" viewBox="0 0 24 24" width="16" height="16">
                             <circle cx="12" cy="12" r="11" fill="#dcfce7" stroke="#10b981" stroke-width="1"/>
                             <path d="M7,13 L10,16 L17,9" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        Chất liệu cao cấp
-                    </li>
-                    <li>
-                        <svg class="check-icon" viewBox="0 0 24 24" width="16" height="16">
-                            <circle cx="12" cy="12" r="11" fill="#dcfce7" stroke="#10b981" stroke-width="1"/>
-                            <path d="M7,13 L10,16 L17,9" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        Thiết kế hiện đại
-                    </li>
-                    <li>
-                        <svg class="check-icon" viewBox="0 0 24 24" width="16" height="16">
-                            <circle cx="12" cy="12" r="11" fill="#dcfce7" stroke="#10b981" stroke-width="1"/>
-                            <path d="M7,13 L10,16 L17,9" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        Bảo hành 12 tháng
+                        {{ feature }}
                     </li>
                 </ul>
             </div>
         </div>
         
         <!-- Shopping Experience SVG Illustration -->
-        <div class="shopping-experience">
+        <div class="shopping-experience" *ngIf="!isLoading">
             <h3 class="experience-title">Trải nghiệm mua sắm</h3>
             <div class="experience-illustration">
                 <svg class="shopping-svg" viewBox="0 0 500 250" xmlns="http://www.w3.org/2000/svg">

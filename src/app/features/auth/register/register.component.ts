@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
-import {  UserRegistration } from '../services/auth.service';
+import {  UserRegistration } from '../../../core/services/auth.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
-import { RegisterService } from '../services/register.service';
-import { ValidationService } from '../validation/register.validation';
-import { AlertService } from '../services/alert.service';
+import { RegisterService } from '../../../core/services/register.service';
+import { ValidationService } from '../../../shared/utils/validation/register.validation';
+import { AlertService } from '../../../core/services/alert.service';
 
 @Component({
   selector: 'app-register',
