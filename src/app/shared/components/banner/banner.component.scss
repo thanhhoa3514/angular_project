@@ -1,0 +1,111 @@
+.banner-section {
+  margin-top: 64px; /* Space for fixed header */
+  width: 100%;
+  
+  ::ng-deep .ant-carousel {
+    .slick-slider {
+      height: 500px;
+      
+      @media (max-width: 768px) {
+        height: 400px;
+      }
+      
+      @media (max-width: 576px) {
+        height: 300px;
+      }
+    }
+    
+    .slick-dots {
+      bottom: 20px;
+      
+      li {
+        button {
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.7);
+        }
+        
+        &.slick-active button {
+          background: #fff;
+        }
+      }
+    }
+  }
+  
+  .banner-slide {
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to right, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
+    }
+  }
+  
+  .banner-content {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    color: #fff;
+    max-width: 500px;
+    z-index: 1;
+    
+    @media (max-width: 768px) {
+      left: 5%;
+      max-width: 80%;
+    }
+  }
+  
+  .banner-title {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    line-height: 1.2;
+    
+    @media (max-width: 768px) {
+      font-size: 36px;
+    }
+    
+    @media (max-width: 576px) {
+      font-size: 28px;
+    }
+  }
+  
+  .banner-subtitle {
+    font-size: 20px;
+    margin-bottom: 24px;
+    line-height: 1.4;
+    
+    @media (max-width: 768px) {
+      font-size: 18px;
+    }
+    
+    @media (max-width: 576px) {
+      font-size: 16px;
+    }
+  }
+  
+  .banner-button {
+    padding: 0 32px;
+    height: 48px;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    
+    @media (max-width: 576px) {
+      padding: 0 24px;
+      height: 40px;
+      font-size: 14px;
+    }
+  }
+} 

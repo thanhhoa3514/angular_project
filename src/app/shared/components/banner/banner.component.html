@@ -1,0 +1,13 @@
+<section class="banner-section">
+  <nz-carousel [nzEffect]="effect" [nzAutoPlay]="carouselOptions.autoPlay" [nzAutoPlaySpeed]="carouselOptions.autoPlaySpeed" [nzDots]="carouselOptions.dots">
+    <div nz-carousel-content *ngFor="let banner of banners" class="banner-slide" [ngStyle]="{'background-image': 'url(' + banner.image + ')'}">
+      <div class="banner-content">
+        <h2 class="banner-title">{{ banner.title }}</h2>
+        <p class="banner-subtitle">{{ banner.subtitle }}</p>
+        <a [routerLink]="banner.buttonLink" nz-button nzType="primary" nzSize="large" class="banner-button">
+          {{ banner.buttonText }}
+        </a>
+      </div>
+    </div>
+  </nz-carousel>
+</section> 
