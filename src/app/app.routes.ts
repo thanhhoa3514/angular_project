@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-
+import { authGuard } from './core/guards/auth.guard';
+import { OAuthCallbackComponent } from './features/auth/oauth-callback/oauth-callback.component';
 
 export const routes: Routes = [
-  { 
-    path: '', 
-    component: HomeComponent 
+  {
+    path: '',
+    loadChildren: () => import('./features/home/home.routes').then(m => m.HOME_ROUTES)
   },
   {
     path: 'auth',
@@ -19,10 +19,19 @@ export const routes: Routes = [
     path: 'cart', 
     loadChildren: () => import('./features/cart/cart.routes').then(m => m.CART_ROUTES) 
   },
-
   {
     path: 'orders',
-    loadChildren: () => import('./features/order/order.routes').then(m => m.ORDER_ROUTES)
+    loadChildren: () => import('./features/order/order.routes').then(m => m.ORDER_ROUTES),
+    canActivate: [authGuard]
+  },
+  {
+    path:'user-profile',
+    loadChildren: () => import('./features/user-profile/user-profile.route').then(m => m.USER_PROFILE_ROUTES),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'oauth/callback',
+    component: OAuthCallbackComponent
   },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
