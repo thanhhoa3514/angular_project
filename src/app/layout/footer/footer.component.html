@@ -1,0 +1,92 @@
+<footer class="footer">
+  <div class="container">
+    <div nz-row [nzGutter]="[48, 32]">
+      <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6" [nzLg]="6">
+        <div class="footer-section">
+          <div class="footer-logo">
+            <img src="assets/images/logo.png" alt="ShopApp Logo" />
+            <span class="logo-text">ShopApp</span>
+          </div>
+          <p class="footer-description">
+            ShopApp - Nơi mua sắm trực tuyến đáng tin cậy với hàng ngàn sản phẩm chất lượng từ các thương hiệu hàng đầu.
+          </p>
+          <div class="social-links">
+            <a *ngFor="let social of socialLinks" [href]="social.url" target="_blank" class="social-link" [attr.aria-label]="social.name">
+              <span nz-icon [nzType]="social.icon" nzTheme="fill"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6" [nzLg]="6">
+        <div class="footer-section">
+          <h3 class="footer-title">Thông tin</h3>
+          <ul class="footer-links">
+            <li><a routerLink="/about">Giới thiệu</a></li>
+            <li><a routerLink="/contact">Liên hệ</a></li>
+            <li><a routerLink="/blog">Blog</a></li>
+            <li><a routerLink="/faqs">FAQs</a></li>
+            <li><a routerLink="/privacy-policy">Chính sách bảo mật</a></li>
+            <li><a routerLink="/terms-of-service">Điều khoản dịch vụ</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6" [nzLg]="6">
+        <div class="footer-section">
+          <h3 class="footer-title">Dịch vụ khách hàng</h3>
+          <ul class="footer-links">
+            <li><a routerLink="/my-account">Tài khoản của tôi</a></li>
+            <li><a routerLink="/cart">Giỏ hàng</a></li>
+            <li><a routerLink="/wishlist">Danh sách yêu thích</a></li>
+            <li><a routerLink="/track-order">Theo dõi đơn hàng</a></li>
+            <li><a routerLink="/shipping-policy">Chính sách vận chuyển</a></li>
+            <li><a routerLink="/return-policy">Chính sách đổi trả</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6" [nzLg]="6">
+        <div class="footer-section">
+          <h3 class="footer-title">Đăng ký nhận tin</h3>
+          <p class="newsletter-description">
+            Đăng ký để nhận thông tin về sản phẩm mới và các ưu đãi đặc biệt.
+          </p>
+          <div class="newsletter-form">
+            <nz-input-group [nzSuffix]="suffixButton">
+              <input type="email" nz-input placeholder="Email của bạn" [(ngModel)]="emailSubscription" />
+            </nz-input-group>
+            <ng-template #suffixButton>
+              <button nz-button nzType="primary" (click)="subscribeNewsletter()">Đăng ký</button>
+            </ng-template>
+          </div>
+          <div class="contact-info">
+            <p>
+              <span nz-icon nzType="phone" nzTheme="outline"></span>
+              <span>+84 123 456 789</span>
+            </p>
+            <p>
+              <span nz-icon nzType="mail" nzTheme="outline"></span>
+              <span>support&#64;shopapp.com</span>
+            </p>
+            <p>
+              <span nz-icon nzType="environment" nzTheme="outline"></span>
+              <span>123 Đường ABC, Quận 1, TP. Hồ Chí Minh</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <nz-divider></nz-divider>
+    
+    <div class="footer-bottom">
+      <div class="copyright">
+        <p>&copy; {{ currentYear }} ShopApp. Tất cả các quyền được bảo lưu.</p>
+      </div>
+      <div class="payment-methods">
+        <img src="assets/images/payment-methods.png" alt="Phương thức thanh toán" />
+      </div>
+    </div>
+  </div>
+</footer> 
