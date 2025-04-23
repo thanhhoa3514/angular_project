@@ -1,0 +1,158 @@
+<app-header></app-header>
+
+<main>
+  <!-- Hero section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1>Mua sắm trực tuyến<br><span>tại ShopApp</span></h1>
+      <p>Khám phá hàng ngàn sản phẩm chất lượng với giá tốt nhất</p>
+      <div class="hero-buttons">
+        <a routerLink="/products" nz-button nzType="primary" nzSize="large">Khám phá ngay</a>
+        <a routerLink="/products/new" nz-button nzSize="large">Sản phẩm mới</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="assets/images/undraw_online-shopping_hgf6.svg" alt="Shopping online" />
+    </div>
+  </section>
+
+  <!-- Features section -->
+  <section class="features-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Tại sao chọn ShopApp?</h2>
+        <p>Chúng tôi luôn nỗ lực mang đến trải nghiệm mua sắm tốt nhất cho bạn</p>
+      </div>
+      
+      <div nz-row [nzGutter]="[32, 32]">
+        <div *ngFor="let feature of features" nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="6">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <img [src]="feature.image" [alt]="feature.title">
+            </div>
+            <h3>{{ feature.title }}</h3>
+            <p>{{ feature.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Shopping Process Section -->
+  <section class="process-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Quy trình mua hàng đơn giản</h2>
+        <p>Chỉ với 4 bước đơn giản để sở hữu sản phẩm yêu thích</p>
+      </div>
+      
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Tìm kiếm sản phẩm</h3>
+            <p>Tìm sản phẩm yêu thích qua bộ tìm kiếm hoặc danh mục</p>
+          </div>
+        </div>
+        
+        <div class="process-step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Thêm vào giỏ hàng</h3>
+            <p>Chọn số lượng và thêm sản phẩm vào giỏ hàng của bạn</p>
+          </div>
+        </div>
+        
+        <div class="process-step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Thanh toán an toàn</h3>
+            <p>Lựa chọn phương thức thanh toán phù hợp nhất với bạn</p>
+          </div>
+        </div>
+        
+        <div class="process-step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Nhận hàng tại nhà</h3>
+            <p>Đơn hàng sẽ được giao đến tận nhà cho bạn</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="categories-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Danh mục sản phẩm</h2>
+        <p>Khám phá đa dạng danh mục sản phẩm tại ShopApp</p>
+      </div>
+      
+      <div class="categories-grid">
+        <a *ngFor="let category of categories" [routerLink]="category.path" class="category-item">
+          <span>{{ category.name }}</span>
+          <span nz-icon nzType="arrow-right" nzTheme="outline"></span>
+        </a>
+      </div>
+      
+      <div class="view-all-container">
+        <a routerLink="/products" nz-button nzType="primary">Xem tất cả sản phẩm</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial Section -->
+  <section class="testimonial-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Khách hàng nói gì về chúng tôi</h2>
+        <p>Sự hài lòng của khách hàng là niềm tự hào của ShopApp</p>
+      </div>
+      
+      <div class="testimonial-content">
+        <div class="testimonial-image">
+          <img src="assets/images/undraw_team-collaboration_phnf.svg" alt="Customer Reviews" />
+        </div>
+        
+        <div class="testimonial-quotes">
+          <div class="testimonial-quote">
+            <p>"Tôi rất hài lòng với trải nghiệm mua sắm tại ShopApp. Giao diện dễ sử dụng, sản phẩm đa dạng và chất lượng."</p>
+            <div class="quote-author">
+              <img src="assets/images/undraw_female-avatar_7t6k.svg" alt="Avatar" />
+              <div>
+                <h4>Nguyễn Thu Hà</h4>
+                <span>Khách hàng</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="testimonial-quote">
+            <p>"Dịch vụ giao hàng nhanh chóng, sản phẩm đúng như mô tả. Chắc chắn tôi sẽ quay lại mua sắm nhiều lần nữa."</p>
+            <div class="quote-author">
+              <img src="assets/images/undraw_male-avatar_zkzx.svg" alt="Avatar" />
+              <div>
+                <h4>Trần Văn Nam</h4>
+                <span>Khách hàng</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Sẵn sàng mua sắm cùng ShopApp?</h2>
+        <p>Hàng ngàn sản phẩm đang chờ đợi bạn khám phá</p>
+        <a routerLink="/products" nz-button nzType="primary" nzSize="large">Mua sắm ngay</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<app-footer></app-footer>
