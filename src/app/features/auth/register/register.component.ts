@@ -9,7 +9,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RegisterService } from '../../../core/services/register.service';
 import { ValidationService } from '../../../shared/utils/validation/register.validation';
 import { AlertService } from '../../../core/services/alert.service';
-
+import { AuthService } from '../../../core/services/auth.service';
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -29,7 +29,7 @@ import { AlertService } from '../../../core/services/alert.service';
 })
 export class RegisterComponent {
   constructor(
-    private registerService: RegisterService,
+    private authService: AuthService,
     private validationService: ValidationService,
     private router: Router,
     private alertService: AlertService
@@ -43,8 +43,8 @@ export class RegisterComponent {
     phone: '',
     password: '',
     confirmPassword: '',
-    dateOfBirth: new Date(),
-    agreeToTerms: false
+    dateOfBirth:'',
+    agreeToTerms: false  // Uncomment this line to include the required property
   };
 
   passwordStrength = {
@@ -55,7 +55,7 @@ export class RegisterComponent {
 
   ngOnInit(): void {
     // Kiểm tra xem các services đã được inject đúng chưa
-    console.log('RegisterService:', !!this.registerService);
+    console.log('RegisterService:', !!this.authService);
     console.log('ValidationService:', !!this.validationService);
   }
 
@@ -87,7 +87,7 @@ export class RegisterComponent {
   }
 
   validateAge(): boolean {
-    const result = this.validationService.validateAge(this.user.dateOfBirth);
+    const result = this.validationService.validateAge(this.user.dateOfBirth as string);
     this.dateOfBirthError = result.message;
     return result.valid;
   }
@@ -113,7 +113,7 @@ export class RegisterComponent {
     this.isLoading = true;
     this.errorMessage = '';
 
-    this.registerService.register(this.user).subscribe({
+    this.authService.register(this.user).subscribe({
       
       next: (response) => {
         console.log('Đăng ký thành công', response);
