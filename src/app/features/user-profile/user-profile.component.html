@@ -1,0 +1,308 @@
+<div class="container py-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h4>My Profile</h4>
+            <p class="mb-0">Manage your account information, addresses, orders and more</p>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <!-- Profile Menu -->
+                <div class="col-md-3 mb-4">
+                    <div class="list-group">
+                        <button 
+                            class="list-group-item list-group-item-action" 
+                            [class.active]="activeSection === 'personal-info'"
+                            (click)="setActiveSection('personal-info')">
+                            <i class="bi bi-person-circle me-2"></i> Personal Information
+                        </button>
+                        <button 
+                            class="list-group-item list-group-item-action"
+                            [class.active]="activeSection === 'addresses'"
+                            (click)="setActiveSection('addresses')">
+                            <i class="bi bi-geo-alt-fill me-2"></i> My Addresses
+                        </button>
+                        <button 
+                            class="list-group-item list-group-item-action"
+                            [class.active]="activeSection === 'orders'"
+                            (click)="setActiveSection('orders')">
+                            <i class="bi bi-box-seam me-2"></i> Order History
+                        </button>
+                        <button 
+                            class="list-group-item list-group-item-action"
+                            [class.active]="activeSection === 'wishlist'"
+                            (click)="setActiveSection('wishlist')">
+                            <i class="bi bi-heart-fill me-2"></i> My Wishlist
+                        </button>
+                        <button 
+                            class="list-group-item list-group-item-action"
+                            [class.active]="activeSection === 'password'"
+                            (click)="setActiveSection('password')">
+                            <i class="bi bi-key-fill me-2"></i> Change Password
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Profile Content -->
+                <div class="col-md-9">
+                    <!-- Personal Information Section -->
+                    <div *ngIf="activeSection === 'personal-info'" class="fade-in">
+                        <h5 class="mb-4">Personal Information</h5>
+                        <div class="d-flex align-items-center mb-4">
+                            <img [src]="user.avatar" alt="Profile Picture" class="rounded-circle me-4" style="width: 100px; height: 100px; object-fit: cover;">
+                            <div>
+                                <h4>{{ user.firstName }} {{ user.lastName }}</h4>
+                                <p class="text-muted mb-0">{{ user.email }}</p>
+                            </div>
+                        </div>
+                        
+                        <form [formGroup]="personalInfoForm" (ngSubmit)="updatePersonalInfo()">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="firstName" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="firstName" formControlName="firstName">
+                                    <div *ngIf="personalInfoForm.get('firstName')?.invalid && personalInfoForm.get('firstName')?.touched" class="text-danger">
+                                        First name is required
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="lastName" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="lastName" formControlName="lastName">
+                                    <div *ngIf="personalInfoForm.get('lastName')?.invalid && personalInfoForm.get('lastName')?.touched" class="text-danger">
+                                        Last name is required
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" formControlName="email">
+                                    <div *ngIf="personalInfoForm.get('email')?.invalid && personalInfoForm.get('email')?.touched" class="text-danger">
+                                        Valid email is required
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="phone" class="form-label">Phone</label>
+                                    <input type="tel" class="form-control" id="phone" formControlName="phone">
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary" [disabled]="personalInfoForm.invalid || isSubmitting">
+                                <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
+                                Save Changes
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <!-- Addresses Section -->
+                    <div *ngIf="activeSection === 'addresses'" class="fade-in">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="mb-0">My Addresses</h5>
+                            <button class="btn btn-primary" (click)="openAddressModal()">
+                                <i class="bi bi-plus-circle me-2"></i> Add New Address
+                            </button>
+                        </div>
+                        
+                        <div *ngIf="addresses.length === 0" class="alert alert-info">
+                            You haven't added any addresses yet.
+                        </div>
+                        
+                        <div class="row">
+                            <div *ngFor="let address of addresses" class="col-md-6 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h6 class="d-flex align-items-center">
+                                            {{ address.name }}
+                                            <span *ngIf="address.isDefault" class="badge bg-primary ms-2">Default</span>
+                                        </h6>
+                                        <p class="mb-1">{{ address.street }}</p>
+                                        <p class="mb-1">{{ address.city }}, {{ address.state }} {{ address.zipCode }}</p>
+                                        <p class="mb-1">{{ address.country }}</p>
+                                        <p class="mb-0">{{ address.phone }}</p>
+                                    </div>
+                                    <div class="card-footer bg-white border-top-0">
+                                        <div class="btn-group w-100">
+                                            <button class="btn btn-sm btn-outline-secondary" (click)="editAddress(address)">Edit</button>
+                                            <button class="btn btn-sm btn-outline-secondary" (click)="deleteAddress(address)">Delete</button>
+                                            <button *ngIf="!address.isDefault" class="btn btn-sm btn-outline-primary" (click)="setDefaultAddress(address)">Set as Default</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Order History Section -->
+                    <div *ngIf="activeSection === 'orders'" class="fade-in">
+                        <h5 class="mb-4">Order History</h5>
+                        
+                        <div *ngIf="orders.length === 0" class="alert alert-info">
+                            You haven't placed any orders yet.
+                        </div>
+                        
+                        <div *ngFor="let order of orders" class="card mb-3">
+                            <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                                <span>Order #{{ order.id }}</span>
+                                <span class="badge" [ngClass]="{'bg-success': order.status === 'Delivered', 'bg-warning': order.status === 'Processing'}">
+                                    {{ order.status }}
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <small class="text-muted">Date</small>
+                                        <p>{{ order.date | date:'mediumDate' }}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <small class="text-muted">Items</small>
+                                        <p>{{ order.items }}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <small class="text-muted">Total</small>
+                                        <p>${{ order.total.toFixed(2) }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-white border-top-0">
+                                <button class="btn btn-sm btn-outline-primary">View Order Details</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Wishlist Section -->
+                    <div *ngIf="activeSection === 'wishlist'" class="fade-in">
+                        <h5 class="mb-4">My Wishlist</h5>
+                        
+                        <div *ngIf="wishlist.length === 0" class="alert alert-info">
+                            Your wishlist is empty.
+                        </div>
+                        
+                        <div class="row">
+                            <div *ngFor="let item of wishlist" class="col-md-6 mb-3">
+                                <div class="card h-100">
+                                    <div class="row g-0">
+                                        <div class="col-4">
+                                            <img [src]="item.image" class="img-fluid rounded-start h-100" style="object-fit: cover;" [alt]="item.name">
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="card-body">
+                                                <h6 class="card-title">{{ item.name }}</h6>
+                                                <p class="card-text text-primary">${{ item.price.toFixed(2) }}</p>
+                                                <p class="card-text">
+                                                    <small *ngIf="item.inStock" class="text-success">In Stock</small>
+                                                    <small *ngIf="!item.inStock" class="text-danger">Out of Stock</small>
+                                                </p>
+                                                <div class="btn-group">
+                                                    <button class="btn btn-sm btn-outline-primary" [disabled]="!item.inStock">Add to Cart</button>
+                                                    <button class="btn btn-sm btn-outline-danger" (click)="removeFromWishlist(item)">Remove</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Change Password Section -->
+                    <div *ngIf="activeSection === 'password'" class="fade-in">
+                        <h5 class="mb-4">Change Password</h5>
+                        
+                        <form [formGroup]="passwordForm" (ngSubmit)="updatePassword()">
+                            <div class="mb-3">
+                                <label for="currentPassword" class="form-label">Current Password</label>
+                                <input type="password" class="form-control" id="currentPassword" formControlName="currentPassword">
+                                <div *ngIf="passwordForm.get('currentPassword')?.invalid && passwordForm.get('currentPassword')?.touched" class="text-danger">
+                                    Current password is required
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="newPassword" class="form-label">New Password</label>
+                                <input type="password" class="form-control" id="newPassword" formControlName="newPassword">
+                                <div *ngIf="passwordForm.get('newPassword')?.invalid && passwordForm.get('newPassword')?.touched" class="text-danger">
+                                    Password must be at least 8 characters
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                                <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword">
+                                <div *ngIf="passwordForm.get('confirmPassword')?.invalid && passwordForm.get('confirmPassword')?.touched" class="text-danger">
+                                    Please confirm your password
+                                </div>
+                                <div *ngIf="passwordForm.hasError('passwordMismatch') && passwordForm.get('confirmPassword')?.touched" class="text-danger">
+                                    Passwords don't match
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary" [disabled]="passwordForm.invalid || isSubmitting">
+                                <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
+                                Update Password
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Address Modal Template -->
+<ng-template #addressModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">{{ editingAddress ? 'Edit Address' : 'Add New Address' }}</h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="addressForm">
+            <div class="mb-3">
+                <label for="addressName" class="form-label">Address Name</label>
+                <input type="text" class="form-control" id="addressName" formControlName="name" placeholder="Home, Work, etc.">
+            </div>
+            
+            <div class="mb-3">
+                <label for="street" class="form-label">Street Address</label>
+                <input type="text" class="form-control" id="street" formControlName="street">
+            </div>
+            
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="city" class="form-label">City</label>
+                    <input type="text" class="form-control" id="city" formControlName="city">
+                </div>
+                <div class="col-md-6">
+                    <label for="state" class="form-label">State/Province</label>
+                    <input type="text" class="form-control" id="state" formControlName="state">
+                </div>
+            </div>
+            
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="zipCode" class="form-label">ZIP/Postal Code</label>
+                    <input type="text" class="form-control" id="zipCode" formControlName="zipCode">
+                </div>
+                <div class="col-md-6">
+                    <label for="country" class="form-label">Country</label>
+                    <input type="text" class="form-control" id="country" formControlName="country">
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone Number</label>
+                <input type="tel" class="form-control" id="phone" formControlName="phone">
+            </div>
+            
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="isDefault" formControlName="isDefault">
+                <label class="form-check-label" for="isDefault">
+                    Set as default address
+                </label>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="saveAddress()" [disabled]="addressForm.invalid">Save</button>
+    </div>
+</ng-template>
