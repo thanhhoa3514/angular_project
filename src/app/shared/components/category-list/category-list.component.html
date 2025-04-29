@@ -1,0 +1,27 @@
+<section class="category-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Danh mục sản phẩm</h2>
+      <p class="section-subtitle">Khám phá các sản phẩm theo danh mục yêu thích của bạn</p>
+    </div>
+    
+    <div nz-row [nzGutter]="[24, 24]">
+      <div *ngFor="let category of categories" nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8" [nzLg]="8" [nzXl]="8">
+        <a [routerLink]="['/products/category', category.slug]" class="category-card-link">
+          <nz-card class="category-card" [nzCover]="coverTemplate" [nzBorderless]="true" [nzHoverable]="true">
+            <ng-template #coverTemplate>
+              <div class="category-image-container">
+                <img [src]="category.image" [alt]="category.name" class="category-image" />
+                <div class="category-overlay">
+                  <span nz-icon [nzType]="category.icon" nzTheme="outline" class="category-icon"></span>
+                </div>
+              </div>
+            </ng-template>
+            <h3 class="category-name">{{ category.name }}</h3>
+            <p class="category-description">{{ category.description }}</p>
+          </nz-card>
+        </a>
+      </div>
+    </div>
+  </div>
+</section> 
