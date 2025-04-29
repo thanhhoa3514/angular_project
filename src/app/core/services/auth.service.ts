@@ -473,5 +473,115 @@ export class AuthService {
       role: decodedToken.role || ''
     };
   }
+
+  /**
+   * Generates an OTP for the given email and purpose
+   * @param email User's email address
+   * @param type Type of OTP (PASSWORD_RESET, REGISTRATION, TWO_FACTOR)
+   * @returns Observable with response
+   */
+  generateOTP(email: string, type: 'PASSWORD_RESET' | 'REGISTRATION' | 'TWO_FACTOR'): Observable<any> {
+    this.loadingSubject.next(true);
+    
+    return this.http.post(`${this.authApiUrl}/otp/generate`, {
+      email,
+      type
+    }, {
+      headers: { 'Content-Type': 'application/json' }
+    }).pipe(
+      catchError(this.handleError),
+      finalize(() => this.loadingSubject.next(false))
+    );
+  }
+  
+  /**
+   * Verifies an OTP
+   * @param email User's email address
+   * @param otp The OTP code to verify
+   * @param type Type of OTP (PASSWORD_RESET, REGISTRATION, TWO_FACTOR)
+   * @returns Observable with response
+   */
+  verifyOTP(email: string, otp: string, type: 'PASSWORD_RESET' | 'REGISTRATION' | 'TWO_FACTOR'): Observable<any> {
+    this.loadingSubject.next(true);
+    
+    return this.http.post(`${this.authApiUrl}/otp/verify`, {
+      email,
+      otp,
+      type
+    }, {
+      headers: { 'Content-Type': 'application/json' }
+    }).pipe(
+      catchError(this.handleError),
+      finalize(() => this.loadingSubject.next(false))
+    );
+  }
+  
+  /**
+   * Requests a password reset for the specified email address
+   * @param email The user's email address
+   * @returns Observable with the response
+   */
+  requestPasswordReset(email: string): Observable<any> {
+    this.loadingSubject.next(true);
+    
+    // Sử dụng API OTP để gửi mã xác thực
+    return this.generateOTP(email, 'PASSWORD_RESET');
+  }
+  
+  /**
+   * Verifies an OTP and returns a reset token
+   * @param email User's email address
+   * @param otp The OTP code to verify
+   * @returns Observable with response containing a reset token
+   */
+  verifyOTPAndGetResetToken(email: string, otp: string): Observable<any> {
+    this.loadingSubject.next(true);
+    
+    // Use the auth API endpoint with correct path structure
+    return this.http.post(`${environment.apiUrl}/auth/otp/verify`, {
+      email,
+      otp,
+      type: 'PASSWORD_RESET'
+    }, {
+      headers: { 'Content-Type': 'application/json' }
+    }).pipe(
+      tap(response => {
+        console.log('OTP verification response:', response);
+      }),
+      catchError(error => {
+        console.error('OTP verification error:', error);
+        return throwError(() => error);
+      }),
+      finalize(() => this.loadingSubject.next(false))
+    );
+  }
+  
+  /**
+   * Resets the user's password using a reset token
+   * @param resetToken The token received after OTP verification
+   * @param newPassword The new password
+   * @param confirmPassword The confirmation of the new password
+   * @returns Observable with the response
+   */
+  resetPasswordWithToken(resetToken: string, newPassword: string, confirmPassword: string): Observable<any> {
+    this.loadingSubject.next(true);
+    
+    return this.http.post(`${environment.apiUrl}/auth/otp/reset-password`, {
+      resetToken,
+      newPassword,
+      confirmPassword
+    }, {
+      headers: { 'Content-Type': 'application/json' }
+    }).pipe(
+      tap(response => {
+        console.log('Password reset response:', response);
+      }),
+      catchError(error => {
+        console.error('Password reset error:', error);
+        return throwError(() => error);
+      }),
+      finalize(() => this.loadingSubject.next(false))
+    );
+  }
 }
 
