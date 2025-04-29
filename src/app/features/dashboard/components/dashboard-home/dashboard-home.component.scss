@@ -1,0 +1,89 @@
+.dashboard-home {
+  padding: 1.5rem;
+}
+
+.dashboard-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.stats-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.stats-card {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  
+  .stats-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 152, 0, 0.1);
+    margin-right: 1rem;
+    
+    img {
+      width: 24px;
+      height: 24px;
+    }
+  }
+  
+  .stats-content {
+    flex: 1;
+  }
+  
+  .stats-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0 0 0.25rem 0;
+  }
+  
+  .stats-label {
+    font-size: 0.875rem;
+    color: #64748b;
+    margin: 0 0 0.5rem 0;
+  }
+  
+  .stats-change {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #64748b;
+    margin: 0;
+    
+    &.positive {
+      color: #22c55e;
+    }
+    
+    &.negative {
+      color: #ef4444;
+    }
+  }
+}
+
+.orders-section {
+  // The styling is mainly handled by the orders-table component
+}
+
+// Responsive
+@media (min-width: 1024px) {
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+} 

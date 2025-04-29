@@ -1,0 +1,53 @@
+<div class="dashboard-home">
+  <div class="dashboard-grid">
+    <div class="stats-section">
+      <div class="card stats-card">
+        <div class="stats-icon">
+          <img src="assets/images/9045398_thumbs_up_filled_icon.png" alt="Sales">
+        </div>
+        <div class="stats-content">
+          <h3 class="stats-value">$1,250.45</h3>
+          <p class="stats-label">Today's Sales</p>
+          <p class="stats-change positive">+15% from yesterday</p>
+        </div>
+      </div>
+      
+      <div class="card stats-card">
+        <div class="stats-icon">
+          <img src="assets/images/9044816_product_icon.png" alt="Orders">
+        </div>
+        <div class="stats-content">
+          <h3 class="stats-value">124</h3>
+          <p class="stats-label">New Orders</p>
+          <p class="stats-change positive">+8% from last week</p>
+        </div>
+      </div>
+      
+      <div class="card stats-card">
+        <div class="stats-icon">
+          <img src="assets/images/9054319_bx_category_icon.png" alt="Products">
+        </div>
+        <div class="stats-content">
+          <h3 class="stats-value">45</h3>
+          <p class="stats-label">Product Categories</p>
+          <p class="stats-change">+3 new this month</p>
+        </div>
+      </div>
+      
+      <div class="card stats-card">
+        <div class="stats-icon">
+          <img src="assets/images/9104272_dislike_down_unlike_bad_review_icon.png" alt="Refunds">
+        </div>
+        <div class="stats-content">
+          <h3 class="stats-value">$157.23</h3>
+          <p class="stats-label">Refunds (30 days)</p>
+          <p class="stats-change negative">+2.5% from last month</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="orders-section">
+      <app-orders-table [orders]="recentOrders"></app-orders-table>
+    </div>
+  </div>
+</div> 
