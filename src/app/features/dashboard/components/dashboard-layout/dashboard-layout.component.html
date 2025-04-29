@@ -1,0 +1,28 @@
+<div class="dashboard-layout">
+    <app-sidebar [collapsed]="sidebarCollapsed" (toggleSidebar)="onToggleSidebar($event)">
+    </app-sidebar>
+
+    <div class="dashboard-content" [class.sidebar-collapsed]="sidebarCollapsed">
+        <div class="top-bar">
+            <div class="search-box">
+                <input type="text" placeholder="Search..." />
+                <img src="assets/images/3844432_magnifier_search_zoom_icon.png" alt="Search" class="search-icon" />
+            </div>
+
+            <div class="top-bar-actions">
+                <button class="notification-btn">
+                    <img src="assets/images/8530564_bell_icon.png" alt="Notifications" />
+                    <span class="notification-indicator"></span>
+                </button>
+
+                <div class="welcome-user">
+                    <span>Welcome, Admin</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-wrapper">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
