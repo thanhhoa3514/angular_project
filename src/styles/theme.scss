@@ -1,0 +1,86 @@
+// Light Theme (Default)
+:root {
+  // Background colors
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --bg-tertiary: #f3f4f6;
+  
+  // Text colors
+  --text-primary: rgba(0, 0, 0, 0.85);
+  --text-secondary: rgba(0, 0, 0, 0.65);
+  --text-tertiary: rgba(0, 0, 0, 0.45);
+  
+  // Border colors
+  --border-color: #e5e7eb;
+  --border-color-light: #f0f0f0;
+  
+  // Accent colors
+  --primary-color: #1890ff;
+  --primary-color-rgb: 24, 144, 255;
+  --primary-color-hover: #40a9ff;
+  --primary-color-active: #096dd9;
+  --primary-color-outline: rgba(24, 144, 255, 0.2);
+  --success-color: #52c41a;
+  --success-color-hover: #73d13d;
+  --success-color-active: #389e0d;
+  --warning-color: #faad14;
+  --warning-color-hover: #ffc53d;
+  --warning-color-active: #d48806;
+  --error-color: #f5222d;
+  --error-color-hover: #ff4d4f;
+  --error-color-active: #cf1322;
+  
+  // Component specific
+  --header-bg: #ffffff;
+  --header-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  --card-bg: #ffffff;
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --dropdown-bg: #ffffff;
+  --dropdown-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08);
+  --button-shadow: 0 2px 6px rgba(24, 144, 255, 0.2);
+  
+  // Transition
+  --theme-transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+// Dark Theme
+.dark-theme {
+  // Background colors
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --bg-tertiary: #2c2c2c;
+  
+  // Text colors
+  --text-primary: rgba(255, 255, 255, 0.85);
+  --text-secondary: rgba(255, 255, 255, 0.65);
+  --text-tertiary: rgba(255, 255, 255, 0.45);
+  
+  // Border colors
+  --border-color: #3a3a3a;
+  --border-color-light: #2d2d2d;
+  
+  // Accent colors remain mostly the same for recognition
+  --primary-color: #1890ff;
+  --primary-color-rgb: 24, 144, 255;
+  --primary-color-hover: #40a9ff;
+  --primary-color-active: #096dd9;
+  --primary-color-outline: rgba(24, 144, 255, 0.2);
+  --success-color: #52c41a;
+  --success-color-hover: #73d13d;
+  --success-color-active: #389e0d;
+  --warning-color: #faad14;
+  --warning-color-hover: #ffc53d;
+  --warning-color-active: #d48806;
+  --error-color: #f5222d;
+  --error-color-hover: #ff4d4f;
+  --error-color-active: #cf1322;
+  
+  // Component specific
+  --header-bg: #ffffff;
+  --header-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  --card-bg: #000000;
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --dropdown-bg: #1e1e1e;
+  --dropdown-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.48), 0 6px 16px 0 rgba(0, 0, 0, 0.32);
+  --button-shadow: 0 2px 6px rgba(24, 144, 255, 0.3);
+} 

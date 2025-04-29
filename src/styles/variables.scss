@@ -1,12 +1,16 @@
 // Color Variables
-$primary-color: #4a6cf7;     // Xanh đậm
+$primary-color: #1890ff;
+$primary-color-rgb: 24, 144, 255;
+$primary-color-light: #40a9ff;
+$primary-color-dark: #096dd9;
 $secondary-color: #6a7c92;    // Đỏ cam
 $accent-color: #ff6b6b;       // Xanh dương
 $neutral-color: #ECF0F1;      // Xám nhạt
 $text-primary: #2C3E50;       // Màu chữ chính
 $text-secondary: #7F8C8D;     // Màu chữ phụ
-$success-color: #22c55e;      // Xanh lá
-$warning-color: #f59e0b;      // Vàng
+$success-color: #52c41a;
+$warning-color: #faad14;
+$error-color: #f5222d;
 $white: #FFFFFF;
 
 // Backgrounds
@@ -16,25 +20,25 @@ $bg-dark: #0f172a;
 $bg-gradient: linear-gradient(135deg, #4a6cf7 0%, #2447dc 100%);
 
 // Spacing
-$spacing-xs: 0.25rem;
-$spacing-sm: 0.5rem;
-$spacing-md: 1rem;
-$spacing-lg: 1.5rem;
-$spacing-xl: 2rem;
-$spacing-xxl: 3rem;
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+$spacing-xxl: 48px;
 
 // Breakpoints
-$breakpoint-sm: 576px;
-$breakpoint-md: 768px;
-$breakpoint-lg: 992px;
-$breakpoint-xl: 1200px;
-$breakpoint-2xl: 1400px;
+$screen-xs: 576px;
+$screen-sm: 768px;
+$screen-md: 992px;
+$screen-lg: 1200px;
+$screen-xl: 1600px;
 
 // Border Radius
-$border-radius: 12px;
-$border-radius-sm: 8px;
-$border-radius-lg: 16px;
-$border-radius-full: 50px;
+$border-radius-base: 4px;
+$border-radius-sm: 2px;
+$border-radius-lg: 8px;
+$border-radius-circle: 50%;
 
 // Box Shadow
 $shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.05);
@@ -59,22 +63,36 @@ $transition-slow: all 0.5s ease;
 
 // Typography
 $font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-$font-size-base: 1rem;
-$font-size-sm: 0.875rem;
-$font-size-lg: 1.125rem;
-$font-size-xl: 1.25rem;
+$font-size-base: 14px;
+$font-size-sm: 12px;
+$font-size-lg: 16px;
+$font-size-xl: 20px;
 $font-size-2xl: 1.5rem;
 $font-size-3xl: 1.875rem;
 $font-size-4xl: 2.25rem;
 $font-size-5xl: 3rem;
 $font-size-6xl: 3.75rem;
 
+// Text colors
+$text-color-primary: rgba(0, 0, 0, 0.85);
+$text-color-secondary: rgba(0, 0, 0, 0.65);
+$text-color-disabled: rgba(0, 0, 0, 0.25);
+
+// Border colors
+$border-color-base: #d9d9d9;
+$border-color-split: #f0f0f0;
+
+// Background colors
+$background-color-light: #f5f5f5;
+$background-color-base: #f0f0f0;
+
+// Animation
+$animation-duration-base: 0.2s;
+$animation-duration-slow: 0.3s;
+$animation-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+
 // Z-Index
-$z-index-dropdown: 1000;
-$z-index-sticky: 1020;
-$z-index-fixed: 1030;
-$z-index-modal-backdrop: 1040;
-$z-index-modal: 1050;
-$z-index-popover: 1060;
-$z-index-tooltip: 1070;
-$z-index-toast: 1050;
+$zindex-dropdown: 1050;
+$zindex-modal: 1060;
+$zindex-popover: 1070;
+$zindex-tooltip: 1080;
