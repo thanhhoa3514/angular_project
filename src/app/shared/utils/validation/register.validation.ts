@@ -72,36 +72,30 @@ export class ValidationService {
   }
 
   // Kiểm tra tuổi
-  validateAge(dateOfBirth: Date): { valid: boolean; message: string } {
+  // Update the validateAge method to handle string dates
+  validateAge(dateOfBirth: string): { valid: boolean; message: string } {
     if (!dateOfBirth) {
-      return { valid: false, message: 'Ngày sinh không được để trống' };
+      return { valid: false, message: 'Vui lòng chọn ngày sinh' };
     }
     
+    // Convert string to Date object for validation
     const birthDate = new Date(dateOfBirth);
     const today = new Date();
     
-    // Kiểm tra ngày có hợp lệ không
-    if (isNaN(birthDate.getTime())) {
-      return { valid: false, message: 'Ngày sinh không hợp lệ' };
-    }
-    
-    // Tính tuổi
+    // Calculate age
     let age = today.getFullYear() - birthDate.getFullYear();
     const monthDiff = today.getMonth() - birthDate.getMonth();
     
-    // Điều chỉnh tuổi nếu chưa đến sinh nhật trong năm nay
     if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
       age--;
     }
     
-    // Kiểm tra tuổi tối thiểu
-    if (age < this.MIN_AGE) {
-      return { valid: false, message: `Bạn phải đủ ${this.MIN_AGE} tuổi để đăng ký` };
+    if (age < 18) {
+      return { valid: false, message: 'Bạn phải đủ 18 tuổi để đăng ký' };
     }
     
-    // Kiểm tra tuổi tối đa
-    if (age > this.MAX_AGE) {
-      return { valid: false, message: `Tuổi không được vượt quá ${this.MAX_AGE}` };
+    if (age > 100) {
+      return { valid: false, message: 'Ngày sinh không hợp lệ' };
     }
     
     return { valid: true, message: '' };
