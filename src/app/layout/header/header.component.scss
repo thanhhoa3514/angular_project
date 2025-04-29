@@ -1,0 +1,489 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background-color: var(--header-bg);
+  box-shadow: var(--header-shadow);
+  z-index: 1000;
+  transition: var(--theme-transition);
+  
+  .header-container {
+    max-width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo {
+    flex-shrink: 0;
+    margin-right: 20px;
+    
+    a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      
+      img {
+        height: 40px;
+        margin-right: 12px;
+        transition: transform 0.3s ease;
+        
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+      
+      .logo-text {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--primary-color);
+        transition: var(--theme-transition);
+        letter-spacing: -0.5px;
+      }
+    }
+  }
+  
+  .main-nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    
+    ul {
+      border-bottom: none;
+      display: flex;
+      flex-wrap: nowrap;
+      
+      li {
+        font-weight: 500;
+        position: relative;
+        border-bottom: 2px solid transparent;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+        padding: 0 16px;
+        
+        &:hover, &.ant-menu-item-selected {
+          color: var(--primary-color);
+          border-bottom-color: var(--primary-color);
+        }
+        
+        &:after {
+          display: none;
+        }
+      }
+    }
+  }
+  
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-left: 20px;
+    flex-shrink: 0;
+    
+    .search-box {
+      width: 230px;
+      flex-shrink: 0;
+      
+      nz-input-group {
+        border-radius: 24px;
+        overflow: hidden;
+        border: 1px solid var(--border-color-light);
+        transition: all 0.3s ease;
+        
+        &:hover, &:focus-within {
+          border-color: var(--primary-color);
+          box-shadow: 0 0 0 2px rgba(var(--primary-color-rgb), 0.1);
+        }
+        
+        input {
+          padding: 8px 12px;
+          background-color: transparent;
+        }
+      }
+      
+      [nz-icon] {
+        cursor: pointer;
+        color: var(--text-tertiary);
+        transition: color 0.3s ease;
+        
+        &:hover {
+          color: var(--primary-color);
+        }
+      }
+    }
+    
+    .action-buttons {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-shrink: 0;
+      
+      .theme-toggle-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        border: none;
+        background-color: transparent;
+        color: var(--text-secondary);
+        cursor: pointer;
+        transition: var(--theme-transition);
+        padding: 0;
+        outline: none;
+        
+        &:hover {
+          background-color: var(--bg-tertiary);
+          color: var(--primary-color);
+          transform: rotate(15deg);
+        }
+        
+        [nz-icon] {
+          font-size: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+      
+      .cart-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-secondary);
+        transition: var(--theme-transition);
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        
+        [nz-icon] {
+          font-size: 20px;
+        }
+        
+        &:hover {
+          color: var(--primary-color);
+          background-color: var(--bg-tertiary);
+        }
+      }
+      
+      .login-btn {
+        min-width: 100px;
+        height: 36px;
+        border-radius: 18px;
+        font-weight: 500;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        
+        .login-icon {
+          margin-right: 8px;
+          font-size: 16px;
+        }
+        
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(var(--primary-color-rgb), 0.2);
+        }
+      }
+      
+      .user-menu-wrapper {
+        .user-dropdown {
+          display: block;
+          text-decoration: none;
+          
+          &:hover {
+            .user-info {
+              background-color: var(--bg-tertiary);
+              transform: translateY(-2px);
+            }
+          }
+        }
+        
+        .user-info {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 6px 12px;
+          border-radius: 24px;
+          background-color: var(--bg-tertiary);
+          transition: all 0.3s ease;
+          
+          nz-avatar {
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            
+            &:hover {
+              border-color: var(--primary-color);
+            }
+          }
+          
+          .user-name {
+            font-weight: 500;
+            color: var(--text-primary);
+            max-width: 120px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: var(--theme-transition);
+          }
+          
+          [nz-icon] {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            transition: var(--theme-transition);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Fix for ng-zorro icon display
+::ng-deep [nz-icon] {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+::ng-deep .ant-dropdown-menu {
+  padding: 8px 0;
+  background-color: var(--dropdown-bg);
+  transition: var(--theme-transition);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--dropdown-shadow);
+  
+  .ant-dropdown-menu-item {
+    padding: 10px 16px;
+    color: var(--text-primary);
+    transition: var(--theme-transition);
+    margin: 0 4px;
+    border-radius: 8px;
+    
+    &:hover {
+      background-color: var(--bg-tertiary);
+    }
+    
+    [nz-icon] {
+      margin-right: 12px;
+      color: var(--text-secondary);
+      transition: var(--theme-transition);
+    }
+  }
+  
+  .ant-dropdown-menu-item:active {
+    background-color: rgba(var(--primary-color-rgb), 0.1);
+  }
+}
+
+// Customize ng-zorro components for dark mode
+:host ::ng-deep {
+  // Avatar in dark mode
+  .dark-theme .ant-avatar {
+    background-color: var(--primary-color);
+  }
+  
+  // Button in dark mode
+  .dark-theme .ant-btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+  
+  // Tooltip in dark mode
+  .dark-theme .ant-tooltip-inner {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+  }
+  
+  // Menu in dark mode
+  .dark-theme .ant-menu {
+    background-color: transparent;
+    color: var(--text-primary);
+    border-bottom-color: transparent;
+    
+    .ant-menu-item {
+      color: var(--text-primary);
+      
+      &:hover {
+        color: var(--primary-color);
+      }
+      
+      &.ant-menu-item-selected {
+        color: var(--primary-color);
+      }
+    }
+  }
+  
+  // Input in dark mode
+  .dark-theme .ant-input {
+    background-color: var(--bg-tertiary);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+    
+    &:focus, &:hover {
+      border-color: var(--primary-color);
+    }
+    
+    &::placeholder {
+      color: var(--text-tertiary);
+    }
+  }
+  
+  // Input group in dark mode
+  .dark-theme .ant-input-group-addon {
+    background-color: var(--bg-tertiary);
+    border-color: var(--border-color);
+    color: var(--text-secondary);
+  }
+  
+  // Badge in dark mode
+  .dark-theme .ant-badge-count {
+    box-shadow: 0 0 0 1px var(--bg-primary);
+  }
+  
+  // Fix for badge positioning
+  .ant-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  // Fix badge count positions
+  .ant-badge-count {
+    transform: translate(50%, -50%);
+  }
+}
+
+@media (max-width: 992px) {
+  .header {
+    .header-container {
+      padding: 0 16px;
+    }
+    
+    .logo {
+      a {
+        .logo-text {
+          font-size: 18px;
+        }
+      }
+    }
+    
+    .main-nav {
+      justify-content: flex-start;
+      margin-left: 10px;
+      
+      ul li {
+        padding: 0 12px;
+      }
+    }
+    
+    .header-actions {
+      gap: 15px;
+      
+      .search-box {
+        width: 180px;
+      }
+      
+      .action-buttons {
+        gap: 12px;
+        
+        .login-btn {
+          min-width: auto;
+          padding: 0 15px;
+        }
+        
+        .user-menu-wrapper {
+          .user-info {
+            .user-name {
+              max-width: 80px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    height: 60px;
+    
+    .header-container {
+      justify-content: space-between;
+    }
+    
+    .logo {
+      a {
+        .logo-text {
+          font-size: 18px;
+        }
+        
+        img {
+          height: 32px;
+        }
+      }
+    }
+    
+    .main-nav {
+      display: none;
+    }
+    
+    .header-actions {
+      margin-left: 0;
+      
+      .search-box {
+        display: none;
+      }
+      
+      .action-buttons {
+        gap: 12px;
+        
+        .theme-toggle-btn, .cart-icon {
+          width: 34px;
+          height: 34px;
+        }
+        
+        .login-btn {
+          padding: 0 12px;
+          
+          .login-icon {
+            margin-right: 0;
+          }
+          
+          span:not(.login-icon) {
+            display: none;
+          }
+        }
+        
+        .user-menu-wrapper {
+          .user-info {
+            padding: 4px;
+            
+            .user-name {
+              display: none;
+            }
+            
+            [nz-icon] {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+} 

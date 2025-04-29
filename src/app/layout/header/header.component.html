@@ -1,0 +1,86 @@
+<header class="header">
+  <div class="header-container">
+    <div class="logo">
+      <a routerLink="/">
+        <img src="assets/images/logo.png" alt="ShopApp Logo" />
+        <span class="logo-text">ShopApp</span>
+      </a>
+    </div>
+
+    <nav class="main-nav">
+      <ul nz-menu nzMode="horizontal">
+        <li nz-menu-item *ngFor="let category of categories" [routerLink]="category.path" routerLinkActive="ant-menu-item-selected">
+          {{ category.name }}
+        </li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <div class="search-box">
+        <nz-input-group [nzSuffix]="suffixIconSearch">
+          <input type="text" nz-input placeholder="Tìm kiếm sản phẩm..." [(ngModel)]="searchValue" (keyup.enter)="onSearch()" />
+        </nz-input-group>
+        <ng-template #suffixIconSearch>
+          <span nz-icon nzType="search" nzTheme="outline" (click)="onSearch()"></span>
+        </ng-template>
+      </div>
+
+      <div class="action-buttons">
+        <!-- Toggle theme button -->
+        <button class="theme-toggle-btn" nz-tooltip [nzTooltipTitle]="isDarkMode ? 'Chuyển sang chế độ sáng' : 'Chuyển sang chế độ tối'" (click)="toggleTheme()">
+          <span nz-icon [nzType]="isDarkMode ? 'sun' : 'moon'" nzTheme="outline"></span>
+        </button>
+
+        <a [routerLink]="['/cart']" class="cart-icon" nz-tooltip nzTooltipTitle="Giỏ hàng">
+          <nz-badge [nzCount]="cartItemCount" [nzOverflowCount]="99">
+            <span nz-icon nzType="shopping-cart" nzTheme="outline"></span>
+          </nz-badge>
+        </a>
+
+        <ng-container *ngIf="!isLoggedIn; else loggedInTemplate">
+          <a [routerLink]="['/auth/login']" class="login-btn" nz-button nzType="primary">
+            <span nz-icon nzType="user" nzTheme="outline" class="login-icon"></span>
+            <span>Đăng nhập</span>
+          </a>
+        </ng-container>
+
+        <ng-template #loggedInTemplate>
+          <div class="user-menu-wrapper">
+            <a nz-dropdown [nzDropdownMenu]="userMenu" class="user-dropdown" nzPlacement="bottomRight">
+              <div class="user-info">
+                <nz-avatar [nzText]="userInitial" nzSize="small"></nz-avatar>
+                <span class="user-name">{{ currentUser?.fullName }}</span>
+                <span nz-icon nzType="down" nzTheme="outline"></span>
+              </div>
+            </a>
+            <nz-dropdown-menu #userMenu="nzDropdownMenu">
+              <ul nz-menu>
+                <li nz-menu-item [routerLink]="['/user-profile']">
+                  <span nz-icon nzType="user" nzTheme="outline"></span>
+                  Tài khoản của tôi
+                </li>
+                <li nz-menu-item [routerLink]="['/orders']">
+                  <span nz-icon nzType="shopping" nzTheme="outline"></span>
+                  Đơn hàng của tôi
+                </li>
+                <li nz-menu-item [routerLink]="['/user-profile/address']">
+                  <span nz-icon nzType="environment" nzTheme="outline"></span>
+                  Địa chỉ giao hàng
+                </li>
+                <li nz-menu-item [routerLink]="['/user-profile/settings']">
+                  <span nz-icon nzType="setting" nzTheme="outline"></span>
+                  Cài đặt tài khoản
+                </li>
+                <li nz-menu-divider></li>
+                <li nz-menu-item (click)="logout()">
+                  <span nz-icon nzType="logout" nzTheme="outline"></span>
+                  Đăng xuất
+                </li>
+              </ul>
+            </nz-dropdown-menu>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</header> 
