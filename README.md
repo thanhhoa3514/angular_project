@@ -1,27 +1,48 @@
-# ShopappAngular
+# Shopapp Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.13.
+## Triển khai Router Guard
 
-## Development server
+Dự án đã được cập nhật với các route được bảo vệ (protected routes) để đảm bảo người dùng phải đăng nhập trước khi truy cập vào các trang cá nhân. Dưới đây là tóm tắt những gì đã được triển khai:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### 1. AuthGuard
 
-## Code scaffolding
+- Tạo AuthGuard để bảo vệ các route yêu cầu xác thực
+- Chuyển hướng người dùng chưa đăng nhập đến trang đăng nhập
+- Lưu URL hiện tại để redirect sau khi đăng nhập thành công
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### 2. AuthService
 
-## Build
+- Quản lý trạng thái đăng nhập của người dùng
+- Lưu thông tin người dùng vào localStorage
+- Cung cấp các phương thức: login, logout, isLoggedIn, getCurrentUser
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### 3. Protected Routes
 
-## Running unit tests
+Các route sau đây đã được bảo vệ bởi AuthGuard:
+- `/profile`: Trang thông tin cá nhân người dùng
+- `/order`: Trang quản lý đơn hàng
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### 4. Trang đăng nhập
 
-## Running end-to-end tests
+- Giao diện đăng nhập với form validation
+- Xử lý lưu thông tin người dùng sau khi đăng nhập
+- Chuyển hướng người dùng đến trang yêu cầu ban đầu sau khi đăng nhập thành công
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### 5. Trang Profile
 
-## Further help
+- Hiển thị thông tin người dùng
+- Menu điều hướng đến các trang con: đơn hàng, địa chỉ, sản phẩm yêu thích
+- Chức năng đăng xuất
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Cách sử dụng
+
+1. Truy cập vào các trang được bảo vệ như `/profile` hoặc `/order`
+2. Hệ thống sẽ tự động chuyển hướng đến trang đăng nhập
+3. Đăng nhập với bất kỳ tên người dùng và mật khẩu nào (demo)
+4. Sau khi đăng nhập thành công, hệ thống sẽ chuyển hướng đến trang ban đầu
+
+## Lưu ý
+
+- Đây là triển khai cơ bản cho mục đích demo
+- Trong môi trường thực tế, cần tích hợp với backend API để xác thực người dùng
+- Cần bổ sung thêm các tính năng như đăng ký, quên mật khẩu, v.v.
