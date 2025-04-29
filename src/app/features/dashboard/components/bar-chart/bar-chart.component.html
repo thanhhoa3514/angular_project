@@ -1,0 +1,25 @@
+<div class="chart-container">
+    <div class="chart-header" *ngIf="chartTitle">
+        <h3>{{ chartTitle }}</h3>
+    </div>
+    <div class="chart-body">
+        <!-- Only show canvas in browser environment -->
+        <canvas #chartCanvas *ngIf="isBrowser"></canvas>
+        
+        <!-- Fallback display for server-side rendering -->
+        <div class="chart-fallback" *ngIf="!isBrowser && chartData">
+            <div class="fallback-legend">
+                <div class="legend-item" *ngFor="let dataset of chartData.datasets">
+                    <span class="color-box" [style.background-color]="dataset.backgroundColor"></span>
+                    <span class="legend-label">{{ dataset.label }}</span>
+                </div>
+            </div>
+            <div class="fallback-message">
+                Chart data is available but will be rendered in the browser.
+            </div>
+        </div>
+    </div>
+    <div class="chart-loading" *ngIf="loading">
+        <div class="loading-spinner"></div>
+    </div>
+</div>
