@@ -5,6 +5,7 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 
 // NG-ZORRO
 import { vi_VN, provideNzI18n } from 'ng-zorro-antd/i18n';
@@ -24,7 +25,23 @@ import {
   EyeOutline,
   SearchOutline,
   StarFill,
-  RightOutline
+  RightOutline,
+  // Iconos adicionales para la aplicación
+  MoonOutline,
+  SunOutline,
+  UserOutline,
+  ShoppingOutline,
+  EnvironmentOutline,
+  SettingOutline,
+  LogoutOutline,
+  DownOutline,
+  MailOutline,
+  PhoneOutline,
+  FacebookOutline,
+  TwitterOutline,
+  InstagramOutline,
+  YoutubeOutline,
+  LinkedinOutline
 } from '@ant-design/icons-angular/icons';
 
 // Đăng ký ngôn ngữ
@@ -41,7 +58,23 @@ const icons: IconDefinition[] = [
   EyeOutline,
   SearchOutline,
   StarFill,
-  RightOutline
+  RightOutline,
+  // Iconos adicionales
+  MoonOutline,
+  SunOutline,
+  UserOutline,
+  ShoppingOutline,
+  EnvironmentOutline,
+  SettingOutline,
+  LogoutOutline,
+  DownOutline,
+  MailOutline,
+  PhoneOutline,
+  FacebookOutline,
+  TwitterOutline,
+  InstagramOutline,
+  YoutubeOutline,
+  LinkedinOutline
 ];
 
 export const appConfig: ApplicationConfig = {
@@ -55,6 +88,8 @@ export const appConfig: ApplicationConfig = {
       useClass: AuthInterceptor, 
       multi: true 
     },
+    // JWT Helper Service
+    { provide: JwtHelperService, useFactory: () => new JwtHelperService() },
     // NG-ZORRO providers
     provideNzI18n(vi_VN),
     importProvidersFrom(NzIconModule.forRoot(icons))
