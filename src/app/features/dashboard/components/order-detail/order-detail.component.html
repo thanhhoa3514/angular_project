@@ -1,0 +1,72 @@
+<div class="order-detail-card" *ngIf="order">
+  <div class="order-detail-header">
+    <div class="order-info">
+      <div class="order-id">{{order.id}}</div>
+      <div class="order-date">{{order.date}}</div>
+      <div class="order-status">
+        <span class="status-badge" [ngClass]="getStatusClass(order.status)">
+          {{order.status}}
+        </span>
+      </div>
+    </div>
+    <div class="customer-info">
+      <div class="customer-name">{{order.customer}}</div>
+      <div class="customer-email">{{order.customer.toLowerCase().replace(' ', '.')}}&#64;example.com</div>
+    </div>
+  </div>
+  
+  <div class="order-items">
+    <h4 class="section-title">Items</h4>
+    <table class="items-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of orderItems">
+          <td class="product-cell">
+            <div class="product-id">{{item.id}}</div>
+            <div class="product-name">{{item.name}}</div>
+          </td>
+          <td>${{item.price.toFixed(2)}}</td>
+          <td>{{item.quantity}}</td>
+          <td class="price-cell">${{item.total.toFixed(2)}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="order-summary">
+    <div class="summary-row">
+      <span>Subtotal</span>
+      <span>${{getSubtotal().toFixed(2)}}</span>
+    </div>
+    <div class="summary-row">
+      <span>Shipping</span>
+      <span>${{getShipping().toFixed(2)}}</span>
+    </div>
+    <div class="summary-row">
+      <span>Tax (10%)</span>
+      <span>${{getTax().toFixed(2)}}</span>
+    </div>
+    <div class="summary-row total">
+      <span>Total</span>
+      <span>${{getTotal().toFixed(2)}}</span>
+    </div>
+  </div>
+  
+  <div class="order-actions">
+    <button class="btn btn-outline">Print Invoice</button>
+    <button class="btn btn-primary">Mark as Shipped</button>
+  </div>
+</div>
+
+<div class="empty-state" *ngIf="!order">
+  <img src="assets/images/undraw_online-shopping_hgf6.svg" alt="Select an order" class="empty-icon">
+  <h3>Select an Order</h3>
+  <p>Click on an order from the list to view its details</p>
+</div> 
