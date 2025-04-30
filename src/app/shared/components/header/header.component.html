@@ -1,59 +1,21 @@
-<header class="header" [class.scrolled]="isScrolled">
-  <div class="container">
-    <div class="header__content">
-      <!-- Logo -->
-      <a routerLink="/" class="header__logo">
-        <svg width="150" height="40" viewBox="0 0 150 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M22.5 5C13.3873 5 6 12.3873 6 21.5C6 30.6127 13.3873 38 22.5 38C31.6127 38 39 30.6127 39 21.5C39 12.3873 31.6127 5 22.5 5Z" fill="#4A6CF7"/>
-          <path d="M22.5 10C16.1487 10 11 15.1487 11 21.5C11 27.8513 16.1487 33 22.5 33C28.8513 33 34 27.8513 34 21.5C34 15.1487 28.8513 10 22.5 10ZM22.5 28C18.9101 28 16 25.0899 16 21.5C16 17.9101 18.9101 15 22.5 15C26.0899 15 29 17.9101 29 21.5C29 25.0899 26.0899 28 22.5 28Z" fill="white"/>
-          <path d="M48 15H53.5L58.5 30L63.5 15H69L61 35H56L48 15Z" fill="#1D2A4D"/>
-          <path d="M71 15H76V35H71V15Z" fill="#1D2A4D"/>
-          <path d="M79 15H84V18C85.5 15.5 87.5 14.5 90 14.5C94 14.5 97 17.5 97 22.5V35H92V24C92 21 90.5 19.5 88 19.5C85.5 19.5 84 21 84 24V35H79V15Z" fill="#1D2A4D"/>
-          <path d="M100 25C100 19 104.5 14.5 110.5 14.5C116.5 14.5 121 19 121 25C121 31 116.5 35.5 110.5 35.5C104.5 35.5 100 31 100 25ZM116 25C116 21.5 113.5 19 110.5 19C107.5 19 105 21.5 105 25C105 28.5 107.5 31 110.5 31C113.5 31 116 28.5 116 25Z" fill="#1D2A4D"/>
-          <path d="M123 15H128V18C129.5 15.5 131.5 14.5 134 14.5C138 14.5 141 17.5 141 22.5V35H136V24C136 21 134.5 19.5 132 19.5C129.5 19.5 128 21 128 24V35H123V15Z" fill="#1D2A4D"/>
-        </svg>
-      </a>
+<div class="header" [class.theme-orange]="currentTheme === 'orange-theme'">
+  <button class="toggle-sidebar" (click)="toggleSidebar()">
+    <img src="assets/images/9044816_product_icon.png" alt="Toggle sidebar">
+  </button>
 
-      <!-- Navigation -->
-      <nav class="header__nav" [class.active]="isMobileMenuOpen">
-        <ul class="header__menu">
-          <li class="header__menu-item header__menu-item--active">
-            <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Trang chủ</a>
-          </li>
-          <li class="header__menu-item">
-            <a routerLink="/products" routerLinkActive="active">Sản phẩm</a>
-          </li>
-          <li class="header__menu-item">
-            <a routerLink="/categories" routerLinkActive="active">Danh mục</a>
-          </li>
-          <li class="header__menu-item">
-            <a routerLink="/promotions" routerLinkActive="active">Khuyến mãi</a>
-          </li>
-          <li class="header__menu-item">
-            <a routerLink="/contact" routerLinkActive="active">Liên hệ</a>
-          </li>
-        </ul>
-      </nav>
+  <div class="header-actions">
+    <div class="notifications">
+      <button>
+        <img src="assets/images/8530564_bell_icon.png" alt="Notifications">
+        <span class="badge" *ngIf="notificationCount > 0">{{notificationCount}}</span>
+      </button>
+    </div>
 
-      <!-- Actions -->
-      <div class="header__actions">
-        <button class="header__action-btn" title="Tìm kiếm">
-          <i class="fas fa-search"></i>
-        </button>
-        <button class="header__action-btn" title="Giỏ hàng" routerLink="/cart">
-          <i class="fas fa-shopping-cart"></i>
-          <span class="header__action-badge">3</span>
-        </button>
-        <button class="header__action-btn" title="Tài khoản">
-          <i class="fas fa-user"></i>
-        </button>
-        <button *ngIf="!isLoggedIn" class="header__login-btn btn btn-primary" (click)="navigateToLogin()">Đăng nhập</button>
-        <button class="header__mobile-toggle" (click)="toggleMobileMenu()" aria-label="Menu" [class.active]="isMobileMenuOpen">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+    <div class="user-dropdown">
+      <div class="avatar">
+        <img src="assets/images/undraw_male-avatar_zkzx.svg" alt="User avatar">
       </div>
+      <span class="user-name">{{userName}}</span>
     </div>
   </div>
-</header>
+</div> 
