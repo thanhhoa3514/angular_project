@@ -1,0 +1,38 @@
+<div class="orders-card">
+  <div class="orders-header" *ngIf="showHeader">
+    <h2>Recent Orders</h2>
+    <a routerLink="/dashboard/orders" *ngIf="showViewAll" class="view-all">View All</a>
+  </div>
+  
+  <div class="orders-table-container">
+    <table class="orders-table">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Customer</th>
+          <th>Status</th>
+          <th>Date</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders" 
+            (click)="selectOrder(order)" 
+            [class.selected]="isSelected(order)">
+          <td class="order-id">{{order.id}}</td>
+          <td>{{order.customer}}</td>
+          <td>
+            <span class="status-badge" [ngClass]="getStatusClass(order.status)">
+              {{order.status}}
+            </span>
+          </td>
+          <td>{{order.date}}</td>
+          <td class="amount">${{order.amount.toFixed(2)}}</td>
+        </tr>
+        <tr *ngIf="orders.length === 0">
+          <td colspan="5" class="no-orders">No orders found</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div> 

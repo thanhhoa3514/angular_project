@@ -1,0 +1,121 @@
+.orders-card {
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.orders-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0;
+  }
+
+  .view-all {
+    color: #FF9800;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.orders-table-container {
+  overflow-x: auto;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th, td {
+    padding: 1rem 1.5rem;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  th {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  td {
+    font-size: 0.875rem;
+    color: #1e293b;
+  }
+
+  .order-id {
+    font-weight: 500;
+    color: #334155;
+  }
+
+  .amount {
+    font-weight: 600;
+  }
+
+  .status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .status-success {
+    background-color: rgba(34, 197, 94, 0.1);
+    color: #16a34a;
+  }
+
+  .status-warning {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: #d97706;
+  }
+
+  .status-danger {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #dc2626;
+  }
+
+  .no-orders {
+    text-align: center;
+    color: #64748b;
+    padding: 3rem 1.5rem;
+  }
+
+  tr {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    
+    &:hover {
+      background-color: rgba(248, 250, 252, 0.8);
+    }
+    
+    &.selected {
+      background-color: rgba(255, 152, 0, 0.05);
+      border-left: 3px solid #FF9800;
+    }
+  }
+}
+
+// Responsive styling
+@media (max-width: 768px) {
+  .orders-table {
+    th, td {
+      padding: 0.75rem 1rem;
+    }
+  }
+} 
