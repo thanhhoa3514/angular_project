@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CurrencyPipe } from '@angular/common';
 
@@ -37,6 +37,8 @@ export class CartComponent implements OnInit {
   shipping: number = 30000; // 30,000 VND
   total: number = 0;
   promoCode: string = '';
+
+  constructor(private router: Router) {}
 
   ngOnInit() {
     // Mô phỏng dữ liệu giỏ hàng
@@ -152,8 +154,6 @@ export class CartComponent implements OnInit {
   }
 
   checkout() {
-    alert('Chức năng thanh toán đang được phát triển!');
-    // Chuyển hướng đến trang thanh toán
-    // this.router.navigate(['/checkout']);
+    this.router.navigate(['/checkout']);
   }
 }
