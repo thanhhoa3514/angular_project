@@ -1,0 +1,62 @@
+<div class="access-management">
+  <div class="header">
+    <h2>Access Management</h2>
+    <div class="actions">
+      <button class="btn btn-primary" (click)="saveChanges()">Save Changes</button>
+    </div>
+  </div>
+  
+  <div class="access-container">
+    <div class="access-users">
+      <div class="section-header">
+        <h3>Users with Access</h3>
+        <button class="btn-add" (click)="addUser()">
+          <span class="plus-icon">+</span>
+        </button>
+      </div>
+      
+      <div class="user-list">
+        <div *ngFor="let user of users" class="user-item" [class.selected]="user.isSelected" (click)="toggleUserSelection(user)">
+          <div class="user-avatar">
+            <img [src]="user.avatar" [alt]="user.name">
+          </div>
+          <div class="user-info">
+            <div class="user-name">{{user.name}}</div>
+            <div class="user-role">{{user.role}}</div>
+          </div>
+          <div class="selection-indicator">
+            <div class="checkbox" [class.checked]="user.isSelected"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="access-settings">
+      <div class="timeframe-section">
+        <div class="timeframe-header">
+          <h3>Timeframe</h3>
+          <label class="switch">
+            <input type="checkbox" [(ngModel)]="timeframeEnabled">
+            <span class="slider"></span>
+          </label>
+        </div>
+        
+        <div class="timeframe-inputs" *ngIf="timeframeEnabled">
+          <div class="input-group">
+            <label for="start-date">Start Date</label>
+            <input type="date" id="start-date" [(ngModel)]="startDate" [disabled]="!timeframeEnabled">
+          </div>
+          <div class="separator">-</div>
+          <div class="input-group">
+            <label for="end-date">End Date</label>
+            <input type="date" id="end-date" [(ngModel)]="endDate" [disabled]="!timeframeEnabled">
+          </div>
+        </div>
+        
+        <div class="timeframe-display" *ngIf="timeframeEnabled">
+          Sep 1 - Nov 30, 2023
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
