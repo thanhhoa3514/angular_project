@@ -1,0 +1,71 @@
+<div class="dashboard-layout">
+    <app-sidebar 
+        (toggleSidebar)="onSidebarToggled($event)" 
+        [expanded]="isSidebarExpanded"
+        [isMobileView]="isMobileView"
+        [isMobileOpen]="isMobileSidebarOpen">
+    </app-sidebar>
+
+    <div class="dashboard-content" [ngClass]="{
+        'sidebar-collapsed': !isSidebarExpanded,
+        'mobile': isMobileView,
+        'mobile-open': isMobileSidebarOpen
+    }">
+        <!-- Dashboard Header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <button class="mobile-menu-toggle" (click)="toggleSidebar()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <h1 class="page-title">{{pageTitle}}</h1>
+            </div>
+            <div class="header-actions">
+                <!-- Notification icon -->
+                <button class="notification-btn">
+                    <img src="assets/images/8530564_bell_icon.png" alt="Notifications">
+                    <span class="notification-indicator"></span>
+                </button>
+                
+                <!-- User info -->
+                <div class="welcome-user">
+                    <span>Welcome, Admin</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Main Content -->
+        <main class="dashboard-main">
+            <div class="dashboard-container">
+                <!-- Stats Cards Row -->
+                <div class="dashboard-row">
+                    <div class="dashboard-col" *ngFor="let stat of statsCards">
+                        <app-stats-card [data]="stat" [loading]="statsLoading"></app-stats-card>
+                    </div>
+                </div>
+
+                <!-- Charts Row -->
+                <div class="dashboard-row">
+                    <div class="dashboard-col col-8">
+                        <app-data-table [data]="topProducts" [loading]="productsLoading" title="Top Products">
+                        </app-data-table>
+                    </div>
+                    <div class="dashboard-col col-4">
+                        <app-review-progress [stats]="reviewStats" [loading]="reviewsLoading" [summary]="reviewSummary"
+                            title="Reviews">
+                        </app-review-progress>
+                    </div>
+                </div>
+
+                <!-- Charts Row -->
+                <div class="dashboard-row">
+                    <div class="dashboard-col">
+                        <app-bar-chart [chartData]="quarterlyData" [loading]="chartLoading" chartTitle="Target and Reality">
+                        </app-bar-chart>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
