@@ -2,7 +2,7 @@ import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Injectable, Inject, OnDestroy, Renderer2, RendererFactory2, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-export type ThemeType = 'light' | 'dark';
+export type ThemeType = 'light' | 'dark' | 'orange-theme';
 
 @Injectable({
     providedIn: 'root'
@@ -10,13 +10,16 @@ export type ThemeType = 'light' | 'dark';
 export class ThemeService implements OnDestroy {
     private renderer: Renderer2;
     private colorSchemeMediaQuery: MediaQueryList | null = null;
-    private storageKey = 'app-theme';
+    private storageKey = 'theme';
     private darkThemeClass = 'dark-theme';
     private isBrowser: boolean;
 
-    private themeSubject = new BehaviorSubject<ThemeType>('light');
+    private _currentTheme = new BehaviorSubject<ThemeType>('orange-theme');
+    private _sidebarState = new BehaviorSubject<boolean>(false);
 
-    theme$ = this.themeSubject.asObservable();
+    public currentTheme = this._currentTheme.asObservable();
+    public sidebarState = this._sidebarState.asObservable();
+    public theme$ = this._currentTheme.asObservable();
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
@@ -41,6 +44,8 @@ export class ThemeService implements OnDestroy {
                 }
             });
         }
+
+        this.loadSavedTheme();
     }
 
     ngOnDestroy(): void {
@@ -50,7 +55,7 @@ export class ThemeService implements OnDestroy {
     }
 
     toggleTheme(): void {
-        const newTheme = this.themeSubject.value === 'light' ? 'dark' : 'light';
+        const newTheme = this._currentTheme.value === 'light' ? 'dark' : 'light';
         this.setTheme(newTheme, true);
     }
 
@@ -67,7 +72,7 @@ export class ThemeService implements OnDestroy {
             }
         }
 
-        this.themeSubject.next(theme);
+        this._currentTheme.next(theme);
     }
 
     private getInitialTheme(): ThemeType {
@@ -97,5 +102,20 @@ export class ThemeService implements OnDestroy {
     private initTheme(): void {
         const theme = this.getInitialTheme();
         this.setTheme(theme, false);
+    }
+
+    private loadSavedTheme(): void {
+        if (!this.isBrowser) {
+            return;
+        }
+
+        const theme = localStorage.getItem(this.storageKey) as ThemeType;
+        if (theme) {
+            this.setTheme(theme, false);
+        }
+    }
+
+    toggleSidebar(): void {
+        this._sidebarState.next(!this._sidebarState.value);
     }
 } 
