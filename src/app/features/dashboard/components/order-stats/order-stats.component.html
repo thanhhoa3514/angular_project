@@ -1,0 +1,58 @@
+<div class="stats-card">
+  <h3 class="stats-title">Thống kê đơn hàng</h3>
+  
+  <div class="stats-summary">
+    <div class="total-orders">
+      <span class="total-value">{{stats.total}}</span>
+      <span class="total-label">Tổng đơn hàng</span>
+    </div>
+    
+    <div class="stats-distribution">
+      <div class="stats-item completed">
+        <div class="stats-info">
+          <span class="stats-count">{{stats.completed}}</span>
+          <span class="stats-label">Hoàn thành</span>
+        </div>
+        <div class="stats-percentage">{{getCompletedPercentage()}}%</div>
+      </div>
+      
+      <div class="stats-item processing">
+        <div class="stats-info">
+          <span class="stats-count">{{stats.processing}}</span>
+          <span class="stats-label">Đang xử lý</span>
+        </div>
+        <div class="stats-percentage">{{getProcessingPercentage()}}%</div>
+      </div>
+      
+      <div class="stats-item cancelled">
+        <div class="stats-info">
+          <span class="stats-count">{{stats.cancelled}}</span>
+          <span class="stats-label">Đã hủy</span>
+        </div>
+        <div class="stats-percentage">{{getCancelledPercentage()}}%</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="progress-container">
+    <div class="progress-bar">
+      <div class="progress-segment completed" [style.width.%]="getCompletedPercentage()"></div>
+      <div class="progress-segment processing" [style.width.%]="getProcessingPercentage()"></div>
+      <div class="progress-segment cancelled" [style.width.%]="getCancelledPercentage()"></div>
+    </div>
+    <div class="progress-legend">
+      <div class="legend-item">
+        <span class="legend-color completed"></span>
+        <span class="legend-label">Hoàn thành</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-color processing"></span>
+        <span class="legend-label">Đang xử lý</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-color cancelled"></span>
+        <span class="legend-label">Đã hủy</span>
+      </div>
+    </div>
+  </div>
+</div> 

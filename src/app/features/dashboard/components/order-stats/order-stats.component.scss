@@ -1,0 +1,166 @@
+.stats-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+.stats-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 1.5rem 0;
+}
+
+.stats-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.total-orders {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8fafc;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  width: 100px;
+  height: 100px;
+}
+
+.total-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.total-label {
+  font-size: 0.75rem;
+  color: #64748b;
+  text-align: center;
+  margin-top: 0.25rem;
+}
+
+.stats-distribution {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-left: 1.5rem;
+}
+
+.stats-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-radius: 0.375rem;
+  
+  &.completed {
+    border-left: 3px solid #22c55e;
+    padding-left: 0.75rem;
+  }
+  
+  &.processing {
+    border-left: 3px solid #f59e0b;
+    padding-left: 0.75rem;
+  }
+  
+  &.cancelled {
+    border-left: 3px solid #ef4444;
+    padding-left: 0.75rem;
+  }
+}
+
+.stats-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.stats-count {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.stats-label {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.stats-percentage {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1e293b;
+  background-color: #f1f5f9;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.progress-container {
+  margin-top: 1.5rem;
+}
+
+.progress-bar {
+  height: 8px;
+  width: 100%;
+  background-color: #f1f5f9;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+}
+
+.progress-segment {
+  height: 100%;
+  
+  &.completed {
+    background-color: #22c55e;
+  }
+  
+  &.processing {
+    background-color: #f59e0b;
+  }
+  
+  &.cancelled {
+    background-color: #ef4444;
+  }
+}
+
+.progress-legend {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 0.75rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  
+  &.completed {
+    background-color: #22c55e;
+  }
+  
+  &.processing {
+    background-color: #f59e0b;
+  }
+  
+  &.cancelled {
+    background-color: #ef4444;
+  }
+}
+
+.legend-label {
+  font-size: 0.75rem;
+  color: #64748b;
+} 
