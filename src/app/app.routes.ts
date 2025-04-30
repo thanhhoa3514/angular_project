@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
+import { roleGuard } from './core/guards/role.guard';
 import { OAuthCallbackComponent } from './features/auth/oauth-callback/oauth-callback.component';
 
 export const routes: Routes = [
@@ -20,6 +21,10 @@ export const routes: Routes = [
     loadChildren: () => import('./features/cart/cart.routes').then(m => m.CART_ROUTES) 
   },
   {
+    path: 'checkout',
+    loadChildren: () => import('./features/checkout/checkout.routes').then(m => m.CHECKOUT_ROUTES)
+  },
+  {
     path: 'orders',
     loadChildren: () => import('./features/order/order.routes').then(m => m.ORDER_ROUTES),
     canActivate: [authGuard]
@@ -33,5 +38,15 @@ export const routes: Routes = [
     path: 'oauth/callback',
     component: OAuthCallbackComponent
   },
-  { path: '**', redirectTo: '', pathMatch: 'full' }
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule),
+    // canActivate: [roleGuard(['ADMIN'])]
+  },
+  {
+    path: 'access-denied',
+    loadComponent: () => import('./features/errors/access-denied/access-denied.component')
+      .then(m => m.AccessDeniedComponent)
+  },
+  { path: '**', redirectTo: '/' }
 ];
