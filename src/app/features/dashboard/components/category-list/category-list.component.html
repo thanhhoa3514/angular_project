@@ -1,0 +1,228 @@
+<div class="main-content">
+    <div class="content-header">
+        <h1 class="page-title">Quản lý danh mục</h1>
+        
+        <div class="header-actions">
+            <div class="search-box">
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" class="search-input" placeholder="Tìm kiếm danh mục..." (input)="searchCategories($event)">
+            </div>
+            
+            <button class="btn btn-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="1"></circle>
+                    <circle cx="19" cy="12" r="1"></circle>
+                    <circle cx="5" cy="12" r="1"></circle>
+                </svg>
+            </button>
+            
+            <button class="btn btn-primary" (click)="openAddCategoryModal()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                Thêm danh mục
+            </button>
+        </div>
+    </div>
+    
+    <div class="dashboard-summary">
+        <div class="summary-card">
+            <div class="summary-icon icon-categories">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+            </div>
+            <div class="summary-title">Tổng danh mục</div>
+            <div class="summary-value">{{categoryStats.total}}</div>
+            <div class="summary-trend trend-up">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="18 15 12 9 6 15"></polyline>
+                </svg>
+                {{categoryStats.totalGrowth}}% so với tháng trước
+            </div>
+        </div>
+        
+        <div class="summary-card">
+            <div class="summary-icon icon-active">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+            </div>
+            <div class="summary-title">Danh mục đang hoạt động</div>
+            <div class="summary-value">{{categoryStats.active}}</div>
+            <div class="summary-trend trend-up">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="18 15 12 9 6 15"></polyline>
+                </svg>
+                {{categoryStats.activeGrowth}}% so với tháng trước
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Danh sách danh mục</h2>
+            <div class="card-actions">
+                <button class="btn btn-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                    </svg>
+                </button>
+                <button class="btn btn-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="category-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên danh mục</th>
+                        <th>Mô tả</th>
+                        <th>Số sản phẩm</th>
+                        <th>Ngày tạo</th>
+                        <th>Cập nhật lần cuối</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let category of filteredCategories" (click)="openCategoryDetails(category)" class="category-row">
+                        <td>{{category.id}}</td>
+                        <td>
+                            <div class="category-name">{{category.name}}</div>
+                        </td>
+                        <td>
+                            <div class="category-desc">{{category.description.substring(0, 50)}}{{category.description.length > 50 ? '...' : ''}}</div>
+                        </td>
+                        <td>{{category.product_count}}</td>
+                        <td>{{category.created_at}}</td>
+                        <td>{{category.updated_at}}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn-action btn-edit" (click)="editCategory(category); $event.stopPropagation()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                    </svg>
+                                </button>
+                                <button class="btn-action btn-delete" (click)="deleteCategory(category); $event.stopPropagation()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="3 6 5 6 21 6"></polyline>
+                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Category Form Modal -->
+<div class="modal-overlay" *ngIf="showCategoryForm" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h2 class="modal-title">{{selectedCategory ? 'Chỉnh sửa danh mục' : 'Thêm danh mục mới'}}</h2>
+            <button class="modal-close" (click)="closeModal()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form #categoryForm="ngForm" (ngSubmit)="saveCategory(categoryForm.value)">
+                <input type="hidden" name="id" [ngModel]="selectedCategory?.id">
+                <input type="hidden" name="created_at" [ngModel]="selectedCategory?.created_at">
+                <input type="hidden" name="updated_at" [ngModel]="selectedCategory?.updated_at">
+                <input type="hidden" name="product_count" [ngModel]="selectedCategory?.product_count">
+
+                <div class="form-group">
+                    <label for="name">Tên danh mục</label>
+                    <input type="text" id="name" name="name" [ngModel]="selectedCategory?.name" required class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Mô tả</label>
+                    <textarea id="description" name="description" [ngModel]="selectedCategory?.description" rows="4" class="form-control"></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" (click)="closeModal()">Hủy</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="!categoryForm.valid">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Category Details Modal -->
+<div class="modal-overlay" *ngIf="showCategoryDetails" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h2 class="modal-title">Chi tiết danh mục</h2>
+            <button class="modal-close" (click)="closeModal()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body" *ngIf="selectedCategory">
+            <div class="category-detail-header">
+                <div class="category-detail-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                </div>
+                <div class="category-detail-info">
+                    <h3 class="category-detail-name">{{selectedCategory.name}}</h3>
+                    <p class="category-detail-id">ID: {{selectedCategory.id}}</p>
+                </div>
+            </div>
+
+            <div class="category-detail-section">
+                <table class="detail-table">
+                    <tr>
+                        <th>Số sản phẩm</th>
+                        <td>{{selectedCategory.product_count}}</td>
+                    </tr>
+                    <tr>
+                        <th>Ngày tạo</th>
+                        <td>{{selectedCategory.created_at}}</td>
+                    </tr>
+                    <tr>
+                        <th>Cập nhật lần cuối</th>
+                        <td>{{selectedCategory.updated_at}}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="category-detail-section">
+                <h4>Mô tả</h4>
+                <p>{{selectedCategory.description}}</p>
+            </div>
+
+            <div class="detail-actions">
+                <button class="btn btn-secondary" (click)="closeModal()">Đóng</button>
+                <button class="btn btn-primary" (click)="editCategory(selectedCategory)">Chỉnh sửa</button>
+            </div>
+        </div>
+    </div>
+</div> 
