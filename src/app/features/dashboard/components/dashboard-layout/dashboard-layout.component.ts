@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { SidebarComponent } from '../sidebar/sidebar.component';
+import { AdminAuthService } from '../../../../core/services/admin-auth.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-dashboard-layout',
@@ -11,11 +13,18 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
   styleUrls: ['./dashboard-layout.component.scss']
 })
 export class DashboardLayoutComponent implements OnInit, OnDestroy {
-  sidebarCollapsed = false;
-  pageTitle = 'Dashboard Overview';
+  isSidebarExpanded = true;
+  isMobileView = false;
+  isMobileSidebarOpen = false;
+  pageTitle = 'Dashboard';
   private isBrowser: boolean;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private adminAuthService: AdminAuthService,
+    private router: Router,
+    private breakpointObserver: BreakpointObserver
+  ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
@@ -23,6 +32,20 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
     if (this.isBrowser) {
       this.handleResize();
       window.addEventListener('resize', this.handleResize.bind(this));
+      
+      // Tạm thời vô hiệu hóa kiểm tra quyền admin
+      // if (!this.adminAuthService.hasAdminAccess()) {
+      //   this.router.navigate(['/access-denied']);
+      // }
+
+      this.breakpointObserver.observe([Breakpoints.HandsetPortrait, Breakpoints.TabletPortrait])
+        .subscribe(result => {
+          this.isMobileView = result.matches;
+          if (this.isMobileView) {
+            this.isSidebarExpanded = false;
+            this.isMobileSidebarOpen = false;
+          }
+        });
     }
   }
 
@@ -32,19 +55,28 @@ export class DashboardLayoutComponent implements OnInit, OnDestroy {
     }
   }
 
-  onToggleSidebar(collapsed: boolean): void {
-    this.sidebarCollapsed = collapsed;
+  toggleSidebar(): void {
+    if (this.isMobileView) {
+      this.isMobileSidebarOpen = !this.isMobileSidebarOpen;
+    } else {
+      this.isSidebarExpanded = !this.isSidebarExpanded;
+    }
   }
 
-  onMobileMenuToggle(): void {
-    if (this.isBrowser && window.innerWidth <= 640) {
-      this.sidebarCollapsed = !this.sidebarCollapsed;
+  onSidebarToggled(expanded: boolean): void {
+    if (!this.isMobileView) {
+      this.isSidebarExpanded = expanded;
     }
+  }
+
+  setPageTitle(title: string): void {
+    this.pageTitle = title;
   }
 
   private handleResize(): void {
     if (this.isBrowser && window.innerWidth <= 640) {
-      this.sidebarCollapsed = true;
+      this.isSidebarExpanded = false;
+      this.isMobileSidebarOpen = true;
     }
   }
-}
+} 
