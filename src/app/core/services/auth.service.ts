@@ -1,5 +1,5 @@
 import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { tap, catchError, map, finalize, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -42,6 +42,19 @@ interface JwtPayload {
   // Thêm các trường khác từ JWT payload nếu cần
 }
 
+export interface LoginCredentials {
+  username: string;
+  password: string;
+  rememberMe?: boolean;
+}
+
+export interface AuthResponse {
+  accessToken: string;
+  refreshToken?: string;
+  expiresIn?: number;
+  user?: any;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -76,9 +89,13 @@ export class AuthService {
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.loadUserFromStorage();
+    this.checkAuthStatus();
   }
 
   private loadUserFromStorage(): void {
+    // With HTTP-only cookies, we can't access the token directly from localStorage.
+    // We'll rely on the validate-token endpoint to get the user instead.
+    // This method is kept for backward compatibility.
     if (this.isBrowser) {
       const userJson = localStorage.getItem('user');
       if (userJson) {
@@ -86,46 +103,156 @@ export class AuthService {
           const user = JSON.parse(userJson);
           this.currentUserSubject.next(user);
           this.loggedInSubject.next(true);
-          this.autoLogout(user);
+          
+          // We won't call autoLogout here since we can't access token expiration
+          // The validate-token endpoint will handle refreshing tokens and logout if needed
         } catch (e) {
-          this.logout();
+          console.error('Error parsing user from localStorage:', e);
+          localStorage.removeItem('user');
+          this.loggedInSubject.next(false);
+          this.currentUserSubject.next(null);
         }
       }
     }
   }
 
-  // Updated to use the users API endpoint
-  login(loginRequest: LoginDTO): Observable<LoginResponse> {
-    return this.http.post<LoginResponse & {refreshToken: string}>(`${this.usersApiUrl}/login`, loginRequest, {
-      headers: { 'Content-Type': 'application/json' }
+  // Kiểm tra trạng thái xác thực khi khởi động app
+  private checkAuthStatus(): void {
+    // Skip validation in SSR
+    if (!this.isBrowser) {
+      this.loggedInSubject.next(false);
+      this.currentUserSubject.next(null);
+      return;
+    }
+
+    // Try to validate token silently, don't break app if it fails
+    this.http.get<any>(`${this.authApiUrl}/validate-token`, {
+      withCredentials: true
+    }).pipe(
+      catchError(() => {
+        console.log('Token validation skipped - endpoint might not be available yet');
+        this.loggedInSubject.next(false);
+        this.currentUserSubject.next(null);
+        return of({ valid: false });  // Return a valid observable with a "not valid" response
+      })
+    ).subscribe(response => {
+      if (response && response.valid) {
+        this.loggedInSubject.next(true);
+        this.currentUserSubject.next(response.user);
+      } else {
+        this.loggedInSubject.next(false);
+        this.currentUserSubject.next(null);
+      }
+    });
+  }
+
+  // Đăng nhập thông thường
+  login(credentials: LoginDTO): Observable<any> {
+    // Adapter to convert LoginDTO to LoginCredentials
+    const loginCredentials: LoginCredentials = {
+      username: credentials.phone_number || credentials.email || '',
+      password: credentials.password
+    };
+
+    return this.http.post<AuthResponse>(`${this.authApiUrl}/login`, loginCredentials, {
+      withCredentials: true, // Quan trọng: Cho phép server set cookies
+      observe: 'response' as 'response'
     }).pipe(
       tap(response => {
-        // Lưu token vào secure storage
-        this.securelyStoreTokens(response.token, response.refreshToken);
-        localStorage.setItem('user', JSON.stringify(response.user));
-        this.currentUserSubject.next(response.user);
-        this.loggedInSubject.next(true);
-        this.startRefreshTokenTimer();
-        this.autoLogout(response.user);
+        const authData = response.body;
+        if (authData) {
+          this.loggedInSubject.next(true);
+          this.currentUserSubject.next(authData.user);
+        }
       }),
-      catchError(this.handleError),
-      finalize(() => this.loadingSubject.next(false))
+      catchError(error => {
+        return throwError(() => error);
+      })
     );
   }
 
-  /**
-   * Securely stores authentication tokens
-   * @param token Access token
-   * @param refreshToken Refresh token
-   */
-  private securelyStoreTokens(token: string, refreshToken: string): void {
-    if (this.isBrowser) {
-      localStorage.removeItem('token');
-      localStorage.removeItem('refreshToken');
-    }
+  // Đăng nhập admin
+  adminLogin(credentials: LoginCredentials): Observable<any> {
+    return this.http.post<AuthResponse>(`${this.authApiUrl}/admin/login`, credentials, {
+      withCredentials: true, // Quan trọng: Cho phép server set cookies
+      observe: 'response' as 'response'
+    }).pipe(
+      tap(response => {
+        const authData = response.body;
+        if (authData) {
+          this.loggedInSubject.next(true);
+          this.currentUserSubject.next(authData.user);
+          // Không lưu token vào localStorage vì chúng ta dùng HTTP-only cookies
+        }
+      }),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
   }
 
-  // Add register method that uses the users API endpoint
+  // Đăng xuất
+  logout(): Observable<any> {
+    return this.http.post(`${this.authApiUrl}/logout`, {}, {
+      withCredentials: true
+    }).pipe(
+      tap(() => {
+        this.loggedInSubject.next(false);
+        this.currentUserSubject.next(null);
+        // Remove user from localStorage if it exists
+        if (this.isBrowser) {
+          localStorage.removeItem('user');
+          this.router.navigate(['/auth/login']);
+        }
+      }),
+      catchError(error => {
+        // Xử lý lỗi khi đăng xuất
+        console.error('Logout error:', error);
+        // Vẫn clear state ngay cả khi API failed
+        this.loggedInSubject.next(false);
+        this.currentUserSubject.next(null);
+        // Remove user from localStorage if it exists
+        if (this.isBrowser) {
+          localStorage.removeItem('user');
+          this.router.navigate(['/auth/login']);
+        }
+        return throwError(() => error);
+      })
+    );
+  }
+
+  // Làm mới token
+  refreshToken(): Observable<any> {
+    return this.http.post<AuthResponse>(`${this.authApiUrl}/refresh-token`, {}, {
+      withCredentials: true
+    }).pipe(
+      tap(response => {
+        this.loggedInSubject.next(true);
+        if (response.user) {
+          this.currentUserSubject.next(response.user);
+        }
+      }),
+      catchError(error => {
+        // Nếu không thể refresh token, đăng xuất
+        this.loggedInSubject.next(false);
+        this.currentUserSubject.next(null);
+        this.router.navigate(['/auth/login']);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  // Kiểm tra xem người dùng đã đăng nhập chưa
+  isAuthenticated(): boolean {
+    return this.loggedInSubject.getValue();
+  }
+
+  // Lấy thông tin user hiện tại
+  getCurrentUser(): User | null {
+    return this.currentUserSubject.getValue();
+  }
+
+  // Updated to use the users API endpoint
   register(user: UserRegistration): Observable<any> {
     const dateOfBirth = user.dateOfBirth ? new Date(user.dateOfBirth).toISOString().split('T')[0] : null;
     const fullName = user.lastName + " " + user.firstName;
@@ -152,37 +279,23 @@ export class AuthService {
   }
 
   /**
-   * Logs out the current user
-   * Clears localStorage and navigates to login page
+   * Securely stores authentication tokens
+   * @param token Access token
+   * @param refreshToken Refresh token
    */
-  logout(): void {
-    this.stopRefreshTokenTimer();
-    this.securelyRemoveTokens();
-    localStorage.removeItem('user');
-    this.currentUserSubject.next(null);
-    this.loggedInSubject.next(false);
-    this.router.navigate(['/auth/login']);
-    
-    if (this.tokenExpirationTimer) {
-      clearTimeout(this.tokenExpirationTimer);
-    }
-    this.tokenExpirationTimer = null;
+  private securelyStoreTokens(token: string, refreshToken: string): void {
+    // With HTTP-only cookies, tokens are stored by the server in cookies
+    // This method is kept for backward compatibility
+    console.log('Using HTTP-only cookies for token storage. No need to store tokens in localStorage.');
   }
 
   /**
    * Securely removes authentication tokens
    */
   private securelyRemoveTokens(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('refreshToken');
-  }
-
-  /**
-   * Checks if user is currently logged in
-   * @returns boolean indicating login status
-   */
-  isLoggedIn(): boolean {
-    return this.hasValidToken();
+    // With HTTP-only cookies, tokens are removed by the server
+    // This method is kept for backward compatibility
+    console.log('Using HTTP-only cookies for token storage. Tokens will be removed via /logout endpoint.');
   }
 
   /**
@@ -190,6 +303,8 @@ export class AuthService {
    * @returns boolean indicating if token is valid
    */
   private hasValidToken(): boolean {
+    if (!this.isBrowser) return false;
+    
     const token = this.getToken();
     if (!token) return false;
     
@@ -198,9 +313,9 @@ export class AuthService {
       const currentTime = Date.now() / 1000;
       
       // Kiểm tra token đã hết hạn chưa
-      if (decodedToken.exp < currentTime) {
-        // Token đã hết hạn
-        console.log('Token đã hết hạn');
+      if (!decodedToken || !decodedToken.exp || decodedToken.exp < currentTime) {
+        // Token đã hết hạn hoặc không hợp lệ
+        console.log('Token đã hết hạn hoặc không hợp lệ');
         return false;
       }
       
@@ -208,7 +323,9 @@ export class AuthService {
       const timeToExpire = decodedToken.exp - currentTime;
       if (timeToExpire < 300) { // 5 phút
         // Chuẩn bị refresh token
-        this.refreshToken();
+        this.refreshToken().subscribe({
+          error: (err) => console.log('Could not refresh token:', err)
+        });
       }
       
       return true;
@@ -232,65 +349,16 @@ export class AuthService {
    * @returns The token string or null if not found
    */
   public getToken(): string | null {
-    if (this.isBrowser) {
-      return localStorage.getItem('token');
+    // Since we're using HTTP-only cookies, we can't directly access the token.
+    // We'll use isAuthenticated state instead as a proxy to determine if we have a valid token.
+    if (this.isBrowser && this.loggedInSubject.getValue()) {
+      // We're returning a dummy token here since the real token is in HTTP-only cookies
+      // and not accessible via JavaScript. The interceptor will include cookies automatically.
+      return 'http-only-cookie-token';
     }
     return null;
   }
 
-  /**
-   * Gets user roles from token
-   * @returns Array of user roles or empty array if not available
-   */
-  getUserRoles(): string[] {
-    const token = this.getToken();
-    if (!token) return [];
-    
-    try {
-      const decodedToken = this.decodeToken(token);
-      return decodedToken.roles || [];
-    } catch (error) {
-      console.error('Error getting user roles:', error);
-      return [];
-    }
-  }
-
-  /**
-   * Refreshes the authentication token
-   * @returns Observable boolean indicating success
-   */
-  refreshToken(): Observable<boolean> {
-    if (!this.isBrowser || this.refreshingToken) {
-      return of(false);
-    }
-    const refreshToken = localStorage.getItem('refreshToken');
-    if (!refreshToken) {
-      return of(false);
-    }
-    
-    this.refreshingToken = true;
-    
-    return this.http.post<{token: string, refreshToken: string}>(
-      `${this.authApiUrl}/refresh-token`,
-      { refreshToken }
-    ).pipe(
-      tap(response => {
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('refreshToken', response.refreshToken);
-        this.startRefreshTokenTimer();
-      }),
-      map(() => true),
-      catchError(error => {
-        console.error('Token refresh error:', error);
-        this.logout();
-        return of(false);
-      }),
-      finalize(() => {
-        this.refreshingToken = false;
-      })
-    );
-  }
-  
   /**
    * Starts timer to refresh token before expiration
    */
@@ -317,38 +385,6 @@ export class AuthService {
     if (this.refreshTokenTimeout) {
       clearTimeout(this.refreshTokenTimeout);
     }
-  }
-
-  /**
-   * Gets current user information
-   * @returns Current user object or null
-   */
-  getCurrentUser(): User | null {
-    return this.currentUserSubject.value;
-  }
-
-  // Phương thức này có thể được sử dụng để kiểm tra token với server
-  // Keep the validate token endpoint with auth API
-  validateToken(): Observable<boolean> {
-    const token = this.getToken();
-    if (!token) {
-      return of(false);
-    }
-
-    return this.http.get<{valid: boolean}>(`${this.authApiUrl}/validate-token`).pipe(
-      tap(response => {
-        if (!response.valid) {
-          this.logout();
-        }
-      }),
-      map(response => response.valid),
-      tap(valid => this.loggedInSubject.next(valid)),
-      catchError(error => {
-        console.error('Token validation error:', error);
-        this.logout();
-        return of(false);
-      })
-    );
   }
 
   /**
@@ -582,6 +618,37 @@ export class AuthService {
       }),
       finalize(() => this.loadingSubject.next(false))
     );
+  }
+
+  /**
+   * Gets user roles from the current user
+   * @returns Array of user roles
+   */
+  getUserRoles(): string[] {
+    const user = this.getCurrentUser();
+    if (!user) {
+      return [];
+    }
+    // Convert the single role to an array for compatibility with role guard
+    return [user.role];
+  }
+
+  /**
+   * Checks if user has a specific role
+   * @param role The role to check
+   * @returns boolean indicating if user has the role
+   */
+  hasRole(role: string): boolean {
+    const roles = this.getUserRoles();
+    return roles.includes(role);
+  }
+
+  /**
+   * Checks if user has admin role
+   * @returns boolean indicating if user is admin
+   */
+  isAdmin(): boolean {
+    return this.hasRole('ADMIN');
   }
 }
 
