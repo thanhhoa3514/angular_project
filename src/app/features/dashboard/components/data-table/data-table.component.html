@@ -1,0 +1,34 @@
+<div class="table-card">
+    <div class="table-header">
+        <h3>{{ title }}</h3>
+    </div>
+
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th *ngFor="let col of columns">{{ col.header }}</th>
+                    <th>STATUS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of data">
+                    <td *ngFor="let col of columns.slice(0, -1)">{{ getCellValue(item, col) }}</td>
+                    <td>
+                        <span class="status-badge" [ngClass]="getStatusClass(item.status)">
+                            <span class="status-dot"></span>
+                            <span class="status-text">{{ item.status | titlecase }}</span>
+                        </span>
+                    </td>
+                </tr>
+                <tr *ngIf="data.length === 0 && !loading">
+                    <td [attr.colspan]="columns.length">No data available</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-loading" *ngIf="loading">
+        <div class="loading-spinner"></div>
+    </div>
+</div>
