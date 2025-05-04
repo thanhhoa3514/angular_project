@@ -1,0 +1,32 @@
+.language-selector {
+  display: inline-block;
+  
+  button {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    
+    .lang-code {
+      font-weight: 500;
+      font-size: 13px;
+    }
+    
+    [nz-icon] {
+      font-size: 10px;
+    }
+  }
+}
+
+:host ::ng-deep {
+  .ant-dropdown-menu-item {
+    &.active {
+      background-color: #f0f0f0;
+      font-weight: 500;
+      color: var(--primary-color);
+    }
+    
+    &:hover {
+      background-color: #f5f5f5;
+    }
+  }
+} 

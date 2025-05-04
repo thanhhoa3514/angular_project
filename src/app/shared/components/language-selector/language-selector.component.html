@@ -1,0 +1,22 @@
+<div class="language-selector">
+    <!-- Dropdown menu for language selection -->
+    <nz-dropdown nzTrigger="click" [nzPlacement]="'bottomRight'">
+        <button nz-button nz-dropdown>
+            <span class="lang-code">{{ currentLanguage.toUpperCase() }}</span>
+            <span nz-icon nzType="down"></span>
+        </button>
+        <ul nz-menu>
+            <li nz-menu-item [class.active]="currentLanguage === 'vi'" (click)="changeLanguage('vi')">
+                {{ 'app.language.vietnamese' | translate }}
+            </li>
+            <li nz-menu-item [class.active]="currentLanguage === 'en'" (click)="changeLanguage('en')">
+                {{ 'app.language.english' | translate }}
+            </li>
+        </ul>
+    </nz-dropdown>
+
+    <!-- Alternative: Simple toggle button -->
+    <!-- <button nz-button (click)="toggleLanguage()">
+    {{ currentLanguage === 'vi' ? 'EN' : 'VI' }}
+  </button> -->
+</div>
