@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, OnDestroy, inject, HostListener, PLATFORM_ID, Inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
@@ -17,11 +17,10 @@ import { AuthService, User } from '../../core/services/auth.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThemeService, ThemeType } from '../../core/services/theme.service';
+import { TranslatePipe } from '../../shared/pipes/translate.pipe';
+import { LanguageService, SupportedLanguage } from '../../core/services/language.service';
 
-// Importamos los iconos necesarios
 import {
-  MoonOutline,
-  SunOutline,
   UserOutline,
   ShoppingOutline,
   EnvironmentOutline,
@@ -29,7 +28,10 @@ import {
   LogoutOutline,
   DownOutline,
   ShoppingCartOutline,
-  SearchOutline
+  SearchOutline,
+  GlobalOutline,
+  MenuOutline,
+  CloseOutline
 } from '@ant-design/icons-angular/icons';
 
 @Component({
@@ -48,34 +50,47 @@ import {
     NzDropDownModule,
     NzButtonModule,
     NzToolTipModule,
-    NzSwitchModule
+    NzSwitchModule,
+    TranslatePipe
   ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   categories = [
-    { name: 'Home', path: '/' },
-    { name: 'Sản phẩm', path: '/products' },
-    { name: 'Giới thiệu', path: '/about' },
-    { name: 'Liên hệ', path: '/contact' }
+    { name: 'nav.home', path: '/' },
+    { name: 'nav.products', path: '/products' },
+    { name: 'nav.about', path: '/about' },
+    { name: 'nav.contact', path: '/contact' }
   ];
   
   searchValue = '';
   isLoggedIn = false;
   currentUser: User | null = null;
   currentTheme: ThemeType = 'light';
+  isCompactMode = false;
+  isMobileMenuOpen = false;
+  private isBrowser: boolean;
   
   private authService = inject(AuthService);
   private cartService = inject(CartService);
   private themeService = inject(ThemeService);
+  public languageService = inject(LanguageService);
   private destroy$ = new Subject<void>();
   
-  constructor() {
-    // Registro de iconos
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    if (this.isBrowser) {
+      this.checkScreenWidth();
+    }
+  }
+  
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    // Check if running in browser
+    this.isBrowser = isPlatformBrowser(platformId);
+    
+    // Register all icons that will be used
     const iconList = [
-      MoonOutline,
-      SunOutline,
       UserOutline,
       ShoppingOutline,
       EnvironmentOutline,
@@ -83,8 +98,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
       LogoutOutline,
       DownOutline,
       ShoppingCartOutline,
-      SearchOutline
+      SearchOutline,
+      GlobalOutline,
+      MenuOutline,
+      CloseOutline
     ];
+    
+    // Check screen width initially (only in browser)
+    if (this.isBrowser) {
+      this.checkScreenWidth();
+    } else {
+      // Default for server-side rendering
+      this.isCompactMode = false;
+    }
+  }
+  
+  private checkScreenWidth() {
+    if (this.isBrowser) {
+      this.isCompactMode = window.innerWidth < 768;
+    }
   }
   
   ngOnInit(): void {
@@ -140,5 +172,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
   // Kiểm tra nếu theme hiện tại là dark mode
   get isDarkMode(): boolean {
     return this.currentTheme === 'dark';
+  }
+  
+  // Mobile menu functions
+  toggleMobileMenu(): void {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
+  
+  closeMobileMenu(): void {
+    this.isMobileMenuOpen = false;
+  }
+  
+  // Get current language
+  getCurrentLanguage(): SupportedLanguage {
+    return this.languageService.getCurrentLanguage();
   }
 } 
