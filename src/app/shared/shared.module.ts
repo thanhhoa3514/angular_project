@@ -4,10 +4,12 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgZorroModule } from './ng-zorro.module';
+import { TranslatePipe } from './pipes/translate.pipe';
+import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
 
 @NgModule({
   declarations: [
-    // Các component, directive, pipe dùng chung sẽ được khai báo ở đây
+   
   ],
   imports: [
     CommonModule,
@@ -15,7 +17,10 @@ import { NgZorroModule } from './ng-zorro.module';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgZorroModule
+    NgZorroModule,
+
+    TranslatePipe,
+    LanguageSelectorComponent
   ],
   exports: [
     CommonModule,
@@ -24,7 +29,8 @@ import { NgZorroModule } from './ng-zorro.module';
     ReactiveFormsModule,
     HttpClientModule,
     NgZorroModule,
-    // Các component, directive, pipe dùng chung sẽ được export ở đây
+    TranslatePipe,
+    LanguageSelectorComponent
   ]
 })
 export class SharedModule { } 
