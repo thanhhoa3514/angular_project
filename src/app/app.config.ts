@@ -6,11 +6,13 @@ import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { LanguageService } from './core/services/language.service';
 
 // NG-ZORRO
-import { vi_VN, provideNzI18n } from 'ng-zorro-antd/i18n';
+import { vi_VN, en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import vi from '@angular/common/locales/vi';
+import en from '@angular/common/locales/en';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { IconDefinition } from '@ant-design/icons-angular';
 
@@ -27,8 +29,8 @@ import {
   StarFill,
   RightOutline,
   // Iconos adicionales para la aplicación
-  MoonOutline,
-  SunOutline,
+  // MoonOutline,
+  // SunOutline,
   UserOutline,
   ShoppingOutline,
   EnvironmentOutline,
@@ -46,6 +48,16 @@ import {
 
 // Đăng ký ngôn ngữ
 registerLocaleData(vi);
+registerLocaleData(en);
+
+// Language initializer function
+export function initLanguage(languageService: LanguageService) {
+  return () => {
+    // Initialize language service
+    // This will be called during app initialization
+    return languageService.initLanguage();
+  };
+}
 
 // Tạo danh sách icon
 const icons: IconDefinition[] = [
@@ -60,8 +72,8 @@ const icons: IconDefinition[] = [
   StarFill,
   RightOutline,
   // Iconos adicionales
-  MoonOutline,
-  SunOutline,
+  // MoonOutline,
+  // SunOutline,
   UserOutline,
   ShoppingOutline,
   EnvironmentOutline,
@@ -90,6 +102,13 @@ export const appConfig: ApplicationConfig = {
     },
     // JWT Helper Service
     { provide: JwtHelperService, useFactory: () => new JwtHelperService() },
+    // Language service initialization
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initLanguage,
+      deps: [LanguageService],
+      multi: true
+    },
     // NG-ZORRO providers
     provideNzI18n(vi_VN),
     importProvidersFrom(NzIconModule.forRoot(icons))
