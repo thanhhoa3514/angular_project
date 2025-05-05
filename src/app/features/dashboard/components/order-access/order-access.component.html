@@ -5,7 +5,7 @@
       <button class="btn btn-primary" (click)="saveChanges()">Save Changes</button>
     </div>
   </div>
-  
+
   <div class="access-container">
     <div class="access-users">
       <div class="section-header">
@@ -14,9 +14,10 @@
           <span class="plus-icon">+</span>
         </button>
       </div>
-      
+
       <div class="user-list">
-        <div *ngFor="let user of users" class="user-item" [class.selected]="user.isSelected" (click)="toggleUserSelection(user)">
+        <div *ngFor="let user of users" class="user-item" [class.selected]="user.isSelected"
+          (click)="toggleUserSelection(user)">
           <div class="user-avatar">
             <img [src]="user.avatar" [alt]="user.name">
           </div>
@@ -30,7 +31,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="access-settings">
       <div class="timeframe-section">
         <div class="timeframe-header">
@@ -40,7 +41,7 @@
             <span class="slider"></span>
           </label>
         </div>
-        
+
         <div class="timeframe-inputs" *ngIf="timeframeEnabled">
           <div class="input-group">
             <label for="start-date">Start Date</label>
@@ -52,11 +53,11 @@
             <input type="date" id="end-date" [(ngModel)]="endDate" [disabled]="!timeframeEnabled">
           </div>
         </div>
-        
+
         <div class="timeframe-display" *ngIf="timeframeEnabled">
           Sep 1 - Nov 30, 2023
         </div>
       </div>
     </div>
   </div>
-</div> 
+</div>
