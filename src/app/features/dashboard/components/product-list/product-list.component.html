@@ -1,0 +1,363 @@
+<div class="main-content">
+    <div class="content-header">
+        <h1 class="page-title">Tổng quan sản phẩm</h1>
+        
+        <div class="header-actions">
+            <div class="search-box">
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" class="search-input" placeholder="Tìm kiếm sản phẩm..." (input)="searchProducts($event)">
+            </div>
+            
+            <button class="btn btn-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="1"></circle>
+                    <circle cx="19" cy="12" r="1"></circle>
+                    <circle cx="5" cy="12" r="1"></circle>
+                </svg>
+            </button>
+            
+            <button class="btn btn-primary" (click)="openAddProductModal()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                Thêm sản phẩm
+            </button>
+        </div>
+    </div>
+    
+    <div class="dashboard-summary">
+        <div class="summary-card">
+            <div class="summary-icon icon-products">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+            </div>
+            <div class="summary-title">Tổng sản phẩm</div>
+            <div class="summary-value">{{productStats.total}}</div>
+            <div class="summary-trend trend-up">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="18 15 12 9 6 15"></polyline>
+                </svg>
+                {{productStats.totalGrowth}}% so với tháng trước
+            </div>
+        </div>
+        
+        <div class="summary-card">
+            <div class="summary-icon icon-sales">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+            </div>
+            <div class="summary-title">Đã bán</div>
+            <div class="summary-value">{{productStats.sold}}</div>
+            <div class="summary-trend trend-up">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="18 15 12 9 6 15"></polyline>
+                </svg>
+                {{productStats.soldGrowth}}% so với tháng trước
+            </div>
+        </div>
+        
+        <div class="summary-card">
+            <div class="summary-icon icon-revenue">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                </svg>
+            </div>
+            <div class="summary-title">Doanh thu</div>
+            <div class="summary-value">{{productStats.revenue}}</div>
+            <div class="summary-trend trend-up">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="18 15 12 9 6 15"></polyline>
+                </svg>
+                {{productStats.revenueGrowth}}% so với tháng trước
+            </div>
+        </div>
+        
+        <div class="summary-card">
+            <div class="summary-icon icon-customers">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+            <div class="summary-title">Khách hàng</div>
+            <div class="summary-value">{{productStats.customers}}</div>
+            <div class="summary-trend" [ngClass]="{'trend-up': productStats.customerGrowth >= 0, 'trend-down': productStats.customerGrowth < 0}">
+                <svg *ngIf="productStats.customerGrowth >= 0" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="18 15 12 9 6 15"></polyline>
+                </svg>
+                <svg *ngIf="productStats.customerGrowth < 0" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+                {{productStats.customerGrowth}}% so với tháng trước
+            </div>
+        </div>
+    </div>
+    
+    <div class="dashboard-grid">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Danh sách sản phẩm</h2>
+                <div class="card-actions">
+                    <button class="btn btn-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                        </svg>
+                    </button>
+                    <button class="btn btn-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="product-table">
+                    <thead>
+                        <tr>
+                            <th>Sản phẩm</th>
+                            <th>ID Danh mục</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let product of filteredProducts" (click)="openProductDetails(product)" class="product-row">
+                            <td>
+                                <div class="product-info">
+                                    <div class="product-img">
+                                        <img *ngIf="product.thumbnail" [src]="product.thumbnail" [alt]="product.name">
+                                        <svg *ngIf="!product.thumbnail" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <div class="product-name">{{product.name}}</div>
+                                        <div class="product-desc">{{product.description.substring(0, 30)}}{{product.description.length > 30 ? '...' : ''}}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{product.category_id}}</td>
+                            <td>{{product.price | currency:'VND':'symbol':'1.0-0'}}</td>
+                            <td>{{product.quantity}}</td>
+                            <td>
+                                <span class="status-badge" 
+                                      [ngClass]="{
+                                          'status-active': product.status === 'active',
+                                          'status-low': product.status === 'low',
+                                          'status-inactive': product.status === 'inactive'
+                                      }">
+                                    {{getStatusText(product.status)}}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-action btn-edit" (click)="editProduct(product); $event.stopPropagation()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                        </svg>
+                                    </button>
+                                    <button class="btn-action btn-delete" (click)="deleteProduct(product); $event.stopPropagation()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Hoạt động gần đây</h2>
+            </div>
+            <div class="card-body">
+                <div class="activity-list">
+                    <div class="activity-item" *ngFor="let activity of recentActivities">
+                        <div class="activity-icon" [ngClass]="{
+                            'icon-added': activity.type === 'added',
+                            'icon-updated': activity.type === 'updated',
+                            'icon-deleted': activity.type === 'deleted'
+                        }">
+                            <svg *ngIf="activity.type === 'added'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            <svg *ngIf="activity.type === 'updated'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                            <svg *ngIf="activity.type === 'deleted'" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            </svg>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-text">
+                                <span class="activity-username">{{activity.user}}</span> đã {{getActivityText(activity.type)}} {{activity.target}}
+                            </div>
+                            <div class="activity-meta">{{activity.time}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Product Form Modal -->
+<div class="modal-overlay" *ngIf="showProductForm" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h2 class="modal-title">{{selectedProduct ? 'Chỉnh sửa sản phẩm' : 'Thêm sản phẩm mới'}}</h2>
+            <button class="modal-close" (click)="closeModal()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form #productForm="ngForm" (ngSubmit)="saveProduct(productForm.value)">
+                <input type="hidden" name="id" [ngModel]="selectedProduct?.id">
+                <input type="hidden" name="created_at" [ngModel]="selectedProduct?.created_at">
+                <input type="hidden" name="updated_at" [ngModel]="selectedProduct?.updated_at">
+                <input type="hidden" name="status" [ngModel]="selectedProduct?.status">
+
+                <div class="form-group">
+                    <label for="name">Tên sản phẩm</label>
+                    <input type="text" id="name" name="name" [ngModel]="selectedProduct?.name" required class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Mô tả</label>
+                    <textarea id="description" name="description" [ngModel]="selectedProduct?.description" rows="4" class="form-control"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="price">Giá (VND)</label>
+                        <input type="number" id="price" name="price" [ngModel]="selectedProduct?.price" required class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quantity">Số lượng</label>
+                        <input type="number" id="quantity" name="quantity" [ngModel]="selectedProduct?.quantity" required class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="category_id">ID Danh mục</label>
+                    <input type="number" id="category_id" name="category_id" [ngModel]="selectedProduct?.category_id" required class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="thumbnail">URL Ảnh sản phẩm</label>
+                    <input type="text" id="thumbnail" name="thumbnail" [ngModel]="selectedProduct?.thumbnail" class="form-control">
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" (click)="closeModal()">Hủy</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="!productForm.valid">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Product Details Modal -->
+<div class="modal-overlay" *ngIf="showProductDetails" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h2 class="modal-title">Chi tiết sản phẩm</h2>
+            <button class="modal-close" (click)="closeModal()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body" *ngIf="selectedProduct">
+            <div class="product-detail-header">
+                <div class="product-detail-image">
+                    <img *ngIf="selectedProduct.thumbnail" [src]="selectedProduct.thumbnail" [alt]="selectedProduct.name">
+                    <div *ngIf="!selectedProduct.thumbnail" class="product-detail-placeholder">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </div>
+                </div>
+                <div class="product-detail-info">
+                    <h3 class="product-detail-name">{{selectedProduct.name}}</h3>
+                    <p class="product-detail-id">ID: {{selectedProduct.id}}</p>
+                    <div class="product-detail-status">
+                        <span class="status-badge" 
+                              [ngClass]="{
+                                  'status-active': selectedProduct.status === 'active',
+                                  'status-low': selectedProduct.status === 'low',
+                                  'status-inactive': selectedProduct.status === 'inactive'
+                              }">
+                            {{getStatusText(selectedProduct.status)}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-detail-section">
+                <table class="detail-table">
+                    <tr>
+                        <th>Giá</th>
+                        <td>{{selectedProduct.price | currency:'VND':'symbol':'1.0-0'}}</td>
+                    </tr>
+                    <tr>
+                        <th>Số lượng</th>
+                        <td>{{selectedProduct.quantity}}</td>
+                    </tr>
+                    <tr>
+                        <th>ID Danh mục</th>
+                        <td>{{selectedProduct.category_id}}</td>
+                    </tr>
+                    <tr>
+                        <th>Ngày tạo</th>
+                        <td>{{selectedProduct.created_at}}</td>
+                    </tr>
+                    <tr>
+                        <th>Cập nhật lần cuối</th>
+                        <td>{{selectedProduct.updated_at}}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="product-detail-section">
+                <h4>Mô tả</h4>
+                <p>{{selectedProduct.description}}</p>
+            </div>
+
+            <div class="detail-actions">
+                <button class="btn btn-secondary" (click)="closeModal()">Đóng</button>
+                <button class="btn btn-primary" (click)="editProduct(selectedProduct)">Chỉnh sửa</button>
+            </div>
+        </div>
+    </div>
+</div> 
