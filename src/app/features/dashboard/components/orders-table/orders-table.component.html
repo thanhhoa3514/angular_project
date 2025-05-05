@@ -22,7 +22,10 @@
           <td class="order-id">{{order.id}}</td>
           <td>{{order.customer}}</td>
           <td>
-            <span class="status-badge" [ngClass]="getStatusClass(order.status)">
+            <span class="status-badge" 
+                  [ngClass]="getStatusClass(order.status)" 
+                  (click)="changeStatusOrder($event, order)"
+                  title="Click to change status to {{ getNextStatus(order.status) }}">
               {{order.status}}
             </span>
           </td>
