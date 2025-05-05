@@ -33,8 +33,12 @@
             <!-- Product Images -->
             <div class="col-md-6">
                 <div class="product-detail__images">
-                    <div class="product-detail__main-image">
-                        <img [src]="mainImage" [alt]="product.name" class="img-fluid">
+                    <div class="product-detail__main-image" 
+                         (click)="toggleZoom()" 
+                         [class.zoomed]="isZoomed">
+                        <div #zoomContainer class="zoom-container" [class.active]="isZoomed">
+                            <img [src]="mainImage" [alt]="product.name" class="img-fluid">
+                        </div>
                         
                         <!-- SVG Decoration Elements -->
                         <svg class="decoration-svg top-left" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -43,6 +47,12 @@
                         <svg class="decoration-svg bottom-right" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                             <path d="M100,100 L100,60 L60,100 Z" fill="#10b981" opacity="0.7"/>
                         </svg>
+                        
+                        <!-- Zoom instructions -->
+                        <div class="zoom-hint" [class.hidden]="isZoomed">
+                            <i class="fas fa-search-plus"></i>
+                            <span>Nhấp để phóng to</span>
+                        </div>
                     </div>
                     <div class="product-detail__thumbnails">
                         <img *ngFor="let thumbnail of thumbnails; let i = index" 
@@ -60,12 +70,12 @@
                 <div class="product-detail__info">
                     <h1 class="product-detail__title">{{ product.name }}</h1>
                     <div class="product-detail__rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                        <span>(4.5/5) - 120 đánh giá</span>
+                        <ng-container *ngFor="let star of getStarArray(averageRating)">
+                            <i class="fas fa-star" *ngIf="star === 1"></i>
+                            <i class="fas fa-star-half-alt" *ngIf="star === 0.5"></i>
+                            <i class="far fa-star" *ngIf="star === 0"></i>
+                        </ng-container>
+                        <span>({{ averageRating.toFixed(1) }}/5) - {{ reviews.length }} đánh giá</span>
                     </div>
                     <div class="product-detail__price">
                         <span class="new-price">{{ (product.discount_price || product.price).toLocaleString('vi-VN') }} VND</span>
@@ -133,7 +143,7 @@
                             <button class="quantity-btn minus" (click)="changeQuantity(-1)" [disabled]="quantity <= 1">
                                 <i class="fas fa-minus"></i>
                             </button>
-                            <input type="number" [(ngModel)]="quantity" min="1" [max]="product.quantity" class="quantity-input">
+                            <input type="number" [(ngModel)]="quantity" min="1" [max]="product.quantity" class="quantity-input" (change)="onQuantityChange($event)">
                             <button class="quantity-btn plus" (click)="changeQuantity(1)" [disabled]="quantity >= product.quantity">
                                 <i class="fas fa-plus"></i>
                             </button>
@@ -157,6 +167,39 @@
                             </svg>
                             Mua ngay
                         </button>
+                        <button class="btn-wishlist" (click)="toggleWishlist()" [class.in-wishlist]="isInWishlist">
+                            <svg class="action-icon" viewBox="0 0 24 24" width="24" height="24">
+                                <path d="M12,21 L10.55,19.7C5.4,15.05 2,12.05 2,8.35C2,5.25 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.09C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.25 22,8.35C22,12.05 18.6,15.05 13.45,19.7L12,21Z" 
+                                      [attr.fill]="isInWishlist ? '#ef4444' : 'none'" 
+                                      stroke="#ffffff" stroke-width="2"/>
+                            </svg>
+                            {{ isInWishlist ? 'Đã yêu thích' : 'Thêm vào yêu thích' }}
+                        </button>
+                    </div>
+                    
+                    <!-- Product Features -->
+                    <div class="product-detail__features">
+                        <div class="feature-item">
+                            <svg class="feature-icon" viewBox="0 0 24 24" width="20" height="20">
+                                <circle cx="12" cy="12" r="10" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+                                <path d="M8,12 L11,15 L16,10" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Giao hàng miễn phí toàn quốc</span>
+                        </div>
+                        <div class="feature-item">
+                            <svg class="feature-icon" viewBox="0 0 24 24" width="20" height="20">
+                                <circle cx="12" cy="12" r="10" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+                                <path d="M8,12 L11,15 L16,10" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Đổi trả trong vòng 30 ngày</span>
+                        </div>
+                        <div class="feature-item">
+                            <svg class="feature-icon" viewBox="0 0 24 24" width="20" height="20">
+                                <circle cx="12" cy="12" r="10" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+                                <path d="M8,12 L11,15 L16,10" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Bảo hành sản phẩm 12 tháng</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -185,6 +228,93 @@
             </div>
         </div>
         
+        <!-- Reviews Section -->
+        <div class="product-detail__reviews" *ngIf="!isLoading">
+            <div class="reviews-header">
+                <h2>Đánh giá sản phẩm</h2>
+                <svg class="reviews-icon" viewBox="0 0 24 24" width="32" height="32">
+                    <path d="M12,2 L15.09,8.26 L22,9.27 L17,14.14 L18.18,21.02 L12,17.77 L5.82,21.02 L7,14.14 L2,9.27 L8.91,8.26 L12,2 Z" 
+                          fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            
+            <div class="review-summary">
+                <div class="rating-average">
+                    <span class="rating-value">{{ averageRating.toFixed(1) }}</span>
+                    <div class="rating-stars">
+                        <ng-container *ngFor="let star of getStarArray(averageRating)">
+                            <i class="fas fa-star" *ngIf="star === 1"></i>
+                            <i class="fas fa-star-half-alt" *ngIf="star === 0.5"></i>
+                            <i class="far fa-star" *ngIf="star === 0"></i>
+                        </ng-container>
+                    </div>
+                    <span class="rating-count">{{ reviews.length }} đánh giá</span>
+                </div>
+            </div>
+            
+            <div class="review-list">
+                <div class="review-item" *ngFor="let review of reviews">
+                    <div class="review-header">
+                        <div class="reviewer-info">
+                            <div class="avatar">{{ review.userName.charAt(0).toUpperCase() }}</div>
+                            <div class="user-details">
+                                <span class="user-name">{{ review.userName }}</span>
+                                <div class="review-rating">
+                                    <ng-container *ngFor="let star of getStarArray(review.rating)">
+                                        <i class="fas fa-star" *ngIf="star === 1"></i>
+                                        <i class="fas fa-star-half-alt" *ngIf="star === 0.5"></i>
+                                        <i class="far fa-star" *ngIf="star === 0"></i>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-date">{{ review.createdAt | date:'dd/MM/yyyy' }}</div>
+                    </div>
+                    <div class="review-content">
+                        <p>{{ review.comment }}</p>
+                    </div>
+                </div>
+                
+                <div class="no-reviews" *ngIf="reviews.length === 0">
+                    <svg class="empty-icon" viewBox="0 0 24 24" width="48" height="48">
+                        <circle cx="12" cy="12" r="10" fill="#f3f4f6" stroke="#d1d5db" stroke-width="2"/>
+                        <path d="M8,15 C8,15 10,17 12,17 C14,17 16,15 16,15 M9,10 L9,10 M15,10 L15,10" fill="none" stroke="#d1d5db" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <p>Chưa có đánh giá nào cho sản phẩm này. Hãy là người đầu tiên đánh giá!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related Products Section -->
+        <div class="related-products" *ngIf="!isLoading && relatedProducts.length > 0">
+            <div class="related-header">
+                <h2>Sản phẩm liên quan</h2>
+                <svg class="related-icon" viewBox="0 0 24 24" width="32" height="32">
+                    <rect x="2" y="5" width="6" height="14" rx="1" fill="none" stroke="#10b981" stroke-width="2"/>
+                    <rect x="10" y="5" width="6" height="14" rx="1" fill="none" stroke="#10b981" stroke-width="2"/>
+                    <rect x="18" y="5" width="6" height="14" rx="1" fill="none" stroke="#10b981" stroke-width="2"/>
+                </svg>
+            </div>
+            
+            <div class="related-products-grid">
+                <div class="related-product-card" *ngFor="let product of relatedProducts" (click)="viewRelatedProduct(product.id)">
+                    <div class="product-image">
+                        <img [src]="product.thumbnail" [alt]="product.name">
+                        <div class="product-overlay">
+                            <button class="view-btn">Xem chi tiết</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">{{ product.name }}</h3>
+                        <div class="product-price">
+                            <span class="new-price">{{ (product.discount_price || product.price).toLocaleString('vi-VN') }} VND</span>
+                            <span class="old-price" *ngIf="product.discount_price">{{ product.price.toLocaleString('vi-VN') }} VND</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <!-- Shopping Experience SVG Illustration -->
         <div class="shopping-experience" *ngIf="!isLoading">
             <h3 class="experience-title">Trải nghiệm mua sắm</h3>
@@ -198,29 +328,29 @@
                         <!-- Shopping Bag -->
                         <path d="M120,110 L160,110 L155,200 L125,200 Z" fill="#10b981"/>
                         <path d="M120,110 L160,110 L155,130 L125,130 Z" fill="#059669"/>
-                        <path d="M130,90 L130,110 L120,110 L135,80 Z" fill="#10b981"/>
-                        <path d="M150,90 L150,110 L160,110 L145,80 Z" fill="#10b981"/>
+                        <path d="M125,100 C125,90 130,80 140,80 C150,80 155,90 155,100 L155,110 L125,110 Z" fill="#10b981" stroke="#059669" stroke-width="2"/>
                         
-                        <!-- Package -->
-                        <rect x="230" y="150" width="50" height="50" fill="#10b981"/>
-                        <rect x="230" y="150" width="50" height="10" fill="#059669"/>
-                        <path d="M230,150 L280,150 L255,140 Z" fill="#10b981"/>
-                        <rect x="245" y="170" width="20" height="10" fill="#ffffff"/>
+                        <!-- Person -->
+                        <circle cx="210" cy="70" r="20" fill="#4f46e5"/>
+                        <path d="M210,90 L210,150 M190,110 L230,110 M210,150 L190,200 M210,150 L230,200" fill="none" stroke="#4f46e5" stroke-width="4" stroke-linecap="round"/>
                         
                         <!-- Shopping Cart -->
-                        <circle cx="340" cy="200" r="10" fill="#6b7280"/>
-                        <circle cx="380" cy="200" r="10" fill="#6b7280"/>
-                        <path d="M310,160 L390,160 L380,190 L320,190 Z" fill="none" stroke="#10b981" stroke-width="3"/>
-                        <path d="M320,190 L310,220 M380,190 L390,160" stroke="#10b981" stroke-width="3" fill="none"/>
+                        <circle cx="330" cy="190" r="10" fill="#7c3aed"/>
+                        <circle cx="380" cy="190" r="10" fill="#7c3aed"/>
+                        <path d="M300,140 L300,170 L390,170 L400,120 L320,120 Z" fill="#7c3aed" stroke="#4f46e5" stroke-width="2"/>
+                        <path d="M320,120 L310,100 L290,100" fill="none" stroke="#4f46e5" stroke-width="2" stroke-linecap="round"/>
                         
-                        <!-- Character -->
-                        <circle cx="200" cy="140" r="20" fill="#fcd34d"/>
-                        <rect x="190" y="160" width="20" height="40" rx="5" fill="#10b981"/>
-                        <path d="M190,180 Q180,190 170,180" stroke="#10b981" stroke-width="5" fill="none"/>
-                        <path d="M210,180 Q220,190 230,180" stroke="#10b981" stroke-width="5" fill="none"/>
-                        <path d="M195,135 L198,138" stroke="#000000" stroke-width="2"/>
-                        <path d="M205,135 L202,138" stroke="#000000" stroke-width="2"/>
-                        <path d="M195,145 Q200,150 205,145" stroke="#000000" stroke-width="2" fill="none"/>
+                        <!-- Items in Cart -->
+                        <rect x="330" y="130" width="15" height="30" rx="2" fill="#059669"/>
+                        <rect x="350" y="130" width="20" height="20" rx="2" fill="#10b981"/>
+                        <circle cx="380" cy="140" r="10" fill="#34d399"/>
+                    </g>
+                    
+                    <!-- Animation Elements -->
+                    <g class="animation-elements">
+                        <circle cx="140" cy="50" r="5" fill="#4f46e5" opacity="0.5" class="floating-circle"/>
+                        <circle cx="350" cy="70" r="8" fill="#10b981" opacity="0.5" class="floating-circle"/>
+                        <circle cx="280" cy="40" r="6" fill="#7c3aed" opacity="0.5" class="floating-circle"/>
                     </g>
                 </svg>
             </div>
