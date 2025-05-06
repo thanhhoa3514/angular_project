@@ -1,0 +1,25 @@
+<div class="review-card">
+    <div class="review-header">
+        <h3>{{ title }}</h3>
+    </div>
+
+    <div class="review-stats">
+        <div class="review-item" *ngFor="let stat of stats">
+            <div class="review-label">{{ stat.type }}</div>
+            <div class="progress-container">
+                <div class="progress-bar" [style.width.%]="stat.percentage"
+                    [style.background-color]="getProgressColor(stat.type)"></div>
+                <div class="progress-bg"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="review-summary" *ngIf="summary">
+        <p>{{ summary }}</p>
+        <button class="review-action">View all reviews</button>
+    </div>
+
+    <div class="review-loading" *ngIf="loading">
+        <div class="loading-spinner"></div>
+    </div>
+</div>
