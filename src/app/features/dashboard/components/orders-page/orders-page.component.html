@@ -1,0 +1,80 @@
+<div class="main-content">
+    <div class="content-header">
+        <h1 class="page-title">Orders Management</h1>
+        
+        <div class="header-actions">
+            <div class="search-box">
+                <img src="assets/images/3844432_magnifier_search_zoom_icon.png" alt="Search" class="search-icon">
+                <input type="text" class="search-input" placeholder="Search orders...">
+            </div>
+            
+            <button class="btn btn-primary" (click)="exportOrders()">
+                <img src="assets/images/9044816_product_icon.png" alt="Export" class="btn-icon">
+                Export
+            </button>
+            
+            <button class="notification-btn">
+                <img src="assets/images/8530564_bell_icon.png" alt="Notifications">
+                <span class="notification-indicator"></span>
+            </button>
+            
+            <div class="welcome-user">
+                <span>Welcome, Admin</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Access Management -->
+    <app-order-access></app-order-access>
+
+    <div class="dashboard-grid">
+        <!-- Order Stats -->
+        <div class="stats-section">
+            <app-order-stats [stats]="orderStats"></app-order-stats>
+            
+            <!-- Order Detail -->
+            <div class="order-detail-section" *ngIf="showOrderDetail">
+                <app-order-detail [order]="selectedOrder"></app-order-detail>
+            </div>
+        </div>
+
+        <div class="main-section">
+            <div class="filters-row">
+                <div class="filter-group">
+                    <label>Status</label>
+                    <select>
+                        <option value="">All</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Processing">Processing</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Date Range</label>
+                    <select>
+                        <option value="last7">Last 7 days</option>
+                        <option value="last30">Last 30 days</option>
+                        <option value="last90">Last 90 days</option>
+                        <option value="custom">Custom Range</option>
+                    </select>
+                </div>
+            </div>
+
+            <app-orders-table 
+                [orders]="orders" 
+                [showHeader]="false"
+                [selectedOrder]="selectedOrder"
+                (orderSelected)="onOrderSelected($event)"></app-orders-table>
+
+            <div class="pagination">
+                <button class="pagination-btn" disabled>Previous</button>
+                <div class="page-numbers">
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                </div>
+                <button class="pagination-btn">Next</button>
+            </div>
+        </div>
+    </div>
+</div>
