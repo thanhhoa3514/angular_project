@@ -1,0 +1,19 @@
+<div class="stats-card" [ngStyle]="{'background-color': data?.color === '#333333' ? '#222222' : '#FFFFFF'}"
+    [class.dark]="data?.color === '#333333'">
+    <div class="stats-content">
+        <div class="stats-icon" [ngStyle]="{'background-color': data?.color}">
+            <span class="material-icons">{{ data?.icon }}</span>
+        </div>
+        <div class="stats-info">
+            <h3>{{ data?.title }}</h3>
+            <p class="stats-value">{{ data ? formatNumber(data.value) : '0' }}</p>
+            <div class="stats-trend">
+                <span class="material-icons trend-icon" [class]="getPercentageClass()">{{ getTrendIcon() }}</span>
+                <span class="trend-value" [class]="getPercentageClass()">{{ data?.percentage }}%</span>
+            </div>
+        </div>
+    </div>
+    <div class="stats-loading" *ngIf="loading">
+        <div class="loading-spinner"></div>
+    </div>
+</div>
