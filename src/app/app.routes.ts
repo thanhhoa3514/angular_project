@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
 import { roleGuard } from './core/guards/role.guard';
 import { OAuthCallbackComponent } from './features/auth/oauth-callback/oauth-callback.component';
+import { AdminLoginComponent } from './features/auth/admin-login/admin-login.component';
 
 export const routes: Routes = [
   {
@@ -11,6 +12,10 @@ export const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./features/auth/auth.routes').then(m => m.AUTH_ROUTES)
+  },
+  {
+    path: 'admin',
+    component: AdminLoginComponent
   },
   {
     path: 'products',
@@ -41,7 +46,8 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule),
-    // canActivate: [roleGuard(['ADMIN'])]
+    // canActivate: [authGuard, roleGuard],
+    // data: { roles: ['ADMIN'] }
   },
   {
     path: 'access-denied',
