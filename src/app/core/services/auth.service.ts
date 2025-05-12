@@ -66,10 +66,10 @@ export class AuthService {
   private authApiUrl = `${environment.apiUrl}/auth`;
   // Add users endpoint for login/register
   private usersApiUrl = `${environment.apiUrl}/users`;
-  
+
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
-  
+
   private loggedInSubject = new BehaviorSubject<boolean>(this.hasValidToken());
   public isLoggedIn$ = this.loggedInSubject.asObservable();
 
@@ -103,7 +103,7 @@ export class AuthService {
           const user = JSON.parse(userJson);
           this.currentUserSubject.next(user);
           this.loggedInSubject.next(true);
-          
+
           // We won't call autoLogout here since we can't access token expiration
           // The validate-token endpoint will handle refreshing tokens and logout if needed
         } catch (e) {
@@ -256,7 +256,7 @@ export class AuthService {
   register(user: UserRegistration): Observable<any> {
     const dateOfBirth = user.dateOfBirth ? new Date(user.dateOfBirth).toISOString().split('T')[0] : null;
     const fullName = user.lastName + " " + user.firstName;
-    
+
     const registerData = {
       fullname: fullName,
       email: user.email,
@@ -304,21 +304,21 @@ export class AuthService {
    */
   private hasValidToken(): boolean {
     if (!this.isBrowser) return false;
-    
+
     const token = this.getToken();
     if (!token) return false;
-    
+
     try {
       const decodedToken = this.decodeToken(token);
       const currentTime = Date.now() / 1000;
-      
+
       // Kiểm tra token đã hết hạn chưa
       if (!decodedToken || !decodedToken.exp || decodedToken.exp < currentTime) {
         // Token đã hết hạn hoặc không hợp lệ
         console.log('Token đã hết hạn hoặc không hợp lệ');
         return false;
       }
-      
+
       // Kiểm tra thời gian còn lại của token để quyết định refresh
       const timeToExpire = decodedToken.exp - currentTime;
       if (timeToExpire < 300) { // 5 phút
@@ -327,7 +327,7 @@ export class AuthService {
           error: (err) => console.log('Could not refresh token:', err)
         });
       }
-      
+
       return true;
     } catch (error) {
       console.error('Error decoding token:', error);
@@ -365,19 +365,19 @@ export class AuthService {
   private startRefreshTokenTimer() {
     const token = this.getToken();
     if (!token) return;
-    
+
     try {
       const decodedToken = this.decodeToken(token);
       const expires = new Date(decodedToken.exp * 1000);
       const timeout = expires.getTime() - Date.now() - (60 * 1000); // Refresh 1 minute before expiry
-      
+
       this.stopRefreshTokenTimer();
       this.refreshTokenTimeout = setTimeout(() => this.refreshToken().subscribe(), timeout);
     } catch (error) {
       console.error('Error starting refresh timer:', error);
     }
   }
-  
+
   /**
    * Stops the refresh token timer
    */
@@ -394,14 +394,14 @@ export class AuthService {
    */
   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = 'An unknown error occurred';
-    
+
     if (error.error instanceof ErrorEvent) {
       // Client-side error
       errorMessage = `Error: ${error.error.message}`;
     } else {
       // Server-side error
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-      
+
       // Handle specific error codes
       if (error.status === 401) {
         errorMessage = 'Unauthorized: Please log in again';
@@ -409,7 +409,7 @@ export class AuthService {
         errorMessage = 'Forbidden: You do not have permission to access this resource';
       }
     }
-    
+
     console.error(errorMessage, error);
     return throwError(() => error);
   }
@@ -453,11 +453,11 @@ export class AuthService {
 
   autoLogout(decodedToken: any): void {
     if (!decodedToken || !decodedToken.exp) return;
-    
+
     const expirationDate = new Date(decodedToken.exp * 1000);
     const now = new Date();
     const timeLeft = expirationDate.getTime() - now.getTime();
-    
+
     if (timeLeft <= 0) {
       this.logout();
       return;
@@ -471,25 +471,37 @@ export class AuthService {
   // Đăng nhập Google OAuth2
   googleLogin(): void {
     // Lấy URL callback
-    const redirectUri = `${window.location.origin}/auth/oauth/callback`;
+    // const redirectUri = `${window.location.origin}/auth/oauth-callback`;
     // Redirect đến endpoint OAuth2 của Google trên backend với callback URL
-    window.location.href = `${this.apiUrl}/oauth2/authorize/google?redirect_uri=${encodeURIComponent(redirectUri)}`;
+    // window.location.href = `${this.apiUrl}/oauth2/authorization/google?redirect_uri=${encodeURIComponent(redirectUri)}`;
+    window.location.href = `${this.apiUrl}/oauth2/authorization/google`;
   }
 
   // Xử lý callback OAuth2
-  handleOAuth2Callback(code: string, state: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/oauth2/callback?code=${code}&state=${state}`)
+  handleOAuth2Callback(): Observable<any> {
+    // Không cần tham số code và state vì chúng ta đang xử lý trực tiếp từ /api/v1/auth/success
+    return this.http.get<any>(`${this.apiUrl}/api/v1/auth/success`)
       .pipe(
         tap(response => {
-          if (response && response.token) {
-            localStorage.setItem('token', response.token);
-            const decodedToken = jwtDecode(response.token);
-            
-            // Xử lý đúng kiểu dữ liệu từ token
-            const user = this.extractUserFromToken(decodedToken);
-            this.currentUserSubject.next(user);
+          if (response && response.data && response.data.token) {
+            localStorage.setItem('token', response.data.token);
+
+            // Lưu thông tin người dùng
+            const userData = response.data.user;
+            localStorage.setItem('user', JSON.stringify(userData));
+
+            // Cập nhật trạng thái đăng nhập
+            this.currentUserSubject.next(userData);
             this.loggedInSubject.next(true);
-            this.autoLogout(decodedToken);
+
+            // Nếu bạn vẫn muốn sử dụng JWT decode, hãy sử dụng token
+            try {
+              const decodedToken = jwtDecode(response.data.token);
+              // Xử lý thời gian hết hạn nếu cần
+              this.autoLogout(decodedToken);
+            } catch (error) {
+              console.warn('Token không phải là JWT hợp lệ:', error);
+            }
           }
         }),
         catchError(error => {
@@ -498,7 +510,7 @@ export class AuthService {
         })
       );
   }
-  
+
   // Phương thức để chuyển đổi từ token sang đối tượng User
   private extractUserFromToken(decodedToken: any): User {
     return {
@@ -518,7 +530,7 @@ export class AuthService {
    */
   generateOTP(email: string, type: 'PASSWORD_RESET' | 'REGISTRATION' | 'TWO_FACTOR'): Observable<any> {
     this.loadingSubject.next(true);
-    
+
     return this.http.post(`${this.authApiUrl}/otp/generate`, {
       email,
       type
@@ -529,7 +541,7 @@ export class AuthService {
       finalize(() => this.loadingSubject.next(false))
     );
   }
-  
+
   /**
    * Verifies an OTP
    * @param email User's email address
@@ -539,7 +551,7 @@ export class AuthService {
    */
   verifyOTP(email: string, otp: string, type: 'PASSWORD_RESET' | 'REGISTRATION' | 'TWO_FACTOR'): Observable<any> {
     this.loadingSubject.next(true);
-    
+
     return this.http.post(`${this.authApiUrl}/otp/verify`, {
       email,
       otp,
@@ -551,7 +563,7 @@ export class AuthService {
       finalize(() => this.loadingSubject.next(false))
     );
   }
-  
+
   /**
    * Requests a password reset for the specified email address
    * @param email The user's email address
@@ -559,11 +571,11 @@ export class AuthService {
    */
   requestPasswordReset(email: string): Observable<any> {
     this.loadingSubject.next(true);
-    
+
     // Sử dụng API OTP để gửi mã xác thực
     return this.generateOTP(email, 'PASSWORD_RESET');
   }
-  
+
   /**
    * Verifies an OTP and returns a reset token
    * @param email User's email address
@@ -572,7 +584,7 @@ export class AuthService {
    */
   verifyOTPAndGetResetToken(email: string, otp: string): Observable<any> {
     this.loadingSubject.next(true);
-    
+
     // Use the auth API endpoint with correct path structure
     return this.http.post(`${environment.apiUrl}/auth/otp/verify`, {
       email,
@@ -591,7 +603,7 @@ export class AuthService {
       finalize(() => this.loadingSubject.next(false))
     );
   }
-  
+
   /**
    * Resets the user's password using a reset token
    * @param resetToken The token received after OTP verification
@@ -601,7 +613,7 @@ export class AuthService {
    */
   resetPasswordWithToken(resetToken: string, newPassword: string, confirmPassword: string): Observable<any> {
     this.loadingSubject.next(true);
-    
+
     return this.http.post(`${environment.apiUrl}/auth/otp/reset-password`, {
       resetToken,
       newPassword,
