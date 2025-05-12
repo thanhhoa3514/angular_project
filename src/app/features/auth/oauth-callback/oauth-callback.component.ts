@@ -52,7 +52,7 @@ export class OAuthCallbackComponent implements OnInit {
   }
 
   private processOAuth2Callback(code: string, state: string): void {
-    this.authService.handleOAuth2Callback(code, state).subscribe({
+    this.authService.handleOAuth2Callback().subscribe({
       next: () => {
         this.alertService.success('Đăng nhập thành công!');
         // Lấy URL để redirect sau khi đăng nhập
